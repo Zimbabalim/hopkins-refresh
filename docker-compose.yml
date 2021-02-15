@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  db:
+    image: mongo:latest
+    volumes:
+      - hopkins_db:/data/db
+    ports:
+      - '27017:27017'
+
+volumes:
+  hopkins_db:
