@@ -1,6 +1,16 @@
 version: '3.7'
 
 services:
+
+  api:
+    build:
+      context: ./api
+    command: yarn run dev
+    volumes:
+      - ./api/src:/app/src
+    ports:
+      - '3001:3001'
+
   db:
     image: mongo:latest
     volumes:
