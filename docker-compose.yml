@@ -2,6 +2,20 @@ version: '3.7'
 
 services:
 
+  admin-tool:
+    build:
+      context: ./admin-tool
+    command: yarn start
+    volumes:
+      - ./admin-tool/src:/app/src
+    ports:
+      - '3000:3000'
+    tty: true
+    stdin_open: true
+    environment:
+      - REACT_APP_API_PORT=3001
+      - REACT_APP_API_URL=api
+
   api:
     build:
       context: ./api
@@ -10,6 +24,10 @@ services:
       - ./api/src:/app/src
     ports:
       - '3001:3001'
+    environment:
+      - PORT=3001
+      - DB_PORT=27017
+      - DB_URL=db
 
   db:
     image: mongo:latest
