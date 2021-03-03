@@ -37,7 +37,7 @@ function App() {
     const fetchData = async () => {
       const PORT = process.env.REACT_APP_API_PORT || 3001;
       const res = await axios(`http://localhost:${PORT}/foo`);
-      setFoo(res.data);
+      setFoo(`${res.data.data.length} items`);
       console.log('.../App/ -fetchData foo:', res.data);
     }
     fetchData().then(r => console.log('/App/ -foo --DONE?'));
