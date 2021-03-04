@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const PORT = process.env.REACT_APP_API_PORT || 3001;
-      const res = await axios(`http://localhost:${PORT}/test`);
+      const res = await axios(`http://localhost:${PORT}/api/test`);
       setRes(res.data);
       console.log('/App/ -fetchData', res.data);
     }
@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const PORT = process.env.REACT_APP_API_PORT || 3001;
-      const res = await axios(`http://localhost:${PORT}/ping-db`);
+      const res = await axios(`http://localhost:${PORT}/api/ping-db`);
       setPing(res.data.msg);
       console.log('/App/ -fetchData', res.data);
     }
@@ -36,7 +36,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const PORT = process.env.REACT_APP_API_PORT || 3001;
-      const res = await axios(`http://localhost:${PORT}/foo`);
+      const res = await axios(`http://localhost:${PORT}/api/foo`);
       setFoo(`${res.data.data.length} items`);
       console.log('.../App/ -fetchData foo:', res.data);
     }
@@ -48,6 +48,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <p>Gidday zx spectrum yay</p>
         <p>TEST: {res}</p>
         <p>PING: {ping}</p>
         <p>FOO: {foo}</p>

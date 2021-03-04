@@ -8,12 +8,10 @@ services:
     command: yarn start
     volumes:
       - ./admin-tool/src:/app/src
-    ports:
-      - '3000:3000'
     tty: true
     stdin_open: true
     environment:
-      - REACT_APP_API_PORT=3001
+      - REACT_APP_API_PORT=8080
       - REACT_APP_API_URL=api
 
   api:
@@ -22,19 +20,28 @@ services:
     command: yarn run dev
     volumes:
       - ./api/src:/app/src
-    ports:
-      - '3001:3001'
     environment:
       - PORT=3001
       - DB_PORT=27017
       - DB_URL=db
+    depends_on:
+      - db
 
   db:
     image: mongo:latest
     volumes:
       - hopkins_db:/data/db
+
+  nginx:
+    image: nginx:stable-alpine
     ports:
-      - '27017:27017'
+      - '8080:80'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - admin-tool
+      - api
+
 
 volumes:
   hopkins_db:
