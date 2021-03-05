@@ -4,3 +4,6 @@ run when anything changes in package.json
 
 run when just changing source code
 `docker-compose up`
+
+docker push
+`docker login -u YOUR-USER-NAME`
