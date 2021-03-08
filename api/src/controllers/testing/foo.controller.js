@@ -1,4 +1,4 @@
-import Foo from '../models/foo.model.js';
+import Foo from '../../models/testing/foo.model.js';
 import mongoose from 'mongoose';
 
 // TODO patch, delete methods

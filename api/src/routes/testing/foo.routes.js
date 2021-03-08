@@ -1,5 +1,5 @@
 import express from 'express';
-import * as controller from '../controllers/foo.controller.js';
+import * as controller from '../../controllers/testing/foo.controller.js';
 const router = express.Router();
 
 router.get('/foo', controller.getAllFoos); // *** get all
