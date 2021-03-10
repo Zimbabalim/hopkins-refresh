@@ -24,6 +24,7 @@ services:
       - PORT=3001
       - DB_PORT=27017
       - DB_URL=db
+      - DB_NAME=hopkins
     depends_on:
       - db
 
@@ -31,6 +32,8 @@ services:
     image: mongo:latest
     volumes:
       - hopkins_db:/data/db
+    ports:
+    - '27017:27017'
 
   nginx:
     image: nginx:stable-alpine
