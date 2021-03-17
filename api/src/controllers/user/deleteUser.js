@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import User from '../../models/User.model.js';
 
-export const getUserById = async (req, res) => {
+export const deleteUser = async (req, res) => {
   
   const {id} = req.params;
   const isValid = mongoose.Types.ObjectId.isValid(id);
@@ -17,7 +17,7 @@ export const getUserById = async (req, res) => {
   
   let data;
   try {
-    data = await User.findById(id);
+    data = await User.deleteOne({_id: id});
   } catch (error) {
     res
         .status(500)
@@ -33,4 +33,4 @@ export const getUserById = async (req, res) => {
   });
 }
 
-export default getUserById;
+export default deleteUser;

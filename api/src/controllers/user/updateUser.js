@@ -18,8 +18,8 @@ export const updateUser = async (req, res) => {
   
   let data;
   try {
-    data = await User.findByIdAndUpdate(
-        id,
+    data = await User.findOneAndUpdate(
+        {_id: id},
         {
           email: req.body.email,
           full_name: req.body.full_name
