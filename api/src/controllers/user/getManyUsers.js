@@ -11,7 +11,7 @@ export const getManyUsers = async (req, res) => {
   console.log('/getManyUsers/ -getManyUsers', data);
   
   res.send({
-    data
+    data // *** FIXIT payload is wrapped in 'data' twice
   })
   
   /*let data;
