@@ -1,40 +1,31 @@
 
 import User from '../../models/User.model.js';
 import getMany from '../generic/getMany.js';
+import methods from '../utils/methods.js';
 
 export const getManyUsers = async (req, res) => {
   
-  let data = await getMany(req, res, {
+  // TODO specify range, filter by some other key
+  // recipes/?category=Cookies
+  // ?limit=100&page=3
+  const z = methods.limit(); // TEST
+  
+  console.log('..................../getManyUsers/ -getManyUsers', req.query);
+  
+  let payload = await getMany(req, res, {
     model: User,
-    filter: {}
+    filter: {
+      limit: req.query.limit || 0, // FIXIT
+      skip: req.query.skip || 0 // FIXIT
+    }
   });
-  console.log('/getManyUsers/ -getManyUsers', data);
+  
+  const {data, success} = payload;
   
   res.send({
-    data // *** FIXIT payload is wrapped in 'data' twice
-  })
-  
-  /*let data;
-  try {
-    data = await User.find({});
-    
-    // *** this works:
-    /!*data = await User.find({
-      full_name: 'NEW 3'
-    });*!/
-  } catch (error) {
-    console.error('/getAllUsers/ -getAllUsers', error);
-    res
-        .status(500)
-        .send({
-          message: 'totally fucked',
-          success: false
-        });
-  }
-  res.send({
-    data,
-    success: true
-  });*/
+    success,
+    data
+  });
 }
 
 export default getManyUsers;
