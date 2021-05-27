@@ -24,16 +24,12 @@ const methods = {
   decorateQuery: (action, model, filters) => {
     console.log('/methods/ -decorateQuery x', action, model, filters);
   
-    // methods.parseQueryParams(filters);
     const params = methods.parseQueryParams(filters);
-    // const params = filters;
     const query = model[action]({});
     const partialmatch = (params.partialmatch === 'true');
     
     query.limit(params.limit || 0);
     query.skip(params.skip || 0);
-    
-    console.log('/methods/ -decorateQuery --partialmatch', partialmatch);
     
     // *** remove these so we can just worry about the rest if present
     delete params.limit;
