@@ -1,4 +1,3 @@
-/*
 import express from 'express';
 import getManyUsers from '../controllers/product/getManyUsers.js';
 import createUser from '../controllers/product/createUser.js';
@@ -15,4 +14,3 @@ router.delete('/product/:id', deleteProduct); // *** delete one
 router.patch('/product/:id', updateProduct); // *** modify one
 
 export default router;
-*/
