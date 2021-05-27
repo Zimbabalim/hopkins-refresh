@@ -8,16 +8,12 @@ export const getManyUsers = async (req, res) => {
   // TODO specify range, filter by some other key
   // recipes/?category=Cookies
   // ?limit=100&page=3
-  const z = methods.limit(); // TEST
   
-  console.log('..................../getManyUsers/ -getManyUsers', req.query);
+  const query = methods.decorateQuery('find', User, req.query);
+  console.log('/getManyUsers/ -getManyUsers', req.query);
   
   let payload = await getMany(req, res, {
-    model: User,
-    filter: {
-      limit: req.query.limit || 0, // FIXIT
-      skip: req.query.skip || 0 // FIXIT
-    }
+    query
   });
   
   const {data, success} = payload;
