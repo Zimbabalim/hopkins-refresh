@@ -1,35 +1,23 @@
-import mongoose from 'mongoose';
 import User from '../../models/User.model.js';
+import finder from '../generic/finder.js';
+import methods from '../utils/methods.js';
 
 export const getUser = async (req, res) => {
   
-  const {id} = req.params;
-  const isValid = mongoose.Types.ObjectId.isValid(id);
+  const query = methods.findOneById({
+    model: User,
+    id: req.params.id,
+  });
   
-  if (!isValid) {
-    res
-        .status(400)
-        .send({
-          message: 'invalid request (ObjectId)',
-          success: false,
-        })
-  }
+  let payload = await finder(req, res, {
+    query
+  });
   
-  let data;
-  try {
-    data = await User.findOne({_id: id});
-  } catch (error) {
-    res
-        .status(500)
-        .send({
-          message: 'totally fucked',
-          success: false,
-        });
-  }
+  const {data, success} = payload;
   
   res.send({
-    data,
-    success: true
+    success,
+    data
   });
 }
 

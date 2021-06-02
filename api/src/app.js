@@ -8,9 +8,7 @@ const DB_NAME = process.env.DB_NAME;
 const dbPath = `mongodb://${DB_URL}:${DB_PORT}/${DB_NAME}`;
 mongoose.connect(dbPath, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
-// const db = mongoose.connection.useDb('hopkins');
-// db.on('error', console.error.bind(console, '!!! DB connection error !!!'))
-// db.on('connected', console.log.bind(console, '=== DB connected ==='))
+mongoose.set('debug', true);
 
 const PORT = process.env.PORT;
 const app = express();

@@ -14,7 +14,8 @@ export const updateUser = async (req, res) => {
   
   const user = new User({
     email: req.body.email,
-    full_name: req.body.full_name
+    full_name: req.body.full_name,
+    swatches: req.body.swatches, // REMOVE
   });
   
   let data;

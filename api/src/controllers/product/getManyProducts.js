@@ -1,12 +1,13 @@
 
 import User from '../../models/User.model.js';
+import Product from '../../models/Product.model.js';
 import finder from '../generic/finder.js';
 import methods from '../utils/methods.js';
 
-export const getManyUsers = async (req, res) => {
+export const getManyProducts = async (req, res) => {
   
   const query = methods.find({
-    model: User,
+    model: Product,
     filters: req.query,
   });
   
@@ -22,4 +23,4 @@ export const getManyUsers = async (req, res) => {
   });
 }
 
-export default getManyUsers;
+export default getManyProducts;

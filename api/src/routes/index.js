@@ -4,7 +4,8 @@ import bodyParser from 'body-parser';
 // import fooRoutes from './testing/foo.routes.js';
 
 import userRoutes from './userRoutes.js';
-// import productRoutes from './productRoutes'; // TODO
+import productRoutes from './productRoutes.js';
+
 
 const corsOptions = {
   origin: 'http://localhost:3000'
@@ -18,7 +19,7 @@ const initRoutes = (app) => {
   app.use(fooRoutes);*/
   // ***
   app.use(userRoutes);
-  // app.use(productRoutes);
+  app.use(productRoutes);
 }
 
 export default initRoutes;

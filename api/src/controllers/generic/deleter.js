@@ -1,14 +1,15 @@
+/* generic caller, handles query after processing and returns error on failure (only 500) */
 
-export const getMany = async (req, res, options) => {
+// TODO
+export const deleter = async (req, res, options) => {
 
   let data = null;
 
   try {
     data = await options.query.exec();
   } catch (error) {
-    console.error('/getMany/ -getMany', error);
     res.status(500).send({
-      message: options.error || 'Borked on the inside',
+      message: options.error || 'Borked!',
       success: false
     });
     return {
@@ -21,4 +22,4 @@ export const getMany = async (req, res, options) => {
   };
 }
 
-export default getMany;
+export default deleter;
