@@ -1,4 +1,33 @@
 import mongoose from 'mongoose';
+// import ProductsVariationSchema from './ProductVariation.model';
+
+// TODO https://stackoverflow.com/questions/47735867/mongoose-querying-subdocuments
+// *** refactor into designs, pattern (verify naming), new route/controller to query ProductsVariationSchema
+
+const ProductsVariationSchema = mongoose.Schema(
+    {
+      default_by_fabric_type: {
+        type: Boolean,
+        required: [false]
+      },
+      code: {
+        type: String,
+        required: [true]
+      },
+      tags: {
+        type: String
+        required: [false]
+      },
+      details: {
+        type: String,
+        required: [false]
+      }
+    },
+    {
+      timestamps: true
+    }
+)
+
 
 const ProductsSchema = mongoose.Schema(
     {
@@ -10,20 +39,22 @@ const ProductsSchema = mongoose.Schema(
         type: String,
         required: [false]
       },
+      // variations: [ProductsVariationSchema]
       variations: {
         type: Array,
         required: [false]
-        
-        //default_by_fabric_type
-        //code
-        //tags
-        //details
-      },
+      }
+      
     },
     {
       timestamps: true
     }
+    
+    /*variations: {
+        type: Array,
+        required: [false]
+      },*/
 )
 
-export default mongoose.model('Product', ProductsSchema, 'products_123');
+export default mongoose.model('Product', ProductsSchema, 'products_456');
 
