@@ -1,11 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+
+import './scss/index.scss';
+
 function App() {
-  
-  
-  const [res, setRes] = useState(null);
+
+
+/*  const [res, setRes] = useState(null);
   const [ping, setPing] = useState('fail');
   const [foo, setFoo] = useState('fail');
   
@@ -43,16 +45,11 @@ function App() {
     fetchData().then(r => console.log('/App/ -foo --DONE?'));
     
     return () => {};
-  }, [])
+  }, [])*/
   
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Gidday zx spectrum yay</p>
-        <p>TEST: {res}</p>
-        <p>PING: {ping}</p>
-        <p>FOO: {foo}</p>
-      </header>
+      <h1>FOO</h1>
     </div>
   );
 }
