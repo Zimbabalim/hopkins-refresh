@@ -49,7 +49,7 @@ function App() {
   
   return (
     <div className="App">
-      <h1>FOO</h1>
+      <h1>...</h1>
     </div>
   );
 }
