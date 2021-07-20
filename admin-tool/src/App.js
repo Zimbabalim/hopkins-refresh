@@ -1,11 +1,14 @@
-// import './App.css';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 import './scss/index.scss';
+import Layout from './view/Layout';
 
 function App() {
 
+  useEffect(() => {
+    console.log('/App/ -STARTUP');
+  }, []);
 
 /*  const [res, setRes] = useState(null);
   const [ping, setPing] = useState('fail');
@@ -50,6 +53,7 @@ function App() {
   return (
     <div className="App">
       <h1>...</h1>
+      <Layout />
     </div>
   );
 }
