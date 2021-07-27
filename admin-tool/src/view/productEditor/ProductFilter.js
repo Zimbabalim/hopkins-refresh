@@ -1,9 +1,20 @@
-import React from "react";
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {actions} from '../../state';
 
-const ProductFilter = () => {
+
+const ProductFilter = (props) => {
+  
+  useEffect(() => {
+    console.log('/ProductFilter/ -???', actions);
+  },[]);
   
   const onSubmit = (payload) => {
-    console.log('/ProductFilter/ -onSubmit', payload);
+    console.log('/ProductFilter/ -onSubmit====', payload, props, '>>>', actions);
+    // props.dispatch({type: actions.testAction});
+    // props.dispatch(actions.testAction({label: 'boo'}));
+    props.dispatch(actions.getProductData({label: 'boo'}));
+    //getProductData
   }
   
   return (
@@ -12,8 +23,15 @@ const ProductFilter = () => {
         <button onClick={() => {
           onSubmit('foo');
         }}>SUBMIT</button>
+        <p>??? {props.testFlag.label}</p>
       </>
   );
 };
 
-export default ProductFilter;
+const mapStateToProps = (state) => {
+  console.log('/ProductFilter/ -mapStateToProps', state);
+  const {testFlag} = state;
+  return {testFlag}
+};
+
+export default connect(mapStateToProps, null)(ProductFilter);
