@@ -6,7 +6,11 @@ import fetchService from '../service/fetchService';
 
 // *** make async call, call action with original request data and response
 function* executeRouteApiRequest(action) {
-  console.log('/sagas/ -SAGA WORKING');
+  console.log('/sagas/ -SAGA WORKING xxx');
+  
+  // fetchService.call({path: '/api/product/?partialmatch=true&variations.tags=Organza'});
+  
+  
   /*const response = yield call(fetchService.call, action.payload);
   const vo = {
     request: action.payload,
