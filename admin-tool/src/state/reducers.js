@@ -3,7 +3,9 @@ import {types} from './actions';
 
 const defaultState = {
   testFlag: {label: 'unset xxx'},
-  counter: 0
+  counter: 0,
+  
+  productData: null,
 };
 
 const app = handleActions(
@@ -23,8 +25,17 @@ const app = handleActions(
       },
   
       [types.GET_PRODUCT_DATA](state, {payload}) {
-        console.log('/reducers/ -GET_PRODUCT_DATA');
+        console.log('/reducers/ -GET_PRODUCT_DATA', payload);
         return {...state}
+      },
+  
+      [types.PRODUCT_DATA_LOADED](state, {payload}) {
+        const productData = payload.response.payload.data;
+        return {
+          ...state,
+          productData,
+        
+        }
       }
   
     },

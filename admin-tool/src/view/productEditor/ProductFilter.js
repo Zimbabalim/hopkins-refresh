@@ -13,7 +13,9 @@ const ProductFilter = (props) => {
     console.log('/ProductFilter/ -onSubmit====', payload, props, '>>>', actions);
     // props.dispatch({type: actions.testAction});
     // props.dispatch(actions.testAction({label: 'boo'}));
-    props.dispatch(actions.getProductData({label: 'boo'}));
+    props.dispatch(actions.getProductData(
+        {path: '/api/product/?partialmatch=true&variations.tags=Organza'}
+    ));
     //getProductData
   }
   
