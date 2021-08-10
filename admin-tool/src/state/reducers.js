@@ -6,6 +6,7 @@ const defaultState = {
   counter: 0,
   
   productData: null,
+  selectedDesign: null,
 };
 
 const app = handleActions(
@@ -34,9 +35,16 @@ const app = handleActions(
         return {
           ...state,
           productData,
-        
         }
-      }
+      },
+  
+      [types.DESIGN_SELECTED](state, {payload}) {
+        console.log('/reducers/ -DESIGN_SELECTED', payload);
+        return {
+          ...state,
+          selectedDesign: payload.item,
+        }
+      },
   
     },
     defaultState
