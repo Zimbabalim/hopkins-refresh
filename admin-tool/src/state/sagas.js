@@ -6,7 +6,7 @@ import fetchService from '../service/fetchService';
 
 // *** make async call, call action with original request data and response
 function* fetchProductData(action) {
-  console.log('/sagas/ -SAGA WORKING yyy', actions);
+  // console.log('/sagas/ -SAGA WORKING', actions);
 
   const response = yield call(fetchService.call, action.payload);
   const vo = {

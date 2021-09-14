@@ -3,7 +3,7 @@ import axios from 'axios';
 // *** called either directly or handled by saga
 const fetchService = {
   call: (request) => {
-    console.log('.........../fetchService/ -CALL', request);
+    console.log('/fetchService/ -CALL', request);
     return axios
         .get(request.path)
         .then((response) => {

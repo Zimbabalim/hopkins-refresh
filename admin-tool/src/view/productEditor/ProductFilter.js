@@ -1,27 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {actions} from '../../state';
-
+import config from '../../config';
 
 const ProductFilter = (props) => {
   
   const [tag, setTag] = useState('');
-  const [design, setDesign] = useState('');
+  const [design, setDesign] = useState('lom'); // FIXIT
   
   const onSubmitIntention = (key, type) => {
     if (key !== 'Enter') return;
     
+    //console.log('/ProductFilter/ -onSubmitIntention', config);
+    
     if (type === 'design') {
       setTag('');
       props.dispatch(actions.getProductData(
-          {path: `/api/product/?partialmatch=true&friendly_name=${design}`}
+          {type, path: `${config.api.getProductByName}${design}`}
       ));
     }
     
     if (type === 'tag') {
       setDesign('');
       props.dispatch(actions.getProductData(
-          {path: `/api/product/?partialmatch=true&variations.tags=${tag}`}
+          {type, path: `${config.api.getProductByTags}${tag}`}
       ));
     }
   }
@@ -47,7 +49,7 @@ const ProductFilter = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log('/ProductFilter/ -mapStateToProps', state);
+  //console.log('/ProductFilter/ -mapStateToProps', state);
   const {testFlag} = state;
   return {testFlag}
 };

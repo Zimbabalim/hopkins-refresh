@@ -1,3 +1,27 @@
 body {
     background-color: grey;
+    font-family: sans-serif;
+}
+
+.editor-window {
+    background-color: lightblue;
+
+    display: flex;
+    flex-direction: row;
+
+    [class^="editor-window__pane"] {
+        border: 1px solid red;
+        flex: 1 1;
+    }
+
+    &__pane--left {
+        background-color: pink;
+        flex-basis: 35%; // FIXIT
+    }
+
+    &__pane--right {
+        background-color: coral;
+        flex-basis: 65%; // FIXIT
+    }
+
 }

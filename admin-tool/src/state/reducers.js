@@ -27,7 +27,10 @@ const app = handleActions(
   
       [types.GET_PRODUCT_DATA](state, {payload}) {
         console.log('/reducers/ -GET_PRODUCT_DATA', payload);
-        return {...state}
+        return {
+          ...state,
+          selectedDesign: null,
+        }
       },
   
       [types.PRODUCT_DATA_LOADED](state, {payload}) {

@@ -8,7 +8,7 @@ import VariationsList from './VariationsList';
 const ProductEditor = (props) => {
   
   const onDesignSelected = (item) => {
-    console.log('/ProductEditor/ -onDesignSelected', item);
+    //console.log('/ProductEditor/ -onDesignSelected', item);
   
     props.dispatch(actions.designSelected(
         {item}
@@ -16,29 +16,34 @@ const ProductEditor = (props) => {
   };
   
   return (
-      <>
-        <ProductFilter />
-        <h3>ProductEditor</h3>
-        
-        <p>Items:</p>
-        {props.productData &&
+      <div className='editor-window'>
+        <div className="editor-window__pane--left">
+          <h3>ProductEditor</h3>
+  
+          {props.productData &&
           props.productData.map((item,index) => {
             return <DesignButton
-              key={`DesignButton--${index}`}
-              data={item}
-              clickFn={() => onDesignSelected(item)}
+                key={`DesignButton--${index}`}
+                data={item}
+                clickFn={() => onDesignSelected(item)}
             />
           })
-        }
+          }
+        </div>
+  
+        <div className="editor-window__pane--right">
+          <ProductFilter/>
+          <VariationsList/>
+        </div>
         
-        <VariationsList/>
-      </>
+        
+      </div>
   );
 };
 
 const mapStateToProps = (state) => {
   const {productData} = state;
-  console.log('/ProductEditor/ -mapStateToProps', productData);
+  //console.log('/ProductEditor/ -mapStateToProps', productData);
   return {productData}
 };
 
