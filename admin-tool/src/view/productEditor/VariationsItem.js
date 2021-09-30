@@ -8,31 +8,23 @@ const VariationsItem = (props) => {
   
   const onSave = () => {
     // TODO validations
-    props.onSaveFn(identify());
+    props.onSaveFn({
+      uid: props.uid,
+      isNewItem: props.isNewItem,
+    });
   }
   
   const onDelete = () => {
-    props.onDeleteFn(identify());
+    props.onDeleteFn({
+      uid: props.uid,
+      isNewItem: props.isNewItem,
+    });
   }
   
-  const identify = () => {
-    let index = props.index;
-    let isNewItem = false;
-  
-    if (!props.index && props.index !== 0) {
-      index = props.newItemIndex;
-      isNewItem = true;
-    }
-    
-    return {
-      index,
-      isNewItem,
-    }
-  }
   
   return (
       <div className='variations-item'>
-        <p>{props.newItemIndex}</p>
+        <p>UID: {props.uid}</p>
         <p>{props.data.code}</p>
         <p>{props.data.tags}</p>
         <button>UPLOAD IMAGE</button>

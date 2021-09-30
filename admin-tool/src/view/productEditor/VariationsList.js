@@ -1,74 +1,99 @@
 import React, {useEffect, useState, useRef} from "react";
 import {connect} from 'react-redux';
 import VariationsItem from './VariationsItem';
+import utils from '../../utils';
 
 const VariationsList = (props) => {
   
   const [newVariations, setNewVariations] = useState([]);
+  const [liveVariations, setLiveVariations] = useState([]);
+  
   const persistNewVariations = useRef();
-  persistNewVariations.current = newVariations; // *** required for proper state, onclick callbacks go stale!
+  persistNewVariations.current = newVariations; // *** required for latest state, onclick callbacks go stale!
+  
+  const persistLiveVariations = useRef();
+  persistLiveVariations.current = liveVariations; // *** required for latest state
+  
   
   useEffect(() => {
-    //console.log('/VariationsList/ -', props);
-  }, []);
+    
+    setLiveVariations([]);
+    
+    if (!props.selectedDesign) return;
+    
+    props.selectedDesign.variations.map((item) => {
+      setLiveVariations(prev => [...prev, createVariation(item)]);
+    });
+  }, [props.selectedDesign]);
   
+  /**
+   * delete whole design TODO db
+   */
   const deleteDesign = () => {
-    //console.log('/VariationsList/ -deleteDesign');
+    console.log('/VariationsList/ -deleteDesign');
   }
   
-  const createNewVariation = () => {
-    setNewVariations(prev => [...prev, createEmptyVariation()]);
-  }
-  
+  /**
+   * save variation TODO db
+   * @param identity
+   */
   const onVariationSave = (identity) => {
     console.log('/VariationsList/ -onVariationSave', identity);
   }
   
   const onVariationDelete = (identity) => {
-    console.log('/VariationsList/ -onVariationDelete ****', identity, persistNewVariations.current);
-    
-    let target = null;
-    
     if (identity.isNewItem) {
-
-      let targetIndex;
-      let clone = [...persistNewVariations.current];
       
-      persistNewVariations.current.find((item, index) => {
-        if (identity.index === item.props.newItemIndex) {
-          targetIndex = index;
-          return true;
-        }
-      });
-  
+      let clone = [...persistNewVariations.current];
+      let targetIndex = findItemIndex(persistNewVariations.current, identity);
+      
       clone.splice(targetIndex, 1);
       setNewVariations(clone);
       
-      console.log('/VariationsList/ -onVariationDelete >>>>', targetIndex);
+      return;
+    }
+    
+    if (!identity.isNewItem) {
+      // TODO update DB!
+      let clone = [...persistLiveVariations.current];
+      let targetIndex = findItemIndex(persistLiveVariations.current, identity);
+  
+      clone.splice(targetIndex, 1);
+      setLiveVariations(clone);
     }
   }
   
+  const findItemIndex = (dataset, identity) => {
+    let result = null;
+    dataset.find((item, index) => {
+      if (identity.uid === item.props.uid) {
+        result = index;
+        return true;
+      }
+    });
+    return result;
+  }
   
-  // TODO refactor dual VariationsItem invocations into one
-  const createEmptyVariation = () => {
-    // TODO add class for unsaved state
-    return (
-        <VariationsItem
-            key={`newVariationsItem--${newVariations.length}`}
-            data={{
-              code: '',
-              tags: '',
-              details: {
-                width: '',
-                repeats: ''
-              }
-            }}
-            index={null}
-            newItemIndex={newVariations.length}
-            onSaveFn={onVariationSave}
-            onDeleteFn={onVariationDelete}
-        />
-    )
+  
+  const createVariation = (data) => {
+    let itemData = data;
+    let isNewItem = !data;
+  
+    if (!itemData) {
+      itemData = { // *** empty data for new variations
+        code: '', tags: '', details: {width: '', repeats: '',
+        }
+      };
+    }
+    
+    return <VariationsItem
+        key={utils.uid()}
+        data={itemData}
+        uid={utils.uid()}
+        isNewItem={isNewItem}
+        onSaveFn={onVariationSave}
+        onDeleteFn={onVariationDelete}
+    />
   }
   
   return (
@@ -77,33 +102,23 @@ const VariationsList = (props) => {
           {props.selectedDesign && (
               <>
                 <h3>{props.selectedDesign.friendly_name}</h3>
-                <button onClick={() => createNewVariation()}>ADD VARIATION</button>
+                <p>{liveVariations.length}</p>
+                <button onClick={() => {
+                  setNewVariations(prev => [...prev, createVariation(null)]);
+                }}>ADD VARIATION</button>
                 <button onClick={() => deleteDesign()}>DELETE DESIGN</button>
               </>
           )}
         </div>
         
         {newVariations}
-        
-        {props.selectedDesign &&
-        props.selectedDesign.variations.map((item, index) => {
-          return <VariationsItem
-              key={`VariationsItem--${index}`}
-              data={item}
-              index={index}
-              newItemIndex={null}
-              onSaveFn={onVariationSave}
-              onDeleteFn={onVariationDelete}
-          />
-        })}
-      
+        {liveVariations}
       </>
   );
 };
 
 const mapStateToProps = (state) => {
   const {selectedDesign} = state;
-  //console.log('/VariationsList/ -mapStateToProps', selectedDesign);
   return {selectedDesign}
 };
 

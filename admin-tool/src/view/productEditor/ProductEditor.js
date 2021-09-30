@@ -7,8 +7,10 @@ import VariationsList from './VariationsList';
 
 const ProductEditor = (props) => {
   
+  // *** TODO paginate results
+  
   const onDesignSelected = (item) => {
-    //console.log('/ProductEditor/ -onDesignSelected', item);
+    // console.log('/ProductEditor/ -onDesignSelected', item);
   
     props.dispatch(actions.designSelected(
         {item}

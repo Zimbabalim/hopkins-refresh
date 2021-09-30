@@ -12,7 +12,7 @@ const defaultState = {
 const app = handleActions(
     {
       
-      [types.TEST_ACTION](state, {payload}) {
+      /*[types.TEST_ACTION](state, {payload}) {
         console.log('/reducers/ -????', payload);
         let counter = state.counter;
         counter += 1;
@@ -23,10 +23,11 @@ const app = handleActions(
           testFlag,
           counter
         };
-      },
+      },*/
   
       [types.GET_PRODUCT_DATA](state, {payload}) {
-        console.log('/reducers/ -GET_PRODUCT_DATA', payload);
+        // console.log('/reducers/ -GET_PRODUCT_DATA', payload);
+    
         return {
           ...state,
           selectedDesign: null,
@@ -35,6 +36,7 @@ const app = handleActions(
   
       [types.PRODUCT_DATA_LOADED](state, {payload}) {
         const productData = payload.response.payload.data;
+        
         return {
           ...state,
           productData,
@@ -42,7 +44,7 @@ const app = handleActions(
       },
   
       [types.DESIGN_SELECTED](state, {payload}) {
-        console.log('/reducers/ -DESIGN_SELECTED', payload);
+        // console.log('/reducers/ -DESIGN_SELECTED', payload.item);
         return {
           ...state,
           selectedDesign: payload.item,
