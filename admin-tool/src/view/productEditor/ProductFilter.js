@@ -6,7 +6,7 @@ import config from '../../config';
 const ProductFilter = (props) => {
   
   const [tag, setTag] = useState('');
-  const [design, setDesign] = useState('lom'); // FIXIT
+  const [design, setDesign] = useState('chancery'); // FIXIT
   
   const onSubmitIntention = (key, type) => {
     if (key !== 'Enter') return;
