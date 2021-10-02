@@ -3,13 +3,14 @@ import {connect} from 'react-redux';
 import VariationsItem from './VariationsItem';
 import utils from '../../utils';
 import {actions} from '../../state';
-import config from '../../config';
+import cx from 'classnames';
 
 const VariationsList = (props) => {
   
   const dbDataTypes = {
     STATIC: 'STATIC', // *** unchanged
     DELETE_VARIATION: 'DELETE_VARIATION',
+    CREATE_NEW_VARIATION: 'CREATE_NEW_VARIATION',
     SAVE: 'SAVE',
   }
   
@@ -23,9 +24,6 @@ const VariationsList = (props) => {
   persistLiveVariations.current = liveVariations; // *** required for latest state
   const persistVariationsDbData = useRef();
   persistVariationsDbData.current = variationsDbData; // *** required for latest state
-  
-  const [cacheVariationsDbData, setCacheVariationsDbData] = useState({}); // *** to restore on db fail
-  
   
   
   // *** init/re-init on new design input
@@ -51,10 +49,13 @@ const VariationsList = (props) => {
         break;
   
       case dbDataTypes.DELETE_VARIATION:
-        
         console.log('/VariationsList/ -DELETE_VARIATION');
-        setCacheVariationsDbData(variationsDbData); // *** cache
-        dbDeleteVariationIntention();
+        dbUpdateDesign(dbDataTypes.DELETE_VARIATION);
+        break;
+  
+      case dbDataTypes.CREATE_NEW_VARIATION:
+        console.log('/VariationsList/ -CREATE_NEW_VARIATION', variationsDbData);
+        dbUpdateDesign(dbDataTypes.CREATE_NEW_VARIATION);
         break;
   
       case dbDataTypes.SAVE:
@@ -63,30 +64,17 @@ const VariationsList = (props) => {
     }
   }, [variationsDbData]);
   
-  
-  // *** on server response
-  useEffect(() => {
-    console.log('/VariationsList/ -PENDING', props.designUpdatePending.complete, cacheVariationsDbData);
-    
-    if (!props.designUpdatePending.data) return;
-    
-    if (props.designUpdatePending.data.type === dbDataTypes.DELETE_VARIATION) {
-    
-    }
-    
-    // console.log('/VariationsList/ -PENDING', props.designUpdatePending.data.type);
-    
-  },[props.designUpdatePending]);
-  
-  
-  const dbDeleteVariationIntention = () => {
+  /**
+   * update design on db
+   */
+  const dbUpdateDesign = (type) => {
     
     const cloneDesign = Object.assign({}, props.selectedDesign);
     cloneDesign.variations = variationsDbData.data;
     
-    console.log('/VariationsList/ -dbDeleteVariationIntention', cloneDesign);
+    console.log('/VariationsList/ -dbUpdateDesign', cloneDesign);
     props.dispatch(actions.dbUpdateDesign({
-      type: dbDataTypes.DELETE_VARIATION,
+      type,
       data: cloneDesign,
     }));
   }
@@ -98,12 +86,23 @@ const VariationsList = (props) => {
     console.log('/VariationsList/ -deleteDesign');
   }
   
+  const createBlankVariation = () => {
+    if (persistNewVariations.current.length > 0) return;
+    setNewVariations(prev => [...prev, createVariation(null)]);
+  }
+  
   /**
    * save variation TODO db
    * @param identity
    */
   const onVariationSave = (identity) => {
-    console.log('/VariationsList/ -onVariationSave', identity);
+    if (identity.isNewItem) {
+      let targetIndex = findItemIndex(persistNewVariations.current, identity);
+      const newData = persistNewVariations.current[targetIndex].props.data;
+      const cloneData = [...persistVariationsDbData.current.data];
+      cloneData.unshift(newData);
+      setVariationsDbData({type: dbDataTypes.CREATE_NEW_VARIATION, data: cloneData});
+    }
   }
   
   const onVariationDelete = (identity) => {
@@ -115,14 +114,10 @@ const VariationsList = (props) => {
       return;
     }
     
+    // *** live item, don't need to update view as data will reflow after db save response
     if (!identity.isNewItem) {
       const targetIndex = findItemIndex(persistLiveVariations.current, identity);
-      // const cloneView = [...persistLiveVariations.current];
       const cloneData = [...persistVariationsDbData.current.data];
-      
-      /*cloneView.splice(targetIndex, 1);
-      setLiveVariations(cloneView);*/
-      
       cloneData.splice(targetIndex, 1);
       setVariationsDbData({type: dbDataTypes.DELETE_VARIATION, data: cloneData});
     }
@@ -147,7 +142,7 @@ const VariationsList = (props) => {
   
     if (!itemData) {
       itemData = { // *** empty data for new variations
-        code: '', tags: '', details: {width: '', repeats: '',
+        code: Date.now(), tags: 'FIXME', details: {width: 'FIXME', repeats: 'FIXME',
         }
       };
     }
@@ -161,7 +156,7 @@ const VariationsList = (props) => {
         onDeleteFn={onVariationDelete}
     />
   }
-  
+  //className={cx('filter-control--filter-items', `filter-${filter.id}`)}
   return (
       <>
         <div className='variations-list__action-bar' >
@@ -170,7 +165,8 @@ const VariationsList = (props) => {
                 <h3>{props.selectedDesign.friendly_name}</h3>
                 <p>{liveVariations.length}</p>
                 <button onClick={() => {
-                  setNewVariations(prev => [...prev, createVariation(null)]);
+                  createBlankVariation();
+                  // setNewVariations(prev => [...prev, createVariation(null)]);
                 }}>ADD VARIATION</button>
                 <button onClick={() => deleteDesign()}>DELETE DESIGN</button>
               </>
@@ -184,8 +180,8 @@ const VariationsList = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const {selectedDesign, designUpdatePending} = state;
-  return {selectedDesign, designUpdatePending}
+  const {selectedDesign} = state;
+  return {selectedDesign}
 };
 
 export default connect(mapStateToProps, null)(VariationsList);

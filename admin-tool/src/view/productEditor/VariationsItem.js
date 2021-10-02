@@ -1,4 +1,5 @@
-import React, {useEffect} from "react";
+import React, {useEffect} from 'react';
+import cx from 'classnames';
 
 const VariationsItem = (props) => {
   
@@ -23,7 +24,7 @@ const VariationsItem = (props) => {
   
   
   return (
-      <div className='variations-item'>
+      <div className={cx('variations-item', props.isNewItem ? 'variations-item--unsaved' : null)}>
         <p>UID: {props.uid}</p>
         <p>{props.data.code}</p>
         <p>{props.data.tags}</p>

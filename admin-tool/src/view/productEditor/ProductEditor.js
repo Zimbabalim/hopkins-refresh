@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ProductFilter from './ProductFilter';
 import {connect} from 'react-redux';
 import DesignButton from './DesignButton';
@@ -8,6 +8,17 @@ import VariationsList from './VariationsList';
 const ProductEditor = (props) => {
   
   // *** TODO paginate results
+  
+  useEffect(() => {
+    
+    if (!props.productData) return;
+    
+    if (props.productData.length === 1) {
+      console.log('/ProductEditor/ -AUTO CLICK');
+      onDesignSelected(props.productData[0]);
+    }
+    
+  }, [props.productData])
   
   const onDesignSelected = (item) => {
     // console.log('/ProductEditor/ -onDesignSelected', item);

@@ -1,6 +1,10 @@
 .variations-item {
     background-color: beige;
 
+    &--unsaved {
+        background-color: aquamarine;
+    }
+
     &__action-bar {
         background-color: grey;
     }

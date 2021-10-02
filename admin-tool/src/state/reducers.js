@@ -8,10 +8,10 @@ const defaultState = {
   productData: null,
   selectedDesign: null,
   
-  designUpdatePending: {
+/*  designUpdatePending: {
     data: null,
     complete: false,
-  },
+  },*/
 };
 
 const app = handleActions(
@@ -31,10 +31,10 @@ const app = handleActions(
         console.log('/reducers/ -DB_UPDATE_DESIGN', payload);
         return {
           ...state,
-          designUpdatePending: {
+          /*designUpdatePending: {
             data: payload,
             complete: false,
-          },
+          },*/
         }
       },
    
@@ -48,10 +48,10 @@ const app = handleActions(
         
         return {
           ...state,
-          designUpdatePending: {
+         /* designUpdatePending: {
             data: payload.response,
             complete: true,
-          },
+          },*/
   
           selectedDesign: freshDesignData,
         }
