@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import VariationsItem from './VariationsItem';
 import utils from '../../utils';
 import {actions} from '../../state';
-import cx from 'classnames';
 
 const VariationsList = (props) => {
   
@@ -43,31 +42,15 @@ const VariationsList = (props) => {
   
   // *** fork behaviour on variations data change
   useEffect(() => {
-    switch (variationsDbData.type) {
-      case dbDataTypes.STATIC:
-        // *** stub, do nothing
-        break;
-  
-      case dbDataTypes.DELETE_VARIATION:
-        console.log('/VariationsList/ -DELETE_VARIATION');
-        dbUpdateDesign(dbDataTypes.DELETE_VARIATION);
-        break;
-  
-      case dbDataTypes.CREATE_NEW_VARIATION:
-        console.log('/VariationsList/ -CREATE_NEW_VARIATION', variationsDbData);
-        dbUpdateDesign(dbDataTypes.CREATE_NEW_VARIATION);
-        break;
-  
-      case dbDataTypes.SAVE:
-        console.log('/VariationsList/ -SAVE');
-        break;
-    }
+    dbUpdateDesign(variationsDbData.type);
   }, [variationsDbData]);
   
   /**
    * update design on db
    */
   const dbUpdateDesign = (type) => {
+    
+    if (type === dbDataTypes.STATIC) return;
     
     const cloneDesign = Object.assign({}, props.selectedDesign);
     cloneDesign.variations = variationsDbData.data;
@@ -96,13 +79,28 @@ const VariationsList = (props) => {
    * @param identity
    */
   const onVariationSave = (identity) => {
+    
+    
     if (identity.isNewItem) {
-      let targetIndex = findItemIndex(persistNewVariations.current, identity);
-      const newData = persistNewVariations.current[targetIndex].props.data;
+      /*let targetIndex = findItemIndex(persistNewVariations.current, identity);
+      let newData = persistNewVariations.current[targetIndex].props.data;
+      console.warn('/VariationsList/ -onVariationSave YYY', identity.data, '>>>', newData);
+  
       const cloneData = [...persistVariationsDbData.current.data];
       cloneData.unshift(newData);
-      setVariationsDbData({type: dbDataTypes.CREATE_NEW_VARIATION, data: cloneData});
+      setVariationsDbData({type: dbDataTypes.CREATE_NEW_VARIATION, data: cloneData});*/
+      
+
+      const dbData = [...persistVariationsDbData.current.data];
+      dbData.unshift(identity.data);
+      setVariationsDbData({type: dbDataTypes.CREATE_NEW_VARIATION, data: dbData});
+  
+      return;
     }
+  
+    // FIXIT overwrite and save - refer to commented code above
+    const cloneData = [...persistVariationsDbData.current.data];
+    setVariationsDbData({type: dbDataTypes.SAVE, data: cloneData});
   }
   
   const onVariationDelete = (identity) => {
@@ -115,12 +113,10 @@ const VariationsList = (props) => {
     }
     
     // *** live item, don't need to update view as data will reflow after db save response
-    if (!identity.isNewItem) {
-      const targetIndex = findItemIndex(persistLiveVariations.current, identity);
-      const cloneData = [...persistVariationsDbData.current.data];
-      cloneData.splice(targetIndex, 1);
-      setVariationsDbData({type: dbDataTypes.DELETE_VARIATION, data: cloneData});
-    }
+    const targetIndex = findItemIndex(persistLiveVariations.current, identity);
+    const cloneData = [...persistVariationsDbData.current.data];
+    cloneData.splice(targetIndex, 1);
+    setVariationsDbData({type: dbDataTypes.DELETE_VARIATION, data: cloneData});
   }
   
   
@@ -142,7 +138,7 @@ const VariationsList = (props) => {
   
     if (!itemData) {
       itemData = { // *** empty data for new variations
-        code: Date.now(), tags: 'FIXME', details: {width: 'FIXME', repeats: 'FIXME',
+        code: '', tags: 'FIXME', details: {width: 'FIXME', repeats: 'FIXME',
         }
       };
     }
@@ -156,17 +152,16 @@ const VariationsList = (props) => {
         onDeleteFn={onVariationDelete}
     />
   }
-  //className={cx('filter-control--filter-items', `filter-${filter.id}`)}
+
   return (
       <>
         <div className='variations-list__action-bar' >
           {props.selectedDesign && (
               <>
                 <h3>{props.selectedDesign.friendly_name}</h3>
-                <p>{liveVariations.length}</p>
+                <p>{liveVariations.length} items</p>
                 <button onClick={() => {
                   createBlankVariation();
-                  // setNewVariations(prev => [...prev, createVariation(null)]);
                 }}>ADD VARIATION</button>
                 <button onClick={() => deleteDesign()}>DELETE DESIGN</button>
               </>

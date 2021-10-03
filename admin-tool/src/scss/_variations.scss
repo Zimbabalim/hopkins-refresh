@@ -1,5 +1,6 @@
 .variations-item {
     background-color: beige;
+    transition: background-color 0.3s; // *** won't work
 
     &--unsaved {
         background-color: aquamarine;
