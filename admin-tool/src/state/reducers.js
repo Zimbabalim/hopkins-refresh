@@ -48,14 +48,24 @@ const app = handleActions(
         
         return {
           ...state,
-         /* designUpdatePending: {
-            data: payload.response,
-            complete: true,
-          },*/
-  
           selectedDesign: freshDesignData,
         }
       },
+  
+      [types.DB_UPLOAD_IMAGES](state, {payload}) {
+        console.log('/reducers/ -DB_UPLOAD_IMAGES', payload);
+        return {
+          ...state,
+        }
+      },
+  
+      [types.DB_UPLOAD_IMAGES_RESPONSE](state, {payload}) {
+        console.log('/reducers/ -DB_UPLOAD_IMAGES_RESPONSE', payload);
+        return {
+          ...state,
+        }
+      },
+      
   
       [types.PRODUCT_DATA_LOADED](state, {payload}) {
         const productData = payload.response.payload.data;

@@ -1,6 +1,18 @@
+.variations-list {
+    &__action-bar {
+        margin: 0.5em;
+    }
+}
+
 .variations-item {
     background-color: beige;
     transition: background-color 0.3s; // *** won't work
+    padding: 1em;
+    margin: 0.5em;
+
+    &--has-dirty-data {
+        background-color: aqua;
+    }
 
     &--unsaved {
         background-color: aquamarine;
@@ -8,5 +20,8 @@
 
     &__action-bar {
         background-color: grey;
+        display: flex;
+        justify-content: end;
+        padding: 0.5em 0.5em 0.5em 0;
     }
 }

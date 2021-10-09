@@ -4,6 +4,11 @@ body {
     font-size: 16px;
 }
 
+.App {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
 .editor-window {
     background-color: lightblue;
 
@@ -12,17 +17,35 @@ body {
 
     [class^="editor-window__pane"] {
         border: 1px solid red;
-        flex: 1 1;
+        //flex: 1 1;
     }
 
     &__pane--left {
         background-color: pink;
-        flex-basis: 35%; // FIXIT
+        flex-basis: 35%;
     }
 
     &__pane--right {
         background-color: coral;
-        flex-basis: 65%; // FIXIT
+        flex-basis: 65%;
     }
 
 }
+
+.button {
+    transition: opacity 0.3s; // *** not working...
+
+    &--is-disabled {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+}
+
+.button-group {
+    .button {
+        &:first-child {
+            margin-right: 0.5em;
+        }
+    }
+}
+

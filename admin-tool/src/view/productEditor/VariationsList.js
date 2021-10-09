@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import VariationsItem from './VariationsItem';
 import utils from '../../utils';
 import {actions} from '../../state';
+import cx from 'classnames';
 
 const VariationsList = (props) => {
   
@@ -23,6 +24,8 @@ const VariationsList = (props) => {
   persistLiveVariations.current = liveVariations; // *** required for latest state
   const persistVariationsDbData = useRef();
   persistVariationsDbData.current = variationsDbData; // *** required for latest state
+  
+  const [notes, setNotes] = useState('');
   
   
   // *** init/re-init on new design input
@@ -79,29 +82,21 @@ const VariationsList = (props) => {
    * @param identity
    */
   const onVariationSave = (identity) => {
-    
-    
+    // *** save new item
     if (identity.isNewItem) {
-      /*let targetIndex = findItemIndex(persistNewVariations.current, identity);
-      let newData = persistNewVariations.current[targetIndex].props.data;
-      console.warn('/VariationsList/ -onVariationSave YYY', identity.data, '>>>', newData);
-  
-      const cloneData = [...persistVariationsDbData.current.data];
-      cloneData.unshift(newData);
-      setVariationsDbData({type: dbDataTypes.CREATE_NEW_VARIATION, data: cloneData});*/
-      
-
       const dbData = [...persistVariationsDbData.current.data];
       dbData.unshift(identity.data);
       setVariationsDbData({type: dbDataTypes.CREATE_NEW_VARIATION, data: dbData});
-  
+      
       return;
     }
-  
-    // FIXIT overwrite and save - refer to commented code above
-    const cloneData = [...persistVariationsDbData.current.data];
-    setVariationsDbData({type: dbDataTypes.SAVE, data: cloneData});
+    // *** update existing item
+    const targetIndex = findItemIndex(persistLiveVariations.current, identity);
+    const dbData = [...persistVariationsDbData.current.data];
+    dbData[targetIndex] = identity.data;
+    setVariationsDbData({type: dbDataTypes.SAVE, data: dbData});
   }
+  
   
   const onVariationDelete = (identity) => {
     if (identity.isNewItem) {
@@ -117,6 +112,12 @@ const VariationsList = (props) => {
     const cloneData = [...persistVariationsDbData.current.data];
     cloneData.splice(targetIndex, 1);
     setVariationsDbData({type: dbDataTypes.DELETE_VARIATION, data: cloneData});
+  }
+  
+  // FIXIT TODO!!!!
+  // requires strategy to change whole set, and save altogether
+  const onVariationDefaultChanged = (identity) => {
+    console.log('/VariationsList/ -onVariationDefaultChanged', identity);
   }
   
   
@@ -135,7 +136,7 @@ const VariationsList = (props) => {
   const createVariation = (data) => {
     let itemData = data;
     let isNewItem = !data;
-  
+    
     if (!itemData) {
       itemData = { // *** empty data for new variations
         code: '', tags: 'FIXME', details: {width: 'FIXME', repeats: 'FIXME',
@@ -150,9 +151,10 @@ const VariationsList = (props) => {
         isNewItem={isNewItem}
         onSaveFn={onVariationSave}
         onDeleteFn={onVariationDelete}
+        onDefaultChanged={onVariationDefaultChanged}
     />
   }
-
+  
   return (
       <>
         <div className='variations-list__action-bar' >
@@ -160,10 +162,15 @@ const VariationsList = (props) => {
               <>
                 <h3>{props.selectedDesign.friendly_name}</h3>
                 <p>{liveVariations.length} items</p>
-                <button onClick={() => {
-                  createBlankVariation();
-                }}>ADD VARIATION</button>
-                <button onClick={() => deleteDesign()}>DELETE DESIGN</button>
+                
+                <textarea className={cx('text-area')} defaultValue={'FIXME - persist data on focus leave'}/>
+                
+                <div className={cx('button-group')}>
+                  <button className={cx('button')}
+                      onClick={() => {createBlankVariation()}}>ADD VARIATION</button>
+                  <button className={cx('button')}
+                      onClick={() => deleteDesign()}>DELETE DESIGN</button>
+                </div>
               </>
           )}
         </div>

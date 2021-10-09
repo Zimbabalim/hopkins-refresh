@@ -8,6 +8,9 @@ const types = {
   
   DB_UPDATE_DESIGN: 'DB_UPDATE_DESIGN',
   DB_UPDATE_DESIGN_RESPONSE: 'DB_UPDATE_DESIGN_RESPONSE',
+  
+  DB_UPLOAD_IMAGES: 'DB_UPLOAD_IMAGES',
+  DB_UPLOAD_IMAGES_RESPONSE: 'DB_UPLOAD_IMAGES_RESPONSE',
 };
 
 const actions = {
@@ -17,6 +20,8 @@ const actions = {
   designSelected: createAction(types.DESIGN_SELECTED),
   dbUpdateDesign: createAction(types.DB_UPDATE_DESIGN),
   dbUpdateDesignResponse: createAction(types.DB_UPDATE_DESIGN_RESPONSE),
+  dbUploadImages: createAction(types.DB_UPLOAD_IMAGES),
+  dbUploadImagesResponse: createAction(types.DB_UPLOAD_IMAGES_RESPONSE),
 }
 
 export default actions;

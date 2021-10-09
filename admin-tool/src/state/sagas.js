@@ -20,7 +20,6 @@ function* fetchProductData(action) {
   }
   yield put(actions.productDataLoaded(vo));
 }
-
 // *** observe action
 function* watchGetProductData() {
   yield takeLatest(types.GET_PRODUCT_DATA, fetchProductData);
@@ -36,8 +35,6 @@ function* dbUpdateDesign(action) {
     data: action.payload.data,
   }
   
-  console.log('/sagas/ -dbUpdateDesign', request);
-  
   const response = yield call(fetchService.update, request);
   
   const vo = {
@@ -46,11 +43,35 @@ function* dbUpdateDesign(action) {
   }
   yield put(actions.dbUpdateDesignResponse(vo));
 }
-
-
 // *** observe action
 function* watchUpdateDesign() {
   yield takeLatest(types.DB_UPDATE_DESIGN, dbUpdateDesign);
+}
+
+
+/**
+ * UPLOAD IMAGES
+ */
+function* dbUploadImages(action) {
+  const request = {
+    type: action.payload.type,
+    path: `${config.api.uploadImages}`,
+    data: action.payload.data,
+  }
+  
+  console.log('/sagas/ -dbUploadImages XXX', request);
+  
+  const response = yield call(fetchService.post, request);
+  
+  const vo = {
+    request,
+    response
+  }
+  yield put(actions.dbUploadImagesResponse(vo));
+}
+// *** observe action
+function* watchUploadImages() {
+  yield takeLatest(types.DB_UPLOAD_IMAGES, dbUploadImages);
 }
 
 
@@ -59,6 +80,7 @@ function* sagas() {
   yield all([
     watchGetProductData(),
     watchUpdateDesign(),
+    watchUploadImages(),
   ]);
 }
 

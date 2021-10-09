@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {actions} from '../../state';
 import config from '../../config';
+import cx from 'classnames';
 
 const ProductFilter = (props) => {
   
   const [tag, setTag] = useState('');
-  const [design, setDesign] = useState('cosimo'); // FIXIT
+  const [design, setDesign] = useState(''); // FIXIT
   
   const onSubmitIntention = (key, type) => {
     if (key !== 'Enter') return;
@@ -29,22 +30,29 @@ const ProductFilter = (props) => {
   }
   
   return (
-      <>
+      <div className={cx('product-filter')}>
         <h4>ProductFilter</h4>
         
-        <input type="text" placeholder="design" value={design}
-               onChange={ e => setDesign(e.target.value) }
-               onKeyPress={(e) => {
-                 onSubmitIntention(e.key, 'design');
-               }}/>
-        
-        <input type="text" placeholder="tag" value={tag}
-               onChange={ e => setTag(e.target.value) }
-               onKeyPress={(e) => {
-                 onSubmitIntention(e.key, 'tag');
-               }}
-        />
-      </>
+        <div className="form-row">
+          <div className="form-group">
+            
+            <input className={cx('input-item', 'input-item--large')}
+                   type="text" placeholder="design" value={design}
+                   onChange={ e => setDesign(e.target.value) }
+                   onKeyPress={(e) => {
+                     onSubmitIntention(e.key, 'design');
+                   }}/>
+            
+            <input className={cx('input-item', 'input-item--large')}
+                   type="text" placeholder="tag" value={tag}
+                   onChange={ e => setTag(e.target.value) }
+                   onKeyPress={(e) => {
+                     onSubmitIntention(e.key, 'tag');
+                   }}
+            />
+          </div>
+        </div>
+      </div>
   );
 };
 

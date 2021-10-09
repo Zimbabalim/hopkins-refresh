@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import DesignButton from './DesignButton';
 import {actions} from '../../state';
 import VariationsList from './VariationsList';
+import ImageUploader from './ImageUploader';
 
 const ProductEditor = (props) => {
   
@@ -32,6 +33,8 @@ const ProductEditor = (props) => {
       <div className='editor-window'>
         <div className="editor-window__pane--left">
           <h3>ProductEditor</h3>
+          
+          
   
           {props.productData &&
           props.productData.map((item,index) => {
