@@ -54,8 +54,8 @@ function* watchUpdateDesign() {
  */
 function* dbUploadImages(action) {
   const request = {
-    type: action.payload.type,
     path: `${config.api.uploadImages}`,
+    directory: action.payload.directory,
     data: action.payload.data,
   }
   

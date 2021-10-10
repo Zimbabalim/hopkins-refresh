@@ -1,67 +1,72 @@
-import User from '../../models/Product.model.js';
-import mongoose from 'mongoose';
+import multer from 'multer';
+import * as fs from 'fs';
 
+// *** upload to temp 'uploadDir' then move to 'destinationDir'
 export const uploadImages = async (req, res) => {
   
-  console.log('\n*** /ASSET.controller/ -uploadImages ==== \n', req.body, req.file);
+  const uploadDir = './public/uploads';
+  const destinationDir = './public/assets/images/products/';
   
-  /* var source = fs.createReadStream( req.files.image.file );
-  var dest = fs.createWriteStream( "./public/assets/images/sundries/" + req.files.image.filename );*/
+  const storage = multer.diskStorage({
+    destination: function (req, file, fn) {
+      fn(null, uploadDir);
+    },
+    filename: function (req, file, fn) {
+      fn(null, file.originalname);
+    }
+  });
   
-  // const source = fs.createReadStream( req.files.image.file );
+  const upload = multer({ storage: storage }).single('image');
+  // const upload = multer({ storage: storage }).fields([{name: 'image'}]);
+
+// *** util to move files after upload
+const moveFiles = (options) => {
   
-  res
+  console.log('/uploadImages/ -moveFiles', options);
+  
+  const currentPath = `${uploadDir}/${options.files[0]}`;
+  const destinationPath = `${destinationDir}/${options.directory}/${options.files[0]}`;
+  
+  fs.rename(currentPath, destinationPath, function (error) {
+    
+    if (error) {
+      console.error('/uploadImages/ -failed:', currentPath, '-->', destinationPath);
+      return;
+    }
+    console.log('/uploadImages/ -success:', currentPath, '-->', destinationPath);
+  });
+}
+  
+  
+  upload(req, res, (error) => {
+    
+    moveFiles({
+      files: [req.file.filename],
+      directory: req.body.directory,
+    });
+    
+    if (error) {
+      console.error('/assetRoutes/ -uploadImages --ERROR', error);
+  
+      res
+          .status(500)
+          .send({
+            message: 'totally fucked',
+            success: false
+          });
+      
+    } else {
+      console.log('/uploadImages/ -uploadImages --uploaded!');
+      const FileName = req.file.filename;
+  
+      res
       .status(200)
       .send({
-        message: '==== ping back ===',
+        message: 'saved images',
         success: true
       });
-  
-  return;
-  
-  
-  
-  const {id} = req.params;
-  const isValid = mongoose.Types.ObjectId.isValid(id);
-  
-  if(!req.body || !isValid){
-    res
-        .status(400)
-        .send({
-          message: 'product cannot be empty / id was invalid',
-          success: false
-        });
-  }
-  
-  let data;
-  try {
-    data = await User.findOneAndUpdate(
-        {_id: id},
-        {
-          default_product_code: req.body.default_product_code,
-          friendly_name: req.body.friendly_name,
-          variations: req.body.variations,
-        }, {
-          new: true
-        }
-    )
-  } catch (error) {
-    console.error('/USER.controller/ -uploadImages --FUCKED', error);
-    res
-        .status(500)
-        .send({
-          message: 'totally fucked',
-          success: false
-        });
-  }
-  
-  res
-      .status(201)
-      .send({
-        message: 'it worked!!!',
-        success: true,
-        data
-      })
+    }
+  });
 }
 
 export default uploadImages;

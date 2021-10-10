@@ -4,18 +4,15 @@ import {connect} from 'react-redux';
 
 const ImageUploader = (props) => {
   
-  
-  /* var source = fs.createReadStream( req.files.image.file );
-    var dest = fs.createWriteStream( "./public/assets/images/sundries/" + req.files.image.filename );*/
-  
-  /*let fd = new FormData();
-                fd.append("image", fl, fl.name );*/
-  
   const upload = (files) => {
+    
+    console.log('/ImageUploader/ -upload', files,files[0].name);
+    
     const formData = new FormData();
+    // formData.append('image', files[0], files[0].name);
     formData.append('image', files[0], files[0].name);
+    formData.append('directory', 'B');
     props.dispatch(actions.dbUploadImages({
-      type: 'A',
       data: formData,
     }));
   }

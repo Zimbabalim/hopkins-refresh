@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import initRoutes from './routes/index.js';
+import * as path from 'path';
 
 const DB_PORT = process.env.DB_PORT || 27017;
 const DB_URL = process.env.DB_URL;
@@ -12,6 +13,9 @@ mongoose.set('debug', true);
 
 const PORT = process.env.PORT;
 const app = express();
+
+app.use('/assets', express.static('public/assets'));
+
 initRoutes(app);
 
 app.listen(PORT, () => {

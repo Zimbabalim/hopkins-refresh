@@ -20,6 +20,7 @@ services:
     command: yarn run dev
     volumes:
       - ./api/src:/app/src
+      - ./api/public:/app/public
     environment:
       - PORT=3001
       - DB_PORT=27017
