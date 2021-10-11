@@ -5,6 +5,7 @@ import DesignButton from './DesignButton';
 import {actions} from '../../state';
 import VariationsList from './VariationsList';
 import ImageUploader from './ImageUploader';
+import NewDesignForm from './NewDesignForm';
 
 const ProductEditor = (props) => {
   
@@ -31,11 +32,13 @@ const ProductEditor = (props) => {
   
   return (
       <div className='editor-window'>
-        <div className="editor-window__pane--left">
-          <h3>ProductEditor</h3>
-          
-          
   
+        <ImageUploader/>
+  
+        <div className="editor-window__pane--left">
+          
+          <NewDesignForm/>
+          
           {props.productData &&
           props.productData.map((item,index) => {
             return <DesignButton
@@ -59,7 +62,6 @@ const ProductEditor = (props) => {
 
 const mapStateToProps = (state) => {
   const {productData} = state;
-  //console.log('/ProductEditor/ -mapStateToProps', productData);
   return {productData}
 };
 

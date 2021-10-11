@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import cx from 'classnames';
 import {connect} from 'react-redux';
+import config from '../../config';
+import utils from '../../utils';
 
 const VariationsItem = (props) => {
   
@@ -21,6 +23,8 @@ const VariationsItem = (props) => {
   
   const [isDefault, setIsDefault] = useState(false);
   
+  const [trigger, setTrigger] = useState(false);
+  
   useEffect(() => {
     init();
   }, []);
@@ -39,6 +43,13 @@ const VariationsItem = (props) => {
     setIsFirstRender(false);
     
   }, [isDefault]);
+  
+  useEffect(() => {
+    console.log('/VariationsItem/ -TRIGGER', props.imagesUploaderTrigger);
+    
+    setTrigger(utils.uid());
+    
+  }, [props.imagesUploaderTrigger]);
   
   
   const init = () => {
@@ -74,17 +85,17 @@ const VariationsItem = (props) => {
       setWidthInches(r[0] || '...');
       setWidthCms(r[1] || '...');
     }
-  
+    
     if (props.data.details && props.data.details.repeats) {
       const r = parseMeasures(props.data.details.repeats);
       setRepeatInches(r[0] || '...');
       setRepeatCms(r[1] || '...');
     }
-  
+    
     setPrice(props.data.details.price || 'POA');
     setTax(props.data.details.tax || '+VAT/M');
   }
-
+  
   
   const onSave = () => {
     // TODO validations
@@ -131,12 +142,32 @@ const VariationsItem = (props) => {
     )
   }
   
+  const createImagesBlock = () => {
+    return (<>
+      <div className="image-wrapper">
+        <img src={`${config.api.imagesPath}/A/${fabricCode}-${designCode}-${colourCode}_a.jpg?cb=${trigger}`} alt={`image A`}/>
+      </div>
+      <div className="image-wrapper">
+        <img src={`${config.api.imagesPath}/B/${fabricCode}-${designCode}-${colourCode}_b.jpg?cb=${trigger}`} alt={`image B`}/>
+      </div>
+      <div className="image-wrapper">
+        <img src={`${config.api.imagesPath}/C/${fabricCode}-${designCode}-${colourCode}_c.jpg?cb=${trigger}`} alt={`image C`}/>
+      </div>
+    </>)
+  }
+  
   return (
       <div className={cx('variations-item',
           (props.isNewItem) ? 'variations-item--unsaved' : null,
           (isDirtyData) ? 'variations-item--has-dirty-data' : null
-          )}>
-        <p>UID: {props.uid}</p>
+      )}>
+        {/*<p>UID: {props.uid}</p>*/}
+        
+        <div className="form-row">
+          <div className="form-group resizeable-container">
+            {createImagesBlock()}
+          </div>
+        </div>
         
         <div className="form-row">
           <div className="form-group">
@@ -182,7 +213,7 @@ const VariationsItem = (props) => {
             />
           </div>
         </div>
-  
+        
         {/* TAGS */}
         <div className="form-row">
           <div className="form-group form-group--full-width">
@@ -198,7 +229,7 @@ const VariationsItem = (props) => {
             })}
           </div>
         </div>
-  
+        
         {/* WIDTH + REPEATS */}
         <div className="form-row">
           <div className="form-group">
@@ -224,7 +255,7 @@ const VariationsItem = (props) => {
               classes: 'input-item--width-small',
             })}
           </div>
-  
+          
           {/* repeats */}
           <div className="form-group">
             <span className="form-group__title">REPEATS:</span>
@@ -249,7 +280,7 @@ const VariationsItem = (props) => {
               classes: 'input-item--width-small',
             })}
           </div>
-          
+        
         </div>
         
         {/* PRICE */}
@@ -280,10 +311,10 @@ const VariationsItem = (props) => {
         
         <div className='variations-item__action-bar'>
           <div className={cx('button-group')}>
-          <button className={cx('button', (!isDirtyData) ? 'button--is-disabled' : null)}
-              onClick={() => onSave()}>SAVE XXX</button>
-          <button className={cx('button')}
-              onClick={() => onDelete()}>DELETE</button>
+            <button className={cx('button', (!isDirtyData) ? 'button--is-disabled' : null)}
+                    onClick={() => onSave()}>SAVE</button>
+            <button className={cx('button')}
+                    onClick={() => onDelete()}>DELETE</button>
           </div>
         </div>
       </div>
@@ -292,8 +323,8 @@ const VariationsItem = (props) => {
 
 
 const mapStateToProps = (state) => {
-  const {selectedDesign} = state;
-  return {selectedDesign}
+  const {selectedDesign, imagesUploaderTrigger} = state;
+  return {selectedDesign, imagesUploaderTrigger}
 };
 
 export default connect(mapStateToProps, null)(VariationsItem);

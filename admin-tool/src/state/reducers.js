@@ -2,24 +2,18 @@ import {handleActions} from 'redux-actions';
 import {types} from './actions';
 
 const defaultState = {
-  testFlag: {label: 'unset xxx'},
-  counter: 0,
-  
   productData: null,
   selectedDesign: null,
-  
-/*  designUpdatePending: {
-    data: null,
-    complete: false,
-  },*/
+  imagesUploaderTrigger: false, // *** to cache bust and reload images after upload
 };
 
 const app = handleActions(
     {
   
+      // *** PRODUCT EDITOR =========
+      
       // *** uses saga
       [types.GET_PRODUCT_DATA](state, {payload}) {
-        // console.log('/reducers/ -GET_PRODUCT_DATA', payload);
         return {
           ...state,
           selectedDesign: null,
@@ -28,20 +22,13 @@ const app = handleActions(
   
       // *** uses saga
       [types.DB_UPDATE_DESIGN](state, {payload}) {
-        console.log('/reducers/ -DB_UPDATE_DESIGN', payload);
         return {
           ...state,
-          /*designUpdatePending: {
-            data: payload,
-            complete: false,
-          },*/
         }
       },
    
       // *** uses saga
       [types.DB_UPDATE_DESIGN_RESPONSE](state, {payload}) {
-        console.log('/reducers/ -DB_UPDATE_DESIGN_RESPONSE', payload.response.payload.success);
-        
         // *** replace data only on success
         const freshDesignData = (payload.response.payload.success) ?
             payload.response.payload.data : state.selectedDesign;
@@ -53,23 +40,23 @@ const app = handleActions(
       },
   
       [types.DB_UPLOAD_IMAGES](state, {payload}) {
-        console.log('/reducers/ -DB_UPLOAD_IMAGES', payload);
         return {
           ...state,
+          imagesUploaderTrigger: true,
         }
       },
   
       [types.DB_UPLOAD_IMAGES_RESPONSE](state, {payload}) {
-        console.log('/reducers/ -DB_UPLOAD_IMAGES_RESPONSE', payload);
         return {
           ...state,
+          selectedDesign: state.selectedDesign,
+          imagesUploaderTrigger: false,
         }
       },
       
   
       [types.PRODUCT_DATA_LOADED](state, {payload}) {
         const productData = payload.response.payload.data;
-        
         return {
           ...state,
           productData,
@@ -77,12 +64,13 @@ const app = handleActions(
       },
   
       [types.DESIGN_SELECTED](state, {payload}) {
-        // console.log('/reducers/ -DESIGN_SELECTED', payload.item);
         return {
           ...state,
           selectedDesign: payload.item,
         }
       },
+  
+      // *** USER EDITOR =========
     },
     defaultState
 );

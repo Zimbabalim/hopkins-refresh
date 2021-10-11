@@ -34,7 +34,7 @@ const ProductFilter = (props) => {
         <h4>ProductFilter</h4>
         
         <div className="form-row">
-          <div className="form-group">
+          <div className="form-group form-group--full-width">
             
             <input className={cx('input-item', 'input-item--large')}
                    type="text" placeholder="design" value={design}

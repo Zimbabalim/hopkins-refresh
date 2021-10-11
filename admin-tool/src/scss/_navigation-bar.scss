@@ -1,0 +1,16 @@
+.navigation-bar {
+    padding: 1em 0;
+    display: flex;
+    justify-content: right;
+
+    .navigation-link {
+        padding: 0 1em;
+        border-right: 1px solid;
+        cursor: default;
+
+        &:last-child {
+            padding-right: 0;
+            border-right: 0;
+        }
+    }
+}

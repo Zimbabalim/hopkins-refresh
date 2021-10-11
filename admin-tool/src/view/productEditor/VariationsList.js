@@ -157,24 +157,19 @@ const VariationsList = (props) => {
   
   return (
       <>
-        <div className='variations-list__action-bar' >
-          {props.selectedDesign && (
-              <>
-                <h3>{props.selectedDesign.friendly_name}</h3>
-                <p>{liveVariations.length} items</p>
-                
-                <textarea className={cx('text-area')} defaultValue={'FIXME - persist data on focus leave'}/>
-                
-                <div className={cx('button-group')}>
-                  <button className={cx('button')}
-                      onClick={() => {createBlankVariation()}}>ADD VARIATION</button>
-                  <button className={cx('button')}
-                      onClick={() => deleteDesign()}>DELETE DESIGN</button>
-                </div>
-              </>
-          )}
-        </div>
-        
+        {props.selectedDesign && (
+            <div className='variations-list__action-bar' >
+              <h2 className='design-title'>{props.selectedDesign.friendly_name}</h2>
+              {/*<p>{liveVariations.length} items</p>*/}
+              {/*<textarea className={cx('text-area')} defaultValue={'FIXME - persist data on focus leave'}/>*/}
+              <div className={cx('button-group')}>
+                <button className={cx('button')}
+                        onClick={() => {createBlankVariation()}}>ADD VARIATION</button>
+                <button className={cx('button')}
+                        onClick={() => deleteDesign()}>DELETE DESIGN</button>
+              </div>
+            </div>
+        )}
         {newVariations}
         {liveVariations}
       </>

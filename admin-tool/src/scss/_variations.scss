@@ -1,21 +1,47 @@
 .variations-list {
     &__action-bar {
-        margin: 0.5em;
+        background-color: $colour--black;
+        padding: $panel-padding;
+
+        .design-title {
+            color: $colour--green;
+            font-weight: normal;
+        }
+
+        .button-group {
+            /*padding: $panel-padding;
+            padding-left: 0;*/
+            display: flex;
+            justify-content: end;
+        }
     }
 }
 
+
+
 .variations-item {
-    background-color: beige;
+    //background-color: beige;
     transition: background-color 0.3s; // *** won't work
     padding: 1em;
-    margin: 0.5em;
+    margin: $panel-padding 0;
+    border: 1px solid;
+
+    &:hover {
+        background-color: $colour--grey-light;
+    }
 
     &--has-dirty-data {
-        background-color: aqua;
+        background-color: $colour--grey-light;
+        /*&:hover {
+            background-color:darken ($colour--grey-light, 20%)!important;
+        }*/
     }
 
     &--unsaved {
-        background-color: aquamarine;
+        background-color: $colour--unsaved;
+        /*&:hover {
+            background-color: $colour--unsaved;
+        }*/
     }
 
     &__action-bar {
@@ -23,5 +49,6 @@
         display: flex;
         justify-content: end;
         padding: 0.5em 0.5em 0.5em 0;
+        margin: 0 -1em -1em;
     }
 }

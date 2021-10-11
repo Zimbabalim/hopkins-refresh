@@ -1,13 +1,14 @@
 import React from "react";
 import ProductEditor from './productEditor/ProductEditor';
-import ImageUploader from './productEditor/ImageUploader';
+import NavigationBar from './NavigationBar';
+import UserEditor from './userEditor/UserEditor';
 
 const Layout = () => {
   return (
       <>
-        <h2>Layout</h2>
-        <ImageUploader/>
+        <NavigationBar/>
         <ProductEditor />
+        {/*<UserEditor/>*/}
       </>
   );
 };

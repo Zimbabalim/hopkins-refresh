@@ -80,3 +80,13 @@
     box-sizing: border-box;
     resize: vertical;
 }
+
+.file-input {
+    //visibility: hidden;
+    margin: 0 0.5em;
+}
+
+.new-entry-form {
+    background-color: $colour--grey-light;
+    padding: 1em 0.5em;
+}

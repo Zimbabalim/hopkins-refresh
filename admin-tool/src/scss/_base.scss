@@ -1,7 +1,8 @@
 body {
-    background-color: grey;
+    //background-color: grey;
     font-family: sans-serif;
     font-size: 16px;
+    color: $colour--black;
 }
 
 .App {
@@ -10,24 +11,34 @@ body {
 }
 
 .editor-window {
-    background-color: lightblue;
+    //background-color: lightblue;
 
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+
+    //padding: 1em;
+    //background-color: red;
 
     [class^="editor-window__pane"] {
-        border: 1px solid red;
-        //flex: 1 1;
+        //border: 1px solid red;
+        box-sizing: border-box;
+        padding: $panel-padding;
+        padding-top: 0;
     }
 
     &__pane--left {
-        background-color: pink;
-        flex-basis: 35%;
+        //background-color: pink;
+        flex-basis: $left-pane--width;
+        border-right: 1px solid $colour--grey-dark;
+        min-height: 100vh;
+        //background-color: $colour--grey-light;
+
     }
 
     &__pane--right {
-        background-color: coral;
-        flex-basis: 65%;
+        //background-color: coral;
+        flex-basis: $right-pane--width;
     }
 
 }
@@ -47,5 +58,30 @@ body {
             margin-right: 0.5em;
         }
     }
+}
+
+.image-wrapper {
+    height: 100%;
+    margin-right: 0.5em;
+    background-color: $colour--unsaved;
+    border: 1px solid $colour--white;
+    box-sizing: border-box;
+
+    color: white;
+    font-size: $font-size--small;
+    img {
+        width: auto;
+        height: 100%;
+    }
+}
+
+.resizeable-container {
+    resize: vertical;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: $resizeable-container--default-height;
+    min-height: $resizeable-container--default-height;
+    max-width: 100%;
+    max-height: 290px;
 }
 

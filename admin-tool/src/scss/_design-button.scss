@@ -1,0 +1,19 @@
+.design-button {
+    //background-color: black;
+    cursor: default;
+
+    &__inner {
+        &:after {
+            content: '';
+            background-color: red;
+            height: 100%;
+            width: 50px;
+        }
+    }
+
+    &__label {
+        color: $colour--green;
+        font-weight: normal;
+        padding: $panel-padding;
+    }
+}

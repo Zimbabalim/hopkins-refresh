@@ -1,0 +1,12 @@
+.image-uploader {
+    flex-basis: 100%;
+    padding: 0.5em 0.5em 0;
+    //background-color: $colour--grey-light;
+    border: 1px solid;
+    margin: $panel-padding;
+    margin-top: 0;
+
+    .form-row {
+        justify-content: center;
+    }
+}

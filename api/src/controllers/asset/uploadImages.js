@@ -12,14 +12,18 @@ export const uploadImages = async (req, res) => {
       fn(null, uploadDir);
     },
     filename: function (req, file, fn) {
+      console.log('/uploadImages/ -filename', file.originalname);
       fn(null, file.originalname);
     }
   });
   
   const upload = multer({ storage: storage }).single('image');
   // const upload = multer({ storage: storage }).fields([{name: 'image'}]);
+  // const upload = multer({ storage: storage }).array('image');
 
+  
 // *** util to move files after upload
+
 const moveFiles = (options) => {
   
   console.log('/uploadImages/ -moveFiles', options);
@@ -56,8 +60,8 @@ const moveFiles = (options) => {
           });
       
     } else {
-      console.log('/uploadImages/ -uploadImages --uploaded!');
-      const FileName = req.file.filename;
+      console.log('/uploadImages/ -uploadImages --uploaded!', req.files);
+      // const FileName = req.file.filename;
   
       res
       .status(200)
