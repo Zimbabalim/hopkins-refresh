@@ -44,7 +44,9 @@ const UserFilter = (props) => {
   
   return (
       <div className={cx('product-filter')}>
-        <h4>Find a user</h4>
+        <h4 className={'filter-title'}>Find users
+          {props.userData && (<span className={'filter-title__item-count'}>{props.userData.length} results</span>)}
+        </h4>
         
         <div className="form-row">
           <div className="form-group form-group--full-width">
@@ -79,7 +81,8 @@ const UserFilter = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  const {userData} = state;
+  return {userData};
 };
 
 export default connect(mapStateToProps, null)(UserFilter);

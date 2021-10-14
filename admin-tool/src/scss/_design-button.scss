@@ -17,14 +17,6 @@
             background-color: $colour--grey-light;
             &:after {
                 background-color: $colour--grey-light;
-
-
-
-
-
-
-
-
             }
         }
     }
@@ -36,6 +28,7 @@
         .design-button__inner {
             background-color: $colour--black;
             width: calc(100% - 1.5em);
+            letter-spacing: 0.1em;
             &:after {
                 background-color: $colour--black;
             }

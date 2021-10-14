@@ -7,6 +7,7 @@ const config = {
     imagesPath: '/assets/images/products',
     
     getUser: '/api/user/?partialmatch=true&',
+    updateUser: '/api/user/',
   }
 }
 

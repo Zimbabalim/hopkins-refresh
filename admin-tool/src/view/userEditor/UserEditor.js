@@ -8,7 +8,7 @@ import UserButton from './UserButton';
 import cx from 'classnames';
 
 
-const ProductEditor = (props) => {
+const UserEditor = (props) => {
   
   // *** TODO paginate results
   
@@ -17,14 +17,14 @@ const ProductEditor = (props) => {
     if (!props.userData) return;
     
     if (props.userData.length === 1) {
-      console.log('/ProductEditor/ -AUTO CLICK');
+      console.log('/UserEditor/ -AUTO CLICK');
       onSelection(props.userData[0]);
     }
     
   }, [props.userData])
   
   const onSelection = (item) => {
-    // console.log('/ProductEditor/ -onSelection', item);
+    console.log('/UserEditor/ -onSelection', item.user_notes);
   
     props.dispatch(actions.userSelected(
         {item}
@@ -63,4 +63,4 @@ const mapStateToProps = (state) => {
   return {userData, currentViewIndex}
 };
 
-export default connect(mapStateToProps, null)(ProductEditor);
+export default connect(mapStateToProps, null)(UserEditor);

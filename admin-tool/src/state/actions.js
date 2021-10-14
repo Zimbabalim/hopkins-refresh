@@ -17,6 +17,8 @@ const types = {
   GET_USER_DATA: 'GET_USER_DATA',
   USER_DATA_LOADED: 'USER_DATA_LOADED',
   USER_SELECTED: 'USER_SELECTED',
+  DB_UPDATE_USER: 'DB_UPDATE_USER',
+  DB_UPDATE_USER_RESPONSE: 'DB_UPDATE_USER_RESPONSE',
 };
 
 const actions = {
@@ -36,6 +38,8 @@ const actions = {
   getUserData: createAction(types.GET_USER_DATA),
   userDataLoaded: createAction(types.USER_DATA_LOADED),
   userSelected: createAction(types.USER_SELECTED),
+  dbUpdateUser: createAction(types.DB_UPDATE_USER),
+  dbUpdateUserResponse: createAction(types.DB_UPDATE_USER_RESPONSE),
 }
 
 export default actions;

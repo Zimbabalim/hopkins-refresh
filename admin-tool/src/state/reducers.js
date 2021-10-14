@@ -108,6 +108,38 @@ const app = handleActions(
           selectedUser: payload.item,
         }
       },
+  
+      // *** uses saga
+      [types.DB_UPDATE_USER](state, {payload}) {
+        return {
+          ...state,
+        }
+      },
+  
+      // *** uses saga
+      [types.DB_UPDATE_USER_RESPONSE](state, {payload}) {
+        // console.log('/reducers/ -DB_UPDATE_USER_RESPONSE', payload.response.payload.data._id);
+        // *** replace data only on success
+        const freshUser = (payload.response.payload.success) ?
+            payload.response.payload.data : state.selectedUser;
+        
+        // *** have to update whole data set to ensure latest changes appear
+        const userData =[...state.userData];
+        let updateIndex = null;
+        
+        userData.filter((item, index) => {
+          if (payload.response.payload.data._id === item._id) {
+            updateIndex = index;
+          }
+        });
+        
+        userData[updateIndex] = freshUser;
+        
+        return {
+          ...state,
+          userData,
+        }
+      },
       
       
     },

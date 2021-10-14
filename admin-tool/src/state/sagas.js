@@ -96,6 +96,31 @@ function* watchGetUserData() {
 }
 
 
+/**
+ * UPDATE USER
+ */
+function* dbUpdateUser(action) {
+  
+  const request = {
+    path: `${config.api.updateUser}${action.payload.data._id}`,
+    data: action.payload.data,
+  }
+  
+  console.log('/sagas/ -dbUpdateUser zzz', request);
+  
+  const response = yield call(fetchService.update, request);
+  
+  const vo = {
+    request,
+    response
+  }
+  yield put(actions.dbUpdateUserResponse(vo));
+}
+// *** observe action
+function* watchUpdateUser() {
+  yield takeLatest(types.DB_UPDATE_USER, dbUpdateUser);
+}
+
 
 function* sagas() {
   yield all([
@@ -104,6 +129,7 @@ function* sagas() {
     watchUploadImages(),
   
     watchGetUserData(),
+    watchUpdateUser(),
   ]);
 }
 

@@ -3,7 +3,7 @@ import cx from 'classnames';
 import config from '../../config';
 import {connect} from 'react-redux';
 
-const DesignButton = (props) => {
+const UserButton = (props) => {
   
   const [isSelected, setIsSelected] = useState(false);
   
@@ -32,4 +32,4 @@ const mapStateToProps = (state) => {
   return {selectedUser}
 };
 
-export default connect(mapStateToProps, null)(DesignButton);
+export default connect(mapStateToProps, null)(UserButton);

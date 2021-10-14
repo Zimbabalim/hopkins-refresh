@@ -2,7 +2,7 @@
     .user-swatch {
         background-color: $colour--grey-light;
         display: flex;
-        margin: 0.5em 0;
+        margin: 0.25em 0;
         padding: 0.5em;
         font-size: 0.9em;
         justify-content: space-between;
@@ -10,6 +10,7 @@
         font-weight: 100;
 
         &:hover {
+            padding: 1em;
             color: $colour--white;
             //background-color: $colour--grey-medium;
             background-color: scale-color($colour--grey-medium, $lightness: 20%);

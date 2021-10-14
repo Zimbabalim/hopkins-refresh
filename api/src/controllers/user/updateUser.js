@@ -21,8 +21,13 @@ export const updateUser = async (req, res) => {
     data = await User.findOneAndUpdate(
         {_id: id},
         {
+          company: req.body.company,
           email: req.body.email,
-          full_name: req.body.full_name
+          full_name: req.body.full_name,
+          swatches: req.body.swatches,
+          rich_swatches: req.body.rich_swatches,
+          user_log: req.body.user_log,
+          user_notes: req.body.user_notes,
         }, {
           new: true
         }
@@ -40,7 +45,7 @@ export const updateUser = async (req, res) => {
   res
       .status(201)
       .send({
-        message: 'it worked!!!',
+        message: 'updated user',
         success: true,
         data
       })

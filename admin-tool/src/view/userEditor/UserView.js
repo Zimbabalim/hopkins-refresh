@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import cx from 'classnames';
 import {connect} from 'react-redux';
 import Swatches from './Swatches';
+import {actions} from '../../state';
 
 const UserView = (props) => {
   
@@ -10,18 +11,36 @@ const UserView = (props) => {
   
   useEffect(() => {
     
-    // setIsDirtyData(false);
-    
     if (!props.selectedUser) return;
+    
+    console.log('/UserView/ -UPDATE?', props.selectedUser.user_notes);
+    
     setIsDirtyData(false);
     setNotes(props.selectedUser.user_notes || 'Notes');
     
   }, [props.selectedUser]);
   
   useEffect(() => {
+    
+    console.log('============ /UserView/ -NOTES:', notes);
+    
+  }, [notes]);
+  
+  
+  useEffect(() => {
     console.log('/UserView/ -DIRTY xxx', isDirtyData);
   }, [isDirtyData]);
   
+  const save = () => {
+    console.log('/UserView/ -save xxx');
+    const data = Object.assign({}, props.selectedUser);
+    
+    data.user_notes = notes;
+  
+    props.dispatch(actions.dbUpdateUser({
+      data,
+    }));
+  }
   
   return (
       <>
@@ -32,6 +51,8 @@ const UserView = (props) => {
                 <h3>{props.selectedUser.company}</h3>
                 <p><a href={`mailto:${props.selectedUser.email}`}>{props.selectedUser.email}</a></p>
                 <div className={cx('button-group')}>
+                  <button className={cx('button', (!isDirtyData) ? 'button--is-disabled' : null)}
+                      onClick={() => save()}>SAVE CHANGES</button>
                   <button className={cx('button')}
                       /*onClick={() => deleteDesign()}*/>DELETE USER</button>
                 </div>

@@ -9,4 +9,13 @@
     &:hover {
         background-color: scale-color($colour--green, $lightness: -20%);
     }
+
+    .filter-title {
+        display: flex;
+        justify-content: space-between;
+
+        &__item-count {
+            color: $colour--green;
+        }
+    }
 }

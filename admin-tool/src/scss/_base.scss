@@ -59,6 +59,11 @@ body {
         color: scale-color($colour--green, $lightness: -30%);
     }
 
+    &:active {
+        background-color: $colour--white;
+        border-color: $colour--white;
+    }
+
     &--save {
         background-color: $colour--green;
         color: $colour--white;
@@ -68,6 +73,10 @@ body {
         background-color: $colour--red;
         border-color: scale-color($colour--red, $lightness: -30%);
         color: $colour--white;
+
+        &:active {
+            color: $colour--red!important;
+        }
 
         &:hover {
             border-color: scale-color($colour--red, $lightness: 30%);
