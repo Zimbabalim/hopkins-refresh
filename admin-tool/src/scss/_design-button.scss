@@ -1,18 +1,80 @@
 .design-button {
-    //background-color: black;
+
+    $anim-time: 0.3s;
+    $offset-1: 12em;
+    $offset-2: 3em;
+
+
+    transition: all $anim-time;
     cursor: default;
+    margin: 0.5em 0;
+
+    &:hover {
+        //background-color: $colour--grey-light;
+
+        .design-button__inner {
+            width: calc(100% - #{$offset-2});
+            background-color: $colour--grey-light;
+            &:after {
+                background-color: $colour--grey-light;
+
+
+
+
+
+
+
+
+            }
+        }
+    }
+
+    &--is-selected {
+        //background-color: $colour--black;
+        pointer-events: none;
+
+        .design-button__inner {
+            background-color: $colour--black;
+            width: calc(100% - 1.5em);
+            &:after {
+                background-color: $colour--black;
+            }
+        }
+
+
+        &:hover {
+            //background-color: $colour--black;
+        }
+
+        .design-button__label {
+            color: $colour--green;
+        }
+    }
 
     &__inner {
+        transition: all $anim-time;
+        position: relative;
+        height: 2.8em;
+        display: flex;
+        //background-color: scale-color($colour--grey-light, $lightness: 80%);
+        align-items: center;
+        width: calc(100% - #{$offset-1});
         &:after {
+            transition: all $anim-time;
             content: '';
-            background-color: red;
-            height: 100%;
-            width: 50px;
+            //background-color: scale-color($colour--grey-light, $lightness: 80%);
+            height: 2em;
+            width: 2em;
+            position: absolute;
+            z-index: 1;
+            right: -1em;
+            transform: rotate(
+                    45deg);
         }
     }
 
     &__label {
-        color: $colour--green;
+        color: $colour--green-dark;
         font-weight: normal;
         padding: $panel-padding;
     }

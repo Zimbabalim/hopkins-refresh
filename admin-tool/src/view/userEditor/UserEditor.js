@@ -2,11 +2,11 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {actions} from '../../state';
 import NewUserForm from './NewUserForm';
-// import ProductFilter from './ProductFilter';
-// import DesignButton from './DesignButton';
-// import VariationsList from './VariationsList';
-// import ImageUploader from './ImageUploader';
-// import NewDesignForm from './NewDesignForm';
+import UserFilter from './UserFilter';
+import UserList from './UserList';
+import UserButton from './UserButton';
+import cx from 'classnames';
+
 
 const ProductEditor = (props) => {
   
@@ -14,46 +14,45 @@ const ProductEditor = (props) => {
   
   useEffect(() => {
     
-    if (!props.productData) return;
+    if (!props.userData) return;
     
-    if (props.productData.length === 1) {
+    if (props.userData.length === 1) {
       console.log('/ProductEditor/ -AUTO CLICK');
-      onDesignSelected(props.productData[0]);
+      onSelection(props.userData[0]);
     }
     
-  }, [props.productData])
+  }, [props.userData])
   
-  const onDesignSelected = (item) => {
-    // console.log('/ProductEditor/ -onDesignSelected', item);
+  const onSelection = (item) => {
+    // console.log('/ProductEditor/ -onSelection', item);
   
-    props.dispatch(actions.designSelected(
+    props.dispatch(actions.userSelected(
         {item}
     ));
   };
   
   return (
-      <div className='editor-window'>
-  
-        {/*<ImageUploader/>*/}
+      <div className={cx('view editor-window user-editor',
+          (props.currentViewIndex === props.routeIndex) ? 'is-active' : null )}>
   
         <div className="editor-window__pane--left">
           
           <NewUserForm/>
           
-          {props.productData &&
-          props.productData.map((item,index) => {
-            /*return <DesignButton
+          {props.userData &&
+          props.userData.map((item,index) => {
+            return <UserButton
                 key={`DesignButton--${index}`}
                 data={item}
-                clickFn={() => onDesignSelected(item)}
-            />*/
+                clickFn={() => onSelection(item)}
+            />
           })
           }
         </div>
   
         <div className="editor-window__pane--right">
-          {/*<ProductFilter/>*/}
-          {/*<VariationsList/>*/}
+          <UserFilter/>
+          <UserList/>
         </div>
         
         
@@ -62,9 +61,8 @@ const ProductEditor = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const {productData} = state;
-  //console.log('/ProductEditor/ -mapStateToProps', productData);
-  return {productData}
+  const {userData, currentViewIndex} = state;
+  return {userData, currentViewIndex}
 };
 
 export default connect(mapStateToProps, null)(ProductEditor);

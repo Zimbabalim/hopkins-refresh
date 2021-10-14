@@ -1,11 +1,20 @@
+@use "sass:color";
+
 .variations-list {
     &__action-bar {
         background-color: $colour--black;
         padding: $panel-padding;
+        padding-left: 1.75em;
+        //color: scale-color($colour--green, $lightness: -30%);
+        color: $colour--green-dark;
+        line-height: 0.7;
 
         .design-title {
             color: $colour--green;
             font-weight: normal;
+            //margin-left: 0.75em;
+            margin-bottom: 0;
+            font-size: 1.75em;
         }
 
         .button-group {
@@ -13,42 +22,73 @@
             padding-left: 0;*/
             display: flex;
             justify-content: end;
+            margin-top: 0;
+        }
+
+        a {
+            transition: all 0.3s;
+            color: $colour--green-dark;
+
+            &:hover {
+                color: $colour--green;
+            }
         }
     }
 }
 
-
-
 .variations-item {
-    //background-color: beige;
-    transition: background-color 0.3s; // *** won't work
+    transition: all 0.3s;
     padding: 1em;
     margin: $panel-padding 0;
-    border: 1px solid;
+    border: 1px solid $colour--grey-medium;
+    //transform: scale(0.9);
 
     &:hover {
-        background-color: $colour--grey-light;
+        background-color: scale-color($colour--grey-light, $lightness: 35%);
+
+        .input-item {
+            //background-color: scale-color($colour--grey-light, $lightness: 90%);
+            background-color: $colour--white;
+        }
     }
 
     &--has-dirty-data {
         background-color: $colour--grey-light;
-        /*&:hover {
-            background-color:darken ($colour--grey-light, 20%)!important;
-        }*/
+        &:hover {
+            background-color: scale-color($colour--grey-light, $lightness: -10%);
+        }
+        .variations-item__action-bar {
+            background-color: $colour--grey-dark;
+        }
     }
 
     &--unsaved {
         background-color: $colour--unsaved;
-        /*&:hover {
-            background-color: $colour--unsaved;
-        }*/
+        animation-duration: 0.3s;
+        animation-name: grow-in;
+        &:hover {
+            background-color: scale-color($colour--unsaved, $lightness: -15%);
+        }
     }
 
     &__action-bar {
-        background-color: grey;
+        background-color: $colour--grey-medium;
+
         display: flex;
         justify-content: end;
-        padding: 0.5em 0.5em 0.5em 0;
+        padding: 0.25em 1em 0.25em 0;
         margin: 0 -1em -1em;
+        transition: background-color 0.3s; // *** won't work
+    }
+}
+
+@keyframes grow-in {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
     }
 }

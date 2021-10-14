@@ -21,9 +21,14 @@ const VariationsItem = (props) => {
   const [tax, setTax] = useState(''); //+VAT/M
   const [currency, setCurrency] = useState('£'); // *** if required at some point
   
-  const [isDefault, setIsDefault] = useState(false);
+  const [isDefault, setIsDefault] = useState(false); // FIXIT
   
-  const [trigger, setTrigger] = useState(false);
+  const [trigger, setTrigger] = useState(false); // *** image cache buster
+  
+  const [isPendingDelete, setIsPendingDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  
+  
   
   useEffect(() => {
     init();
@@ -117,10 +122,18 @@ const VariationsItem = (props) => {
   }
   
   const onDelete = () => {
-    props.onDeleteFn({
-      uid: props.uid,
-      isNewItem: props.isNewItem,
-    });
+    setIsPendingDelete(!isPendingDelete);
+    if (!isPendingDelete) return;
+    
+    setIsDeleting(true);
+    
+    // *** allow animation to complete
+    setTimeout(() => {
+      props.onDeleteFn({
+        uid: props.uid,
+        isNewItem: props.isNewItem,
+      });
+    }, 300); // *** ensure timing reflected in css
   }
   
   const onChange = (fn) => {
@@ -135,6 +148,7 @@ const VariationsItem = (props) => {
                type="text" placeholder={options.placeholder} value={options.value}
                onChange= {(e) => {
                  setIsDirtyData(true);
+                 setIsPendingDelete(false);
                  options.change(e.target.value);
                }}
                onKeyPress={options.click}
@@ -145,13 +159,20 @@ const VariationsItem = (props) => {
   const createImagesBlock = () => {
     return (<>
       <div className="image-wrapper">
-        <img src={`${config.api.imagesPath}/A/${fabricCode}-${designCode}-${colourCode}_a.jpg?cb=${trigger}`} alt={`image A`}/>
+        <div className="image-wrapper__caption"><span>A</span></div>
+        <img src={`${config.api.imagesPath}/A/${fabricCode}-${designCode}-${colourCode}_a.jpg?cb=${trigger}`}/>
       </div>
       <div className="image-wrapper">
-        <img src={`${config.api.imagesPath}/B/${fabricCode}-${designCode}-${colourCode}_b.jpg?cb=${trigger}`} alt={`image B`}/>
+        <div className="image-wrapper__caption"><span>B</span></div>
+        <img src={`${config.api.imagesPath}/B/${fabricCode}-${designCode}-${colourCode}_b.jpg?cb=${trigger}`}/>
       </div>
       <div className="image-wrapper">
-        <img src={`${config.api.imagesPath}/C/${fabricCode}-${designCode}-${colourCode}_c.jpg?cb=${trigger}`} alt={`image C`}/>
+        
+        
+        
+        
+        <div className="image-wrapper__caption"><span>C</span></div>
+        <img src={`${config.api.imagesPath}/C/${fabricCode}-${designCode}-${colourCode}_c.jpg?cb=${trigger}`}/>
       </div>
     </>)
   }
@@ -159,7 +180,9 @@ const VariationsItem = (props) => {
   return (
       <div className={cx('variations-item',
           (props.isNewItem) ? 'variations-item--unsaved' : null,
-          (isDirtyData) ? 'variations-item--has-dirty-data' : null
+          (isDirtyData) ? 'variations-item--has-dirty-data' : null,
+          (isPendingDelete) ? 'item-will-delete' : null,
+          (isDeleting) ? 'item-is-deleting' : null,
       )}>
         {/*<p>UID: {props.uid}</p>*/}
         
@@ -311,10 +334,11 @@ const VariationsItem = (props) => {
         
         <div className='variations-item__action-bar'>
           <div className={cx('button-group')}>
-            <button className={cx('button', (!isDirtyData) ? 'button--is-disabled' : null)}
+            <button className={cx('button',
+                (!isDirtyData || isPendingDelete) ? 'button--is-disabled' : null)}
                     onClick={() => onSave()}>SAVE</button>
-            <button className={cx('button')}
-                    onClick={() => onDelete()}>DELETE</button>
+            <button className={cx('button', (isPendingDelete) ? 'button--warn' : null)}
+                    onClick={() => onDelete()}>{(isPendingDelete) ? 'REALLY?' : 'DELETE'}</button>
           </div>
         </div>
       </div>

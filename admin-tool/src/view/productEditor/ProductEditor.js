@@ -6,10 +6,15 @@ import {actions} from '../../state';
 import VariationsList from './VariationsList';
 import ImageUploader from './ImageUploader';
 import NewDesignForm from './NewDesignForm';
+import cx from 'classnames';
 
 const ProductEditor = (props) => {
   
   // *** TODO paginate results
+  
+  useEffect(() => {
+    console.log('/ProductEditor/ -====================', props.currentViewIndex, props.routeIndex);
+  }, [props.currentViewIndex]);
   
   useEffect(() => {
     
@@ -23,15 +28,14 @@ const ProductEditor = (props) => {
   }, [props.productData])
   
   const onDesignSelected = (item) => {
-    // console.log('/ProductEditor/ -onDesignSelected', item);
-  
     props.dispatch(actions.designSelected(
         {item}
     ));
   };
-  
+  //props.currentViewIndex, props.routeIndex
   return (
-      <div className='editor-window'>
+      <div className={cx('view editor-window product-editor',
+          (props.currentViewIndex === props.routeIndex) ? 'is-active' : null)}>
   
         <ImageUploader/>
   
@@ -61,8 +65,8 @@ const ProductEditor = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const {productData} = state;
-  return {productData}
+  const {productData, currentViewIndex} = state;
+  return {productData, currentViewIndex}
 };
 
 export default connect(mapStateToProps, null)(ProductEditor);

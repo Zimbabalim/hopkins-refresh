@@ -58,8 +58,8 @@ const ProductFilter = (props) => {
 
 const mapStateToProps = (state) => {
   //console.log('/ProductFilter/ -mapStateToProps', state);
-  const {testFlag} = state;
-  return {testFlag}
+  // const {testFlag} = state;
+  return {}
 };
 
 export default connect(mapStateToProps, null)(ProductFilter);

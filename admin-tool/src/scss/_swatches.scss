@@ -1,0 +1,26 @@
+.swatches {
+    .user-swatch {
+        background-color: $colour--grey-light;
+        display: flex;
+        margin: 0.5em 0;
+        padding: 0.5em;
+        font-size: 0.9em;
+        justify-content: space-between;
+        transition: all 0.3s;
+        font-weight: 100;
+
+        &:hover {
+            color: $colour--white;
+            //background-color: $colour--grey-medium;
+            background-color: scale-color($colour--grey-medium, $lightness: 20%);
+            letter-spacing: 0.1em;
+            .user-swatch__date {
+                color: scale-color($colour--green, $lightness: 70%);
+            }
+        }
+
+        &__date {
+            color: $colour--green-dark;
+        }
+    }
+}

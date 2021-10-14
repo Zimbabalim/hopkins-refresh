@@ -3,25 +3,30 @@ body {
     font-family: sans-serif;
     font-size: 16px;
     color: $colour--black;
+    line-height: 1;
 }
 
 .App {
     max-width: 1440px;
+    min-width: 940px;
     margin: 0 auto;
 }
 
 .editor-window {
-    //background-color: lightblue;
-
-    display: flex;
+    display: none;
     flex-direction: row;
     flex-wrap: wrap;
 
-    //padding: 1em;
-    //background-color: red;
+    transition: all 0.3s;
+
+    opacity: 0;
+
+    &.is-active { // *** displays 'route'
+        display: flex;
+        opacity: 1;
+    }
 
     [class^="editor-window__pane"] {
-        //border: 1px solid red;
         box-sizing: border-box;
         padding: $panel-padding;
         padding-top: 0;
@@ -30,7 +35,7 @@ body {
     &__pane--left {
         //background-color: pink;
         flex-basis: $left-pane--width;
-        border-right: 1px solid $colour--grey-dark;
+        border-right: 1px solid $colour--grey-medium;
         min-height: 100vh;
         //background-color: $colour--grey-light;
 
@@ -44,7 +49,31 @@ body {
 }
 
 .button {
-    transition: opacity 0.3s; // *** not working...
+    transition: all 0.3s;
+    border: 3px solid $colour--grey-medium;
+    padding: 0.5em;
+    background-color: scale-color($colour--green, $lightness: 80%);
+
+    &:hover {
+        border-color: $colour--green;
+        color: scale-color($colour--green, $lightness: -30%);
+    }
+
+    &--save {
+        background-color: $colour--green;
+        color: $colour--white;
+    }
+
+    &--warn {
+        background-color: $colour--red;
+        border-color: scale-color($colour--red, $lightness: -30%);
+        color: $colour--white;
+
+        &:hover {
+            border-color: scale-color($colour--red, $lightness: 30%);
+            color: $colour--white;
+        }
+    }
 
     &--is-disabled {
         opacity: 0.4;
@@ -62,13 +91,25 @@ body {
 
 .image-wrapper {
     height: 100%;
-    margin-right: 0.5em;
+    margin-right: 0.75em;
     background-color: $colour--unsaved;
     border: 1px solid $colour--white;
     box-sizing: border-box;
+    min-width: 4em;
+    display: flex;
 
-    color: white;
-    font-size: $font-size--small;
+    //color: $colour--white;
+    //font-size: $font-size--small;
+
+    &__caption {
+        background-color: $colour--white;
+        color: $colour--black;
+        display: flex;
+        align-items: end;
+        padding: 0 0.25em;
+        font-size: $font-size--smallest;
+    }
+
     img {
         width: auto;
         height: 100%;
@@ -83,5 +124,14 @@ body {
     min-height: $resizeable-container--default-height;
     max-width: 100%;
     max-height: 290px;
+}
+
+.item-will-delete {
+    transform: scale(0.95);
+}
+
+.item-is-deleting {
+    opacity: 0;
+    transform: scale(0.4);
 }
 

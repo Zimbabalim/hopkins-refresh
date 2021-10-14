@@ -2,13 +2,28 @@ import {handleActions} from 'redux-actions';
 import {types} from './actions';
 
 const defaultState = {
+  
+  currentViewIndex: 0,
+  
   productData: null,
   selectedDesign: null,
   imagesUploaderTrigger: false, // *** to cache bust and reload images after upload
+  
+  userData: null,
+  selectedUser: null,
 };
 
 const app = handleActions(
     {
+  
+      [types.CHANGE_ROUTE](state, {payload}) {
+        console.log('/reducers/ -CHANGE_ROUTE', payload);
+        return {
+          ...state,
+          currentViewIndex: payload.index,
+        }
+      },
+      
   
       // *** PRODUCT EDITOR =========
       
@@ -17,6 +32,15 @@ const app = handleActions(
         return {
           ...state,
           selectedDesign: null,
+        }
+      },
+  
+      // *** uses saga
+      [types.PRODUCT_DATA_LOADED](state, {payload}) {
+        const productData = payload.response.payload.data;
+        return {
+          ...state,
+          productData,
         }
       },
   
@@ -53,15 +77,6 @@ const app = handleActions(
           imagesUploaderTrigger: false,
         }
       },
-      
-  
-      [types.PRODUCT_DATA_LOADED](state, {payload}) {
-        const productData = payload.response.payload.data;
-        return {
-          ...state,
-          productData,
-        }
-      },
   
       [types.DESIGN_SELECTED](state, {payload}) {
         return {
@@ -71,6 +86,30 @@ const app = handleActions(
       },
   
       // *** USER EDITOR =========
+      [types.GET_USER_DATA](state, {payload}) {
+        console.log('/reducers/ -', payload);
+        return {
+          ...state,
+          selectedUser: null,
+        }
+      },
+  
+      [types.USER_DATA_LOADED](state, {payload}) {
+        const userData = payload.response.payload.data;
+        return {
+          ...state,
+          userData,
+        }
+      },
+  
+      [types.USER_SELECTED](state, {payload}) {
+        return {
+          ...state,
+          selectedUser: payload.item,
+        }
+      },
+      
+      
     },
     defaultState
 );

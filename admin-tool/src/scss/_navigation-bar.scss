@@ -1,12 +1,22 @@
 .navigation-bar {
     padding: 1em 0;
+    margin-right: 0.5em;
     display: flex;
     justify-content: right;
 
     .navigation-link {
         padding: 0 1em;
-        border-right: 1px solid;
+        border-right: 1px solid $colour--black;
         cursor: default;
+        transition: all 0.3s;
+
+        &.is-selected {
+            color: $colour--green;
+        }
+
+        &:hover {
+            color: $colour--green-dark;
+        }
 
         &:last-child {
             padding-right: 0;

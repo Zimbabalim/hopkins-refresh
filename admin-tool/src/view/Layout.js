@@ -7,8 +7,8 @@ const Layout = () => {
   return (
       <>
         <NavigationBar/>
-        <ProductEditor />
-        {/*<UserEditor/>*/}
+        <UserEditor routeIndex={0}/>
+        <ProductEditor routeIndex={1}/>
       </>
   );
 };

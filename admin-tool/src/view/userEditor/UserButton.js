@@ -8,31 +8,28 @@ const DesignButton = (props) => {
   const [isSelected, setIsSelected] = useState(false);
   
   useEffect(() => {
-    
-    if (!props.selectedDesign) {
+    if (!props.selectedUser) {
       setIsSelected(false);
       return
     }
-    console.log('/DesignButton/ -A', props.data._id === props.selectedDesign._id);
-    setIsSelected( props.data._id === props.selectedDesign._id);
-  
-  }, [props.selectedDesign]);
-  //(props.data._id === props.selectedDesign._id) ? 'design-button--is-selected' : null
+    
+    setIsSelected( props.data._id === props.selectedUser._id);
+  }, [props.selectedUser]);
+
   return (
       <div className={cx('design-button', (isSelected) ? 'design-button--is-selected' : null )}
            onClick={() => props.clickFn(props.data)}
       >
         <div className={cx('design-button__inner')}>
-          {/*<img src={`${config.api.imagesPath}/A/${fabricCode}-${designCode}-${colourCode}_a.jpg?cb=${trigger}`} alt={`image A$`}/>*/}
-          <h4 className={cx('design-button__label')}>{props.data.friendly_name}</h4>
+          <h4 className={cx('design-button__label')}>{props.data.full_name}</h4>
         </div>
       </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  const {selectedDesign} = state;
-  return {selectedDesign}
+  const {selectedUser} = state;
+  return {selectedUser}
 };
 
 export default connect(mapStateToProps, null)(DesignButton);

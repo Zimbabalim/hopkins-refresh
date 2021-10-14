@@ -74,6 +74,27 @@ function* watchUploadImages() {
   yield takeLatest(types.DB_UPLOAD_IMAGES, dbUploadImages);
 }
 
+// === USERS ===
+
+/**
+ * FETCH USER DATA
+ * make async call, call action with original request data and response
+ */
+function* fetchUserData(action) {
+  console.log('/sagas/ -fetchUserData', action);
+  
+  const response = yield call(fetchService.call, action.payload);
+  const vo = {
+    request: action.payload,
+    response
+  }
+  yield put(actions.userDataLoaded(vo));
+}
+// *** observe action
+function* watchGetUserData() {
+  yield takeLatest(types.GET_USER_DATA, fetchUserData);
+}
+
 
 
 function* sagas() {
@@ -81,6 +102,8 @@ function* sagas() {
     watchGetProductData(),
     watchUpdateDesign(),
     watchUploadImages(),
+  
+    watchGetUserData(),
   ]);
 }
 
