@@ -50,6 +50,10 @@
         border: 2px solid $colour--green;
     }
 
+    &:hover {
+        border: 2px solid $colour--green-dark;
+    }
+
     /*&:hover {
         background-color: scale-color($colour--grey-light, $lightness: 90%);
     }*/

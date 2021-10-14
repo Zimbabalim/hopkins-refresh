@@ -1,5 +1,6 @@
 .swatches {
     .user-swatch {
+        cursor: default;
         background-color: $colour--grey-light;
         display: flex;
         margin: 0.25em 0;
@@ -11,12 +12,22 @@
 
         &:hover {
             padding: 1em;
-            color: $colour--white;
-            //background-color: $colour--grey-medium;
-            background-color: scale-color($colour--grey-medium, $lightness: 20%);
             letter-spacing: 0.1em;
+            color: $colour--white;
+            background-color: scale-color($colour--grey-medium, $lightness: 20%);
             .user-swatch__date {
                 color: scale-color($colour--green, $lightness: 70%);
+            }
+        }
+
+        &--marked {
+            background-color: $colour--green;
+            padding: 1em;
+            letter-spacing: 0.1em;
+
+
+            &:hover {
+                background-color: $colour--green-dark;
             }
         }
 

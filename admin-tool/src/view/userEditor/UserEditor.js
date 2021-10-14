@@ -24,8 +24,6 @@ const UserEditor = (props) => {
   }, [props.userData])
   
   const onSelection = (item) => {
-    console.log('/UserEditor/ -onSelection', item.user_notes);
-  
     props.dispatch(actions.userSelected(
         {item}
     ));

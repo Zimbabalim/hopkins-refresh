@@ -6,40 +6,40 @@ import {actions} from '../../state';
 
 const UserView = (props) => {
   
-  const [notes, setNotes] = useState('');
   const [isDirtyData, setIsDirtyData] = useState(false);
+  const [notes, setNotes] = useState('');
+  const [swatches, setSwatches] = useState([]);
   
   useEffect(() => {
     
     if (!props.selectedUser) return;
-    
-    console.log('/UserView/ -UPDATE?', props.selectedUser.user_notes);
     
     setIsDirtyData(false);
     setNotes(props.selectedUser.user_notes || 'Notes');
     
   }, [props.selectedUser]);
   
-  useEffect(() => {
-    
-    console.log('============ /UserView/ -NOTES:', notes);
-    
-  }, [notes]);
-  
   
   useEffect(() => {
-    console.log('/UserView/ -DIRTY xxx', isDirtyData);
+    console.log('/UserView/ -DIRTY', isDirtyData);
   }, [isDirtyData]);
   
   const save = () => {
-    console.log('/UserView/ -save xxx');
+
     const data = Object.assign({}, props.selectedUser);
-    
     data.user_notes = notes;
+    data.rich_swatches = swatches;
   
     props.dispatch(actions.dbUpdateUser({
       data,
     }));
+    
+    setIsDirtyData(false);
+  }
+  
+  const onSwatchMarkingChanged = (swatches) => {
+    setSwatches(swatches);
+    setIsDirtyData(true);
   }
   
   return (
@@ -62,7 +62,9 @@ const UserView = (props) => {
                 setNotes(e.target.value);
                 setIsDirtyData(true);
               }}/>
-              <Swatches />
+              <Swatches
+                onChange={onSwatchMarkingChanged}
+              />
             </>
         )}
       </>
