@@ -3,20 +3,25 @@ import cx from 'classnames';
 import {connect} from 'react-redux';
 import Swatches from './Swatches';
 
-const UserList = (props) => {
+const UserView = (props) => {
   
   const [notes, setNotes] = useState('');
+  const [isDirtyData, setIsDirtyData] = useState(false);
   
   useEffect(() => {
     
-    if (!props.selectedUser) {
-      setNotes('');
-      return;
-    }
+    // setIsDirtyData(false);
     
-    setNotes(props.selectedUser.user_notes || '');
+    if (!props.selectedUser) return;
+    setIsDirtyData(false);
+    setNotes(props.selectedUser.user_notes || 'Notes');
     
   }, [props.selectedUser]);
+  
+  useEffect(() => {
+    console.log('/UserView/ -DIRTY xxx', isDirtyData);
+  }, [isDirtyData]);
+  
   
   return (
       <>
@@ -32,7 +37,10 @@ const UserList = (props) => {
                 </div>
               </div>
               
-              <textarea className={cx('text-area user-notes')} defaultValue={notes}/>
+              <textarea className={cx('text-area user-notes')} value={notes} onChange={(e) => {
+                setNotes(e.target.value);
+                setIsDirtyData(true);
+              }}/>
               <Swatches />
             </>
         )}
@@ -45,4 +53,4 @@ const mapStateToProps = (state) => {
   return {selectedUser}
 };
 
-export default connect(mapStateToProps, null)(UserList);
+export default connect(mapStateToProps, null)(UserView);

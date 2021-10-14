@@ -57,6 +57,7 @@ const VariationsItem = (props) => {
   }, [props.imagesUploaderTrigger]);
   
   
+  
   const init = () => {
     
     if (props.isNewItem) {

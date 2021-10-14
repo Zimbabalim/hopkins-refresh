@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {actions} from '../../state';
 import NewUserForm from './NewUserForm';
 import UserFilter from './UserFilter';
-import UserList from './UserList';
+import UserView from './UserView';
 import UserButton from './UserButton';
 import cx from 'classnames';
 
@@ -52,10 +52,8 @@ const ProductEditor = (props) => {
   
         <div className="editor-window__pane--right">
           <UserFilter/>
-          <UserList/>
+          <UserView/>
         </div>
-        
-        
       </div>
   );
 };
