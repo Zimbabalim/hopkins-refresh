@@ -11,6 +11,8 @@ const defaultState = {
   
   userData: null,
   selectedUser: null,
+  
+  newUserResponseMessage: null,
 };
 
 const app = handleActions(
@@ -138,6 +140,23 @@ const app = handleActions(
         return {
           ...state,
           userData,
+        }
+      },
+  
+  
+      // *** uses saga
+      [types.DB_CREATE_USER](state, {payload}) {
+        return {
+          ...state,
+        }
+      },
+  
+      // *** uses saga
+      [types.DB_CREATE_USER_RESPONSE](state, {payload}) {
+        // console.log('/reducers/ -DB_CREATE_USER_RESPONSE', payload.response.payload.message);
+        return {
+          ...state,
+          newUserResponseMessage: payload.response.payload.message,
         }
       },
       

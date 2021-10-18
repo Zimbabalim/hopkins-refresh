@@ -120,6 +120,10 @@
     background-color: $colour--grey-light;
     padding: 1em 0.5em;
 
+    &__status-message {
+        font-size: 0.9em;
+    }
+
     &:hover {
         background-color: scale-color($colour--grey-light, $lightness: -10%);
     }

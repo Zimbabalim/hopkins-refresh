@@ -57,6 +57,7 @@ function* dbUploadImages(action) {
     path: `${config.api.uploadImages}`,
     directory: action.payload.directory,
     data: action.payload.data,
+    headers: {'content-type': 'multipart/form-data'}
   }
   
   console.log('/sagas/ -dbUploadImages XXX', request);
@@ -121,6 +122,31 @@ function* watchUpdateUser() {
   yield takeLatest(types.DB_UPDATE_USER, dbUpdateUser);
 }
 
+/**
+ * CREATE USER
+ */
+function* dbCreateUser(action) {
+  const request = {
+    path: `${config.api.createUser}`,
+    data: action.payload,
+    headers: {'content-type': 'application/json'}
+  }
+  
+  console.log('/sagas/ -dbCreateUser', request);
+  // return;
+  const response = yield call(fetchService.post, request);
+  
+  const vo = {
+    request,
+    response
+  }
+  yield put(actions.dbCreateUserResponse(vo));
+}
+// *** observe action
+function* watchCreateUser() {
+  yield takeLatest(types.DB_CREATE_USER, dbCreateUser);
+}
+
 
 function* sagas() {
   yield all([
@@ -130,6 +156,8 @@ function* sagas() {
   
     watchGetUserData(),
     watchUpdateUser(),
+  
+    watchCreateUser(),
   ]);
 }
 

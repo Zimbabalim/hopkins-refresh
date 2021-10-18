@@ -19,6 +19,12 @@ const types = {
   USER_SELECTED: 'USER_SELECTED',
   DB_UPDATE_USER: 'DB_UPDATE_USER',
   DB_UPDATE_USER_RESPONSE: 'DB_UPDATE_USER_RESPONSE',
+  
+  DB_CREATE_USER: 'DB_CREATE_USER',
+  DB_CREATE_USER_RESPONSE: 'DB_CREATE_USER_RESPONSE',
+  
+  DB_DELETE_USER: 'DB_DELETE_USER',
+  DB_DELETE_USER_RESPONSE: 'DB_DELETE_USER_RESPONSE',
 };
 
 const actions = {
@@ -34,12 +40,18 @@ const actions = {
   dbUploadImages: createAction(types.DB_UPLOAD_IMAGES),
   dbUploadImagesResponse: createAction(types.DB_UPLOAD_IMAGES_RESPONSE),
   
-  // *** editor
+  // *** user
   getUserData: createAction(types.GET_USER_DATA),
   userDataLoaded: createAction(types.USER_DATA_LOADED),
   userSelected: createAction(types.USER_SELECTED),
   dbUpdateUser: createAction(types.DB_UPDATE_USER),
   dbUpdateUserResponse: createAction(types.DB_UPDATE_USER_RESPONSE),
+  
+  dbCreateUser: createAction(types.DB_CREATE_USER),
+  dbCreateUserResponse: createAction(types.DB_CREATE_USER_RESPONSE),
+  
+  dbDeleteUser: createAction(types.DB_DELETE_USER),
+  dbDeleteUserResponse: createAction(types.DB_DELETE_USER_RESPONSE),
 }
 
 export default actions;

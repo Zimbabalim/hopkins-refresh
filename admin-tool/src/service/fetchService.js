@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// TODO refactor this into single call with configurable type!
 // *** called either directly or handled by saga
 const fetchService = {
   
@@ -16,8 +17,8 @@ const fetchService = {
           };
         })
         .catch((error) => {
-          console.warn('/fetchService/ -ERROR', error);
-          return {status: 'fail', payload: null}
+          console.warn('/fetchService/ -ERROR yyy', error);
+          return {status: 'fail', payload: error}
         })
         .finally(() => {
           // console.log('/fetchService/ -FINISHED');
@@ -50,12 +51,9 @@ const fetchService = {
   
   post: (request) => {
     console.log('/fetchService/ -UPDATE', request);
-    const headers = {
-      'content-type': 'multipart/form-data'
-    }
-    
+
     return axios
-        .post(request.path, request.data, {headers: headers})
+        .post(request.path, request.data, {headers: request.headers})
         .then((response) => {
           // console.log('/fetchService/ -SUCCESS', response.data);
           return {
@@ -65,8 +63,8 @@ const fetchService = {
           };
         })
         .catch((error) => {
-          console.warn('/fetchService/ -ERROR', error);
-          return {status: 'fail', payload: null}
+          console.warn('/fetchService/ -ERROR xxx', error);
+          return {status: 'fail', payload: error}
         })
         .finally(() => {
           // console.log('/fetchService/ -FINISHED');

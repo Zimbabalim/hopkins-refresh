@@ -7,7 +7,8 @@ const config = {
     imagesPath: '/assets/images/products',
     
     getUser: '/api/user/?partialmatch=true&',
-    updateUser: '/api/user/',
+    updateUser: '/api/user/', // *** patch
+    createUser: '/api/user/', // *** post
   }
 }
 
