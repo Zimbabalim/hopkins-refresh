@@ -10,7 +10,16 @@ const UserFilter = (props) => {
   const [company, setCompany] = useState('');
   const [email, setEmail] = useState('');
   
-  const onSubmitIntention = (key, type) => {
+  useEffect(() => {
+    
+    if (!props.autoUserQuery) return;
+    console.log('/UserFilter/ -AUTO! xxx', props.autoUserQuery);
+    setEmail(props.autoUserQuery);
+    
+    onSubmitIntention('Enter', 'auto', props.autoUserQuery); // *** avoids waiting for lifecycle update
+  }, [props.autoUserQuery]);
+  
+  const onSubmitIntention = (key, type, autoQuery = '') => {
     if (key !== 'Enter') return;
     
     //console.log('/UserFilter/ -onSubmitIntention', config);
@@ -36,6 +45,15 @@ const UserFilter = (props) => {
       setCompany('');
       props.dispatch(actions.getUserData(
           {type, path: `${config.api.getUser}email=${email}`}
+      ));
+    }
+  
+    // ***
+    if (type === 'auto') {
+      setName('');
+      setCompany('');
+      props.dispatch(actions.getUserData(
+          {type, path: `${config.api.getUser}email=${autoQuery}`}
       ));
     }
     
@@ -81,8 +99,8 @@ const UserFilter = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const {userData} = state;
-  return {userData};
+  const {userData, autoUserQuery} = state;
+  return {userData, autoUserQuery};
 };
 
 export default connect(mapStateToProps, null)(UserFilter);

@@ -1,8 +1,8 @@
 import User from '../../models/User.model.js';
 
-export const updateUser = async (req, res) => {
+export const createUser = async (req, res) => {
   console.log('\n*** /USER.controller/ -createUser\n', req.body);
-  console.log('/createUser/ -updateUser ******************************************************');
+  console.log('/createUser/ -createUser ******************************************************');
   if(!req.body){
     res
         .status(400)
@@ -21,7 +21,7 @@ export const updateUser = async (req, res) => {
   try {
     checkExisting = await query.exec();
   } catch (error) {
-    console.log('/createUser/ -updateUser ERROR');
+    console.log('/createUser/ -createUser ERROR');
     return false;
   }
   
@@ -51,7 +51,7 @@ export const updateUser = async (req, res) => {
   try {
     data = await user.save();
   } catch (error) {
-    console.error('/USER.controller/ -updateUser --FUCKED', error);
+    console.error('/USER.controller/ -createUser --FUCKED', error);
     res
         .status(200)
         .send({
@@ -77,4 +77,4 @@ export const updateUser = async (req, res) => {
       })
 }
 
-export default updateUser;
+export default createUser;

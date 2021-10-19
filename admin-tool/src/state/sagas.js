@@ -75,6 +75,31 @@ function* watchUploadImages() {
   yield takeLatest(types.DB_UPLOAD_IMAGES, dbUploadImages);
 }
 
+/**
+ * CREATE DESIGN
+ */
+function* dbCreateDesign(action) {
+  const request = {
+    path: `${config.api.createProduct}`,
+    data: action.payload,
+    headers: {'content-type': 'application/json'}
+  }
+  
+  console.log('/sagas/ -dbCreateDesign xxxxxxx', request);
+  // return; // REMOVE
+  const response = yield call(fetchService.post, request);
+  
+  const vo = {
+    request,
+    response
+  }
+  yield put(actions.dbCreateDesignResponse(vo));
+}
+// *** observe action
+function* watchCreateDesign() {
+  yield takeLatest(types.DB_CREATE_DESIGN, dbCreateDesign);
+}
+
 // === USERS ===
 
 /**
@@ -147,17 +172,42 @@ function* watchCreateUser() {
   yield takeLatest(types.DB_CREATE_USER, dbCreateUser);
 }
 
+/**
+ * DELETE USER
+ */
+function* dbDeleteUser(action) {
+  const request = {
+    path: `${config.api.deleteUser}${action.payload.id}`,
+    id: action.payload.id, // *** for response to update memory data
+  }
+  console.log('/sagas/ -dbDeleteUser xxx', request);
+  // return;
+  const response = yield call(fetchService.delete, request);
+  
+  const vo = {
+    request,
+    response
+  }
+  yield put(actions.dbDeleteUserResponse(vo));
+}
+// *** observe action
+function* watchDeleteUser() {
+  yield takeLatest(types.DB_DELETE_USER, dbDeleteUser);
+}
+
 
 function* sagas() {
   yield all([
     watchGetProductData(),
     watchUpdateDesign(),
     watchUploadImages(),
+    watchCreateDesign(),
   
     watchGetUserData(),
     watchUpdateUser(),
   
     watchCreateUser(),
+    watchDeleteUser(),
   ]);
 }
 

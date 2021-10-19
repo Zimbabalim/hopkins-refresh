@@ -24,6 +24,7 @@ const UserView = (props) => {
     console.log('/UserView/ -DIRTY', isDirtyData);
   }, [isDirtyData]);
   
+  
   const save = () => {
 
     const data = Object.assign({}, props.selectedUser);
@@ -42,6 +43,16 @@ const UserView = (props) => {
     setIsDirtyData(true);
   }
   
+  const deleteUser = () => {
+    const id = props.selectedUser._id;
+    console.log('/UserView/ -deleteUser', id);
+  
+    props.dispatch(actions.dbDeleteUser({
+      id,
+    }));
+  }
+  
+  
   return (
       <>
         {props.selectedUser && (
@@ -54,7 +65,7 @@ const UserView = (props) => {
                   <button className={cx('button', (!isDirtyData) ? 'button--is-disabled' : null)}
                       onClick={() => save()}>SAVE CHANGES</button>
                   <button className={cx('button')}
-                      /*onClick={() => deleteDesign()}*/>DELETE USER</button>
+                      onClick={() => deleteUser()}>DELETE USER</button>
                 </div>
               </div>
               

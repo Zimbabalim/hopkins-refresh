@@ -17,7 +17,7 @@ const UserEditor = (props) => {
     if (!props.userData) return;
     
     if (props.userData.length === 1) {
-      console.log('/UserEditor/ -AUTO CLICK');
+      console.log('/UserEditor/ -AUTO CLICK xxx');
       onSelection(props.userData[0]);
     }
     

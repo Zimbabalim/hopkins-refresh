@@ -13,6 +13,9 @@ const defaultState = {
   selectedUser: null,
   
   newUserResponseMessage: null,
+  newDesignResponseMessage: null,
+  
+  autoUserQuery: null,
 };
 
 const app = handleActions(
@@ -105,6 +108,7 @@ const app = handleActions(
       },
   
       [types.USER_SELECTED](state, {payload}) {
+        console.log('/reducers/ -');
         return {
           ...state,
           selectedUser: payload.item,
@@ -153,10 +157,66 @@ const app = handleActions(
   
       // *** uses saga
       [types.DB_CREATE_USER_RESPONSE](state, {payload}) {
-        // console.log('/reducers/ -DB_CREATE_USER_RESPONSE', payload.response.payload.message);
+        console.log('/reducers/ -DB_CREATE_USER_RESPONSE', payload.response.payload.success);
+        
+        const autoUserQuery = (payload.response.payload.success) ? payload.response.payload.data.email : null;
+        
         return {
           ...state,
           newUserResponseMessage: payload.response.payload.message,
+          autoUserQuery,
+        }
+      },
+  
+      // *** uses saga
+      [types.DB_DELETE_USER](state, {payload}) {
+        return {
+          ...state,
+        }
+      },
+  
+      // *** uses saga
+      // FIXIT some (memory) data persistence evident
+      [types.DB_DELETE_USER_RESPONSE](state, {payload}) {
+        console.log('/reducers/ -DB_DELETE_USER_RESPONSE A', state.selectedUser);
+        console.log('/reducers/ -DB_DELETE_USER_RESPONSE B', payload.request.id);
+  
+        // *** have to update whole data set to ensure latest changes appear
+        let userData =[...state.userData];
+        let updateIndex = null;
+  
+        userData.filter((item, index) => {
+          if (payload.request.id === state.selectedUser._id) {
+            updateIndex = index;
+          }
+        });
+        
+        userData.splice(updateIndex, 1);
+        console.log('/reducers/ ->>>>>>>>>>>>> xxxxxxx', updateIndex, userData);
+        
+        
+        return {
+          ...state,
+          userData,
+          selectedUser: null,
+        }
+      },
+  
+  
+  
+      // *** uses saga
+      [types.DB_CREATE_DESIGN](state, {payload}) {
+        return {
+          ...state,
+        }
+      },
+  
+      // *** uses saga
+      [types.DB_CREATE_DESIGN_RESPONSE](state, {payload}) {
+        // console.log('/reducers/ -DB_CREATE_USER_RESPONSE', payload.response.payload.message);
+        return {
+          ...state,
+          newDesignResponseMessage: payload.response.payload.message,
         }
       },
       

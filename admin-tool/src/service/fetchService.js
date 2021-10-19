@@ -69,6 +69,29 @@ const fetchService = {
         .finally(() => {
           // console.log('/fetchService/ -FINISHED');
         });
+  },
+  
+  
+  delete: (request) => {
+    console.log('/fetchService/ -UPDATE', request);
+    
+    return axios
+        .delete(request.path)
+        .then((response) => {
+          // console.log('/fetchService/ -SUCCESS', response.data);
+          return {
+            status: 'ok',
+            type: request.type,
+            payload: response.data
+          };
+        })
+        .catch((error) => {
+          console.warn('/fetchService/ -ERROR xxx', error);
+          return {status: 'fail', payload: error}
+        })
+        .finally(() => {
+          // console.log('/fetchService/ -FINISHED');
+        });
   }
   
 }
