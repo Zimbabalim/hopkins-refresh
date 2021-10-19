@@ -100,6 +100,29 @@ function* watchCreateDesign() {
   yield takeLatest(types.DB_CREATE_DESIGN, dbCreateDesign);
 }
 
+/**
+ * DELETE DESIGN
+ */
+function* dbDeleteDesign(action) {
+  const request = {
+    path: `${config.api.deleteProduct}${action.payload.id}`,
+    id: action.payload.id, // *** for response to update memory data
+  }
+  console.log('/sagas/ -dbDeleteDesign xxx', request);
+  // return;
+  const response = yield call(fetchService.delete, request);
+  
+  const vo = {
+    request,
+    response
+  }
+  yield put(actions.dbDeleteDesignResponse(vo));
+}
+// *** observe action
+function* watchDeleteDesign() {
+  yield takeLatest(types.DB_DELETE_DESIGN, dbDeleteDesign);
+}
+
 // === USERS ===
 
 /**
@@ -202,6 +225,7 @@ function* sagas() {
     watchUpdateDesign(),
     watchUploadImages(),
     watchCreateDesign(),
+    watchDeleteDesign(),
   
     watchGetUserData(),
     watchUpdateUser(),

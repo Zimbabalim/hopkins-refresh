@@ -90,6 +90,42 @@ const app = handleActions(
         }
       },
   
+  
+      // *** uses saga
+      [types.DB_DELETE_DESIGN](state, {payload}) {
+        return {
+          ...state,
+        }
+      },
+  
+      // *** uses saga
+      // FIXIT some (memory) data persistence evident
+      [types.DB_DELETE_DESIGN_RESPONSE](state, {payload}) {
+        // console.log('/reducers/ -DB_DELETE_USER_RESPONSE A', state.selectedUser);
+        // console.log('/reducers/ -DB_DELETE_USER_RESPONSE B', payload.request.id);
+    
+        // *** have to update whole data set to ensure latest changes appear
+        let productData =[...state.productData];
+        let updateIndex = null;
+    
+        productData.filter((item, index) => {
+          if (payload.request.id === state.selectedDesign._id) {
+            updateIndex = index;
+          }
+        });
+    
+        productData.splice(updateIndex, 1);
+        console.log('/reducers/ ->>>>>>>>>>>>> yyyyyy', updateIndex, productData);
+        
+        return {
+          ...state,
+          productData,
+          selectedDesign: null,
+        }
+      },
+      
+      
+  
       // *** USER EDITOR =========
       [types.GET_USER_DATA](state, {payload}) {
         console.log('/reducers/ -', payload);

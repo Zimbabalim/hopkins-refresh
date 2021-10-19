@@ -2,8 +2,9 @@ const config = {
   api: {
     getProductByName: '/api/product/?partialmatch=true&friendly_name=',
     getProductByTags: '/api/product/?partialmatch=true&variations.tags=',
-    updateProduct: '/api/product/',
-    createProduct: '/api/product/',
+    updateProduct: '/api/product/', // *** patch
+    createProduct: '/api/product/', // *** post
+    deleteProduct: '/api/product/', // *** delete
     uploadImages: '/api/asset/uploadImages',
     imagesPath: '/assets/images/products',
     

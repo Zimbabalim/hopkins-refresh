@@ -16,6 +16,9 @@ const types = {
   DB_CREATE_DESIGN: 'DB_CREATE_DESIGN',
   DB_CREATE_DESIGN_RESPONSE: 'DB_CREATE_DESIGN_RESPONSE',
   
+  DB_DELETE_DESIGN: 'DB_DELETE_DESIGN',
+  DB_DELETE_DESIGN_RESPONSE: 'DB_DELETE_DESIGN_RESPONSE',
+  
   // *** user editor
   GET_USER_DATA: 'GET_USER_DATA',
   USER_DATA_LOADED: 'USER_DATA_LOADED',
@@ -46,6 +49,9 @@ const actions = {
   dbCreateDesign: createAction(types.DB_CREATE_DESIGN),
   dbCreateDesignResponse: createAction(types.DB_CREATE_DESIGN_RESPONSE),
   
+  dbDeleteDesign: createAction(types.DB_DELETE_DESIGN),
+  dbDeleteDesignResponse: createAction(types.DB_DELETE_DESIGN_RESPONSE),
+  
   // *** user
   getUserData: createAction(types.GET_USER_DATA),
   userDataLoaded: createAction(types.USER_DATA_LOADED),
@@ -56,7 +62,6 @@ const actions = {
   dbCreateUser: createAction(types.DB_CREATE_USER),
   dbCreateUserResponse: createAction(types.DB_CREATE_USER_RESPONSE),
   
-  // TODO
   dbDeleteUser: createAction(types.DB_DELETE_USER),
   dbDeleteUserResponse: createAction(types.DB_DELETE_USER_RESPONSE),
 }

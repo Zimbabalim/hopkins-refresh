@@ -69,7 +69,14 @@ const VariationsList = (props) => {
    * delete whole design TODO db
    */
   const deleteDesign = () => {
-    console.log('/VariationsList/ -deleteDesign');
+    const id = props.selectedDesign._id;
+    console.log('/UserView/ -deleteDesign', id);
+    
+    // return;
+    
+    props.dispatch(actions.dbDeleteDesign({
+      id,
+    }));
   }
   
   const createBlankVariation = () => {
