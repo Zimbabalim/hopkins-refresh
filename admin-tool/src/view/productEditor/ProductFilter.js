@@ -9,6 +9,15 @@ const ProductFilter = (props) => {
   const [tag, setTag] = useState('');
   const [design, setDesign] = useState(''); // FIXIT
   
+  useEffect(() => {
+    
+    if (!props.autoDesignQuery) return;
+    console.log('/UserFilter/ -AUTO! xxx', props.autoDesignQuery);
+    setDesign(props.autoDesignQuery);
+    
+    onSubmitIntention('Enter', 'auto', props.autoDesignQuery); // *** avoids waiting for lifecycle update
+  }, [props.autoDesignQuery]);
+  
   const onSubmitIntention = (key, type) => {
     if (key !== 'Enter') return;
     
@@ -25,6 +34,14 @@ const ProductFilter = (props) => {
       setDesign('');
       props.dispatch(actions.getProductData(
           {type, path: `${config.api.getProductByTags}${tag}`}
+      ));
+    }
+  
+    // ***
+    if (type === 'auto') {
+      setTag('');
+      props.dispatch(actions.getProductData(
+          {type, path: `${config.api.getProductByName}${design}`}
       ));
     }
   }
@@ -60,8 +77,8 @@ const ProductFilter = (props) => {
 
 const mapStateToProps = (state) => {
   //console.log('/ProductFilter/ -mapStateToProps', state);
-  const {productData} = state;
-  return {productData}
+  const {productData, autoDesignQuery} = state;
+  return {productData, autoDesignQuery}
 };
 
 export default connect(mapStateToProps, null)(ProductFilter);

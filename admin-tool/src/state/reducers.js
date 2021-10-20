@@ -16,6 +16,7 @@ const defaultState = {
   newDesignResponseMessage: null,
   
   autoUserQuery: null,
+  autoDesignQuery: null,
 };
 
 const app = handleActions(
@@ -242,6 +243,7 @@ const app = handleActions(
   
       // *** uses saga
       [types.DB_CREATE_DESIGN](state, {payload}) {
+        // *** FIXIT - not correctly saving or displaying variations added to new design
         return {
           ...state,
         }
@@ -250,11 +252,39 @@ const app = handleActions(
       // *** uses saga
       [types.DB_CREATE_DESIGN_RESPONSE](state, {payload}) {
         // console.log('/reducers/ -DB_CREATE_USER_RESPONSE', payload.response.payload.message);
+  
+        const autoDesignQuery = (payload.response.payload.success) ? payload.response.payload.data.friendly_name : null;
+        
         return {
           ...state,
           newDesignResponseMessage: payload.response.payload.message,
+          autoDesignQuery,
         }
       },
+      
+      /*[types.DB_UPDATE_USER_RESPONSE](state, {payload}) {
+        // console.log('/reducers/ -DB_UPDATE_USER_RESPONSE', payload.response.payload.data._id);
+        // *** replace data only on success
+        const freshUser = (payload.response.payload.success) ?
+            payload.response.payload.data : state.selectedUser;
+        
+        // *** have to update whole data set to ensure latest changes appear
+        const userData =[...state.userData];
+        let updateIndex = null;
+        
+        userData.filter((item, index) => {
+          if (payload.response.payload.data._id === item._id) {
+            updateIndex = index;
+          }
+        });
+        
+        userData[updateIndex] = freshUser;
+        
+        return {
+          ...state,
+          userData,
+        }
+      },*/
       
       
     },

@@ -39,7 +39,7 @@ export const createProduct = async (req, res) => {
   
   const product = new Product({
     friendly_name: req.body.friendly_name,
-    default_product_code: '',
+    default_product_code: req.body.code,
     variations: [],
   });
   
@@ -51,9 +51,9 @@ export const createProduct = async (req, res) => {
     res
         .status(200)
         .send({
-          message: 'unsaved - please add a name',
+          message: 'unsaved - incomplete data',
           uiStatus: {
-            message: 'unsaved - please add a name',
+            message: 'unsaved - incomplete data',
             className: '--error',
           },
           success: false

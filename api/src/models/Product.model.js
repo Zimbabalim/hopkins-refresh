@@ -37,7 +37,7 @@ const ProductsSchema = mongoose.Schema(
       },
       default_product_code: {
         type: String,
-        required: [false]
+        required: [true]
       },
       // variations: [ProductsVariationSchema]
       variations: {

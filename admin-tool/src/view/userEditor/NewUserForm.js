@@ -19,8 +19,8 @@ const NewUserForm = (props) => {
     
   },[props.newUserResponseMessage]);
   
-  const addUser = () => {
-    console.log('/NewUserForm/ -addUser');
+  const addItem = () => {
+    console.log('/NewUserForm/ -addItem');
     
     props.dispatch(actions.dbCreateUser({
       full_name: name,
@@ -48,6 +48,10 @@ const NewUserForm = (props) => {
                      setName(e.target.value);
                      onChange();
                    }}
+                   onKeyPress={(e) => {
+                     if (e.key !== 'Enter') return;
+                     addItem();
+                   }}
             />
           </div>
         </div>
@@ -60,6 +64,10 @@ const NewUserForm = (props) => {
                    onChange= {(e) => {
                      setCompany(e.target.value);
                      onChange();
+                   }}
+                   onKeyPress={(e) => {
+                     if (e.key !== 'Enter') return;
+                     addItem();
                    }}
             />
           </div>
@@ -74,13 +82,17 @@ const NewUserForm = (props) => {
                      setEmail(e.target.value);
                      onChange();
                    }}
+                   onKeyPress={(e) => {
+                     if (e.key !== 'Enter') return;
+                     addItem();
+                   }}
             />
           </div>
         </div>
         <div className={cx('button-group')}>
           <button
               className={'button'}
-              onClick={() => addUser()}
+              onClick={() => addItem()}
           >ADD</button>
           
           <span className={cx('new-entry-form__status-message')}>{statusMessage}</span>
