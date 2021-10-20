@@ -6,6 +6,28 @@ import config from '../config';
 
 
 
+
+
+/**
+ * FETCH SUNDRIES DATA
+ * make async call, call action with original request data and response
+ */
+function* fetchSundriesData(action) {
+  console.log('/sagas/ -fetchSundriesData', action);
+  
+  const response = yield call(fetchService.call, action.payload);
+  const vo = {
+    request: action.payload,
+    response
+  }
+  yield put(actions.sundriesDataLoaded(vo));
+}
+// *** observe action
+function* watchGetSundriesData() {
+  yield takeLatest(types.GET_SUNDRIES_DATA, fetchSundriesData);
+}
+
+
 /**
  * FETCH PRODUCT DATA
  * make async call, call action with original request data and response
@@ -221,6 +243,9 @@ function* watchDeleteUser() {
 
 function* sagas() {
   yield all([
+  
+    watchGetSundriesData(),
+    
     watchGetProductData(),
     watchUpdateDesign(),
     watchUploadImages(),

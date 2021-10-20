@@ -7,11 +7,14 @@ const config = {
     deleteProduct: '/api/product/', // *** delete
     uploadImages: '/api/asset/uploadImages',
     imagesPath: '/assets/images/products',
+    sundriesImagesPath: '/assets/images/sundries',
     
     getUser: '/api/user/?partialmatch=true&',
     updateUser: '/api/user/', // *** patch
     createUser: '/api/user/', // *** post
     deleteUser: '/api/user/', // *** delete
+    
+    getSundries: '/api/sundries',
   }
 }
 

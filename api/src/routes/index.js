@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import userRoutes from './userRoutes.js';
 import productRoutes from './productRoutes.js';
 import assetRoutes from './assetRoutes.js';
+import sundriesRoutes from './sundriesRoutes.js';
 
 const corsOptions = {
   origin: 'http://localhost:3000'
@@ -14,6 +15,7 @@ const initRoutes = (app) => {
   app.use(userRoutes);
   app.use(productRoutes);
   app.use(assetRoutes);
+  app.use(sundriesRoutes);
 }
 
 export default initRoutes;

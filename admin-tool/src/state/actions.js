@@ -31,6 +31,10 @@ const types = {
   
   DB_DELETE_USER: 'DB_DELETE_USER',
   DB_DELETE_USER_RESPONSE: 'DB_DELETE_USER_RESPONSE',
+  
+  // *** sundries editor
+  GET_SUNDRIES_DATA: 'GET_SUNDRIES_DATA',
+  SUNDRIES_DATA_LOADED: 'SUNDRIES_DATA_LOADED',
 };
 
 const actions = {
@@ -64,6 +68,10 @@ const actions = {
   
   dbDeleteUser: createAction(types.DB_DELETE_USER),
   dbDeleteUserResponse: createAction(types.DB_DELETE_USER_RESPONSE),
+  
+  // *** sundries
+  getSundriesData: createAction(types.GET_SUNDRIES_DATA),
+  sundriesDataLoaded: createAction(types.SUNDRIES_DATA_LOADED),
 }
 
 export default actions;

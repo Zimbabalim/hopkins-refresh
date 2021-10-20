@@ -3,7 +3,7 @@ import {types} from './actions';
 
 const defaultState = {
   
-  currentViewIndex: 0,
+  currentViewIndex: 2,
   
   productData: null,
   selectedDesign: null,
@@ -17,6 +17,8 @@ const defaultState = {
   
   autoUserQuery: null,
   autoDesignQuery: null,
+  
+  sundriesData: null,
 };
 
 const app = handleActions(
@@ -27,6 +29,25 @@ const app = handleActions(
         return {
           ...state,
           currentViewIndex: payload.index,
+        }
+      },
+  
+      // *** SUNDRIES EDITOR =========
+  
+      // *** uses saga
+      [types.GET_SUNDRIES_DATA](state, {payload}) {
+        return {
+          ...state,
+          sundriesData: null,
+        }
+      },
+  
+      // *** uses saga
+      [types.SUNDRIES_DATA_LOADED](state, {payload}) {
+        const sundriesData = payload.response.payload.data;
+        return {
+          ...state,
+          sundriesData,
         }
       },
       
