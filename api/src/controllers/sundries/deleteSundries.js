@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import Product from '../../models/Product.model.js';
+import Sundries from '../../models/Sundries.model.js';
 
-export const deleteProduct = async (req, res) => {
+export const deleteSundries = async (req, res) => {
   
-  console.log('/deleteProduct/ -deleteProduct', req.params);
+  console.log('/deleteSundries/ -deleteSundries', req.params);
   
   const {id} = req.params;
   const isValid = mongoose.Types.ObjectId.isValid(id);
@@ -19,7 +19,7 @@ export const deleteProduct = async (req, res) => {
   
   let data;
   try {
-    data = await Product.deleteOne({_id: id});
+    data = await Sundries.deleteOne({_id: id});
   } catch (error) {
     res
         .status(500)
@@ -35,4 +35,4 @@ export const deleteProduct = async (req, res) => {
   });
 }
 
-export default deleteProduct;
+export default deleteSundries;

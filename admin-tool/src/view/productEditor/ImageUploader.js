@@ -2,6 +2,7 @@ import React from "react";
 import {actions} from '../../state';
 import {connect} from 'react-redux';
 import cx from 'classnames';
+import config from '../../config';
 
 const ImageUploader = (props) => {
   
@@ -14,6 +15,7 @@ const ImageUploader = (props) => {
     // formData.append('image', files);
     formData.append('directory', directory);
     props.dispatch(actions.dbUploadImages({
+      path: config.api.uploadImages,
       data: formData,
     }));
   }

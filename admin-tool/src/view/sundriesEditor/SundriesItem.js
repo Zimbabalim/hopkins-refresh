@@ -3,6 +3,7 @@ import cx from 'classnames';
 import config from '../../config';
 import {connect} from 'react-redux';
 import utils from '../../utils';
+import {actions} from '../../state';
 
 const SundriesItem = (props) => {
   
@@ -19,6 +20,15 @@ const SundriesItem = (props) => {
     
   }, [props.selectedDesign]);*/
   
+  const deletePost = () => {
+    const id = props.data._id;
+    console.log('/SundriesItem/ -deletePost xxx', id);
+  
+    props.dispatch(actions.dbDeleteSundries({
+      id,
+    }));
+  }
+  
   return (
       <div className={cx('sundries-item')}>
         <div className={'sundries-item__inner'}>
@@ -33,15 +43,16 @@ const SundriesItem = (props) => {
           <div className={'sundries-item__body'}>
             <h4 className={'sundries-item__title'}>{props.data.headline}<span>{props.data.date}</span></h4>
             <p className={'sundries-item__copy'}>{props.data.copy}</p>
-          
           </div>
         </div>
         
-        {/*<div className='variations-item__action-bar'>
+        <div className='variations-item__action-bar'>
             <div className={cx('button-group')}>
-              <button className={cx('button')}>DELETE</button>
+              <button className={cx('button')}
+                      onClick={() => deletePost()}
+              >DELETE</button>
             </div>
-          </div>*/}
+          </div>
       </div>
   );
 };

@@ -1,7 +1,7 @@
-import Product from '../../models/Product.model.js';
+import Sundries from '../../models/Sundries.model.js';
 
-export const createProduct = async (req, res) => {
-  console.log('\n*** /PRODUCT.controller/ -createProduct\n', req.body);
+export const createSundries = async (req, res) => {
+  console.log('\n*** /SUNDRIES.controller/ -createProduct\n', req.body);
   console.log('/createProduct/ ******************************************************');
   if(!req.body){
     res
@@ -14,7 +14,7 @@ export const createProduct = async (req, res) => {
   
   
   // *** ugly but works
-  const query = Product.find({friendly_name: req.body.friendly_name});
+  /*const query = Product.find({friendly_name: req.body.friendly_name});
   
   let checkExisting = null;
   
@@ -34,18 +34,32 @@ export const createProduct = async (req, res) => {
       },
       success: false
     });
-  }
+  }*/
+  
+  const getPrettyDate = function () {
+    let r,
+        d = new Date().toDateString(),
+        z = d.split(" ");
+    
+    r = z[ 2 ] + " " + z[ 1 ] + " " + z[ 3 ];
+    
+    return r;
+  };
   
   
-  const product = new Product({
-    friendly_name: req.body.friendly_name,
+  const sundries = new Sundries({
+    /*friendly_name: req.body.friendly_name,
     default_product_code: req.body.code,
-    variations: [],
+    variations: [],*/
+    headline: req.body.headline,
+    copy: req.body.copy,
+    images: req.body.images,
+    date: getPrettyDate(),
   });
   
   let data;
   try {
-    data = await product.save();
+    data = await sundries.save();
   } catch (error) {
     console.error('/USER.controller/ -createProduct --FUCKED', error);
     res
@@ -63,9 +77,9 @@ export const createProduct = async (req, res) => {
   res
       .status(201)
       .send({
-        message: 'saved new product!',
+        message: 'saved new sundry!',
         uiStatus: {
-          message: 'saved new product!',
+          message: 'saved new sundry!',
           className: '--success',
         },
         success: true,
@@ -73,4 +87,4 @@ export const createProduct = async (req, res) => {
       })
 }
 
-export default createProduct;
+export default createSundries;

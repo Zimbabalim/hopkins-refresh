@@ -6,6 +6,7 @@ const config = {
     createProduct: '/api/product/', // *** post
     deleteProduct: '/api/product/', // *** delete
     uploadImages: '/api/asset/uploadImages',
+    uploadSundriesImages: '/api/asset/uploadSundriesImages',
     imagesPath: '/assets/images/products',
     sundriesImagesPath: '/assets/images/sundries',
     
@@ -15,6 +16,8 @@ const config = {
     deleteUser: '/api/user/', // *** delete
     
     getSundries: '/api/sundries',
+    createSundries: '/api/sundries',
+    deleteSundries: '/api/sundries/',
   }
 }
 

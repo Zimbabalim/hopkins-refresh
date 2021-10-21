@@ -35,6 +35,12 @@ const types = {
   // *** sundries editor
   GET_SUNDRIES_DATA: 'GET_SUNDRIES_DATA',
   SUNDRIES_DATA_LOADED: 'SUNDRIES_DATA_LOADED',
+  
+  DB_CREATE_SUNDRIES: 'DB_CREATE_SUNDRIES',
+  DB_CREATE_SUNDRIES_RESPONSE: 'DB_CREATE_SUNDRIES_RESPONSE',
+  
+  DB_DELETE_SUNDRIES: 'DB_DELETE_SUNDRIES',
+  DB_DELETE_SUNDRIES_RESPONSE: 'DB_DELETE_SUNDRIES_RESPONSE',
 };
 
 const actions = {
@@ -72,6 +78,12 @@ const actions = {
   // *** sundries
   getSundriesData: createAction(types.GET_SUNDRIES_DATA),
   sundriesDataLoaded: createAction(types.SUNDRIES_DATA_LOADED),
+  
+  dbCreateSundries: createAction(types.DB_CREATE_SUNDRIES),
+  dbCreateSundriesResponse: createAction(types.DB_CREATE_SUNDRIES_RESPONSE),
+  
+  dbDeleteSundries: createAction(types.DB_DELETE_SUNDRIES),
+  dbDeleteSundriesResponse: createAction(types.DB_DELETE_SUNDRIES_RESPONSE),
 }
 
 export default actions;

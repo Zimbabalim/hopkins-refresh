@@ -50,6 +50,45 @@ const app = handleActions(
           sundriesData,
         }
       },
+  
+      // *** uses saga
+      [types.DB_CREATE_SUNDRIES_RESPONSE](state, {payload}) {
+        console.log('/reducers/ -DB_CREATE_USER_RESPONSE XXX', payload);
+  
+        const sundriesData = [...state.sundriesData];
+        if (payload.response.payload.success) {
+          sundriesData.push(payload.response.payload.data);
+        }
+        
+        return {
+          ...state,
+          sundriesData,
+        }
+      },
+  
+      [types.DB_DELETE_SUNDRIES_RESPONSE](state, {payload}) {
+        // console.log('/reducers/ -DB_DELETE_USER_RESPONSE A', state.selectedUser);
+        // console.log('/reducers/ -DB_DELETE_USER_RESPONSE B', payload.request.id);
+    
+        // *** have to update whole data set to ensure latest changes appear
+        let sundriesData =[...state.sundriesData];
+        let updateIndex = null;
+  
+        sundriesData.filter((item, index) => {
+          console.log('/reducers/ -???', payload.request.id, item._id);
+          if (payload.request.id === item._id) {
+            updateIndex = index;
+          }
+        });
+  
+        sundriesData.splice(updateIndex, 1);
+        console.log('/reducers/ ->>>>>>>>>>>>> yyyyyy', updateIndex, sundriesData);
+    
+        return {
+          ...state,
+          sundriesData,
+        }
+      },
       
   
       // *** PRODUCT EDITOR =========

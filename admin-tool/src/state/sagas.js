@@ -27,6 +27,54 @@ function* watchGetSundriesData() {
   yield takeLatest(types.GET_SUNDRIES_DATA, fetchSundriesData);
 }
 
+/**
+ * CREATE SUNDRY
+ */
+function* dbCreateSundries(action) {
+  const request = {
+    path: `${config.api.createSundries}`,
+    data: action.payload,
+    headers: {'content-type': 'application/json'}
+  }
+  
+  console.log('/sagas/ -dbCreateSundries xxxxxxx', request);
+  // return; // REMOVE
+  const response = yield call(fetchService.post, request);
+  
+  const vo = {
+    request,
+    response
+  }
+  yield put(actions.dbCreateSundriesResponse(vo));
+}
+// *** observe action
+function* watchCreateSundries() {
+  yield takeLatest(types.DB_CREATE_SUNDRIES, dbCreateSundries);
+}
+
+/**
+ * DELETE SUNDRY
+ */
+function* dbDeleteSundries(action) {
+  const request = {
+    path: `${config.api.deleteSundries}${action.payload.id}`,
+    id: action.payload.id, // *** for response to update memory data
+  }
+  console.log('/sagas/ -dbDeleteSundries xxx', request);
+  // return;
+  const response = yield call(fetchService.delete, request);
+  
+  const vo = {
+    request,
+    response
+  }
+  yield put(actions.dbDeleteSundriesResponse(vo));
+}
+// *** observe action
+function* watchDeleteSundries() {
+  yield takeLatest(types.DB_DELETE_SUNDRIES, dbDeleteSundries);
+}
+
 
 /**
  * FETCH PRODUCT DATA
@@ -75,8 +123,10 @@ function* watchUpdateDesign() {
  * UPLOAD IMAGES
  */
 function* dbUploadImages(action) {
+  console.log('/sagas/ -dbUploadImages ===================', action.payload.path);
   const request = {
-    path: `${config.api.uploadImages}`,
+    // path: `${config.api.uploadImages}`,
+    path: action.payload.path,
     directory: action.payload.directory,
     data: action.payload.data,
     headers: {'content-type': 'multipart/form-data'}
@@ -245,6 +295,8 @@ function* sagas() {
   yield all([
   
     watchGetSundriesData(),
+    watchCreateSundries(),
+    watchDeleteSundries(),
     
     watchGetProductData(),
     watchUpdateDesign(),
