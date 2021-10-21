@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {actions} from '../../state';
 import {connect} from 'react-redux';
 // import ProductFilter from './ProductFilter';
@@ -14,7 +14,7 @@ import utils from '../../utils';
 
 const SundriesEditor = (props) => {
   
-  // *** TODO paginate results
+  const [sunndriesItems, setSundriesItems] = useState(null);
   
   useEffect(() => {
     console.log('/SundriesEditor/ -====================', props.currentViewIndex, props.routeIndex);

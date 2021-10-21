@@ -21,18 +21,27 @@ const SundriesItem = (props) => {
   
   return (
       <div className={cx('sundries-item')}>
-        <div className={cx('sundries-item__images')}>
-          {props.data.images.map((item,index) => {
-            return (
+        <div className={'sundries-item__inner'}>
+          <div className={cx('sundries-item__images')}>
+            {props.data.images.map((item,index) => {
+              return (
                   <img src={`${config.api.sundriesImagesPath}/${item}`} key={utils.uid()}/>
-            )
-          })
-          }
+              )
+            })
+            }
+          </div>
+          <div className={'sundries-item__body'}>
+            <h4 className={'sundries-item__title'}>{props.data.headline}<span>{props.data.date}</span></h4>
+            <p className={'sundries-item__copy'}>{props.data.copy}</p>
+          
+          </div>
         </div>
-        <div className={'sundries-item__body'}>
-          <h4 className={'sundries-item__title'}>{props.data.headline}<span>{props.data.date}</span></h4>
-          <p className={'sundries-item__copy'}>{props.data.copy}</p>
-        </div>
+        
+        {/*<div className='variations-item__action-bar'>
+            <div className={cx('button-group')}>
+              <button className={cx('button')}>DELETE</button>
+            </div>
+          </div>*/}
       </div>
   );
 };

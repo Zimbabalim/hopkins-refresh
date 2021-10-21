@@ -1,6 +1,6 @@
 .sundries-item {
-    display: flex;
-    gap: 1em;
+    /*display: flex;
+    gap: 1em;*/
     margin: 0.5em 0;
     padding: 0.5em;
     border: 1px solid $colour--grey-medium;
@@ -8,6 +8,11 @@
 
     &:hover {
         background-color: scale-color($colour--grey-light, $lightness: 35%);
+    }
+
+    &__inner {
+        display: flex;
+        gap: 1em;
     }
 
     &__images {
@@ -33,5 +38,11 @@
 
     &__copy {
         line-height: 1.4;
+    }
+
+    .variations-item__action-bar {
+        margin: 0 -0.5em -0.5em;
+        margin-top: 0.5em;
+        padding-right: 0.25em;
     }
 }
