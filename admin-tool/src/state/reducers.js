@@ -3,7 +3,7 @@ import {types} from './actions';
 
 const defaultState = {
   
-  currentViewIndex: 2,
+  currentViewIndex: 0,
   
   productData: null,
   selectedDesign: null,

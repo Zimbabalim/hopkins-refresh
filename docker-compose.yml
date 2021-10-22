@@ -3,7 +3,6 @@ version: '3.7'
 services:
 
   admin-tool:
-    container_name: hopkins-refresh
     build:
       context: ./admin-tool
     command: yarn start
