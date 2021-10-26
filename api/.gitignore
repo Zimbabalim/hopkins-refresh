@@ -1,4 +1,5 @@
 /node_modules
+public/assets/images/products-live
 
 # misc
 .DS_Store
