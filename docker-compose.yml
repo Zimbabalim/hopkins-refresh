@@ -34,7 +34,8 @@ services:
     volumes:
       - hopkins_db:/data/db
     ports:
-    - '27017:27017'
+    - '13579:27017'
+    command: [--auth]
 
   nginx:
     image: nginx:stable-alpine
