@@ -25,5 +25,5 @@ const ProductsVariationSchema = mongoose.Schema(
     }
 )
 
-export default mongoose.model('Product', ProductsVariationSchema, 'products_123');
+export default mongoose.model('Product', ProductsVariationSchema, 'products');
 

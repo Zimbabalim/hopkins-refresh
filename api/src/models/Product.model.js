@@ -51,5 +51,5 @@ const ProductsSchema = mongoose.Schema(
     }
 )
 
-export default mongoose.model('Product', ProductsSchema, 'products_123');
+export default mongoose.model('Product', ProductsSchema, 'products');
 
