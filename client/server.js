@@ -1,11 +1,11 @@
 const express = require("express");
 const path = require("path");
-const FE_DEV_SERVER_PORT = process.env.FE_DEV_SERVER_PORT || 3579;
+const CLIENT_PORT = process.env.CLIENT_PORT || 3579;
 const app = express();
 
-app.listen(FE_DEV_SERVER_PORT, () => {
+app.listen(CLIENT_PORT, () => {
   console.log("\n*****************************");
-  console.log("/app/ -RUNNING:", FE_DEV_SERVER_PORT);
+  console.log("/app/ -RUNNING:", CLIENT_PORT);
   console.log("*****************************\n");
 });
 
