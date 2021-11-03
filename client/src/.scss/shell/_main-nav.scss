@@ -1,0 +1,84 @@
+@import "../colours";
+
+#main-nav{
+
+  position: relative;
+  min-height: 2rem;
+
+  background-color: white;
+  @extend %standard-vertical-gap;
+
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+
+  ul{
+    @extend %horizontal-list;
+    position: absolute;
+    width: 100%;
+
+    background-image: url("/assets/images/border-image.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0.5rem 0;
+
+    li{
+
+      cursor: pointer;
+      padding: 0.5% 2%;
+      color: black;
+
+      &.is-active{
+        font-weight: bold;
+        color: $colour-off-black;
+      }
+    }
+  }
+
+}
+
+// BREAKS
+
+._medium_{
+  #main-nav{
+    ul{
+      li{
+        padding: 0.5% 2%;
+      }
+    }
+  }
+}
+
+._minimum_, ._small_ {
+
+  %dividers{
+    content: url("/assets/images/footer-border.png");
+    width: 100%;
+    display: block;
+    overflow: hidden;
+  }
+
+  #main-nav{
+
+    margin-bottom: 0;
+
+    ul{
+      position: relative;
+      background-image: none;
+
+      &:before{
+        @extend %dividers;
+      }
+
+      &:after{
+        @extend %dividers;
+      }
+
+      li{
+        padding: 2% 2%;
+      }
+    }
+  }
+
+}

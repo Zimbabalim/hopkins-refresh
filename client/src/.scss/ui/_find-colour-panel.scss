@@ -1,0 +1,118 @@
+.find-colour-panel{
+
+  overflow: hidden;
+  box-sizing: border-box;
+
+  @extend %under-stroke;
+
+  .header{
+
+    box-sizing: border-box;
+    //margin-bottom: 0.5rem; // RESTORE
+
+    h3{
+      text-transform: uppercase;
+      cursor: pointer;
+
+      margin: 0; // TEST
+      padding-bottom:1rem; // TEST
+
+      span{
+
+        font-size: 1rem;
+
+        i{
+          @extend %selector-down-arrow;
+        }
+      }
+    }
+  }
+
+
+  &.has-selection{
+
+    .header h3 span i{
+      color: lighten( $colour-mid-grey, 10 ); //#CEC1C1
+      //background-color: rgb(234, 234, 234);
+    }
+
+  }
+
+  ul.context{
+
+    margin-top: 0.75rem;
+    //margin-bottom: 0.75rem;
+
+    li{
+
+      display: none; // *** NOTE REMOVED for time being
+
+      @include checkbox( "wrapped", 1.25, 0.5 );
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+
+      span{
+        line-height: 100%;
+        width :85%;
+        display: inline-block;
+      }
+    }
+  }
+
+
+
+  ul.colours{
+    @include column-count( 3 );
+    @include column-gap( 0 );
+    font-size: 0.75rem;
+
+    li{
+
+      @include checkbox( "wrapped", 0.75, 0.5/*, "not-ios", "\2713"*/ ); // RESTORE - breaks on ios9
+      margin-bottom: -0.25rem;
+
+      label{
+        font-family: $helvetica;
+
+        &:before{
+          line-height: 125%;
+          margin-top: 0.25rem;
+        }
+      }
+    }
+  }
+}
+
+
+// BREAKS
+
+._small_, ._medium_, ._minimum{
+  .find-colour-panel{
+
+    .context{
+      label{
+        font-size: 85%; // *** reduce radio button label size
+      }
+    }
+
+    ul.colours{
+      @include column-count( 2 ); // *** reduce to 2 cols FIXIT DOESN'T WORK
+      @include column-gap( 0 );
+    }
+  }
+}
+
+
+
+.is-ios{ // *** NOTE fix for ios9 ***
+  .find-colour-panel{
+    ul.colours{
+      @include column-count( 2 );
+      font-size: 0.9rem;
+      li{
+        @include checkbox( "clear", 0, 0 );
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+@import "../colours";
+
+#sundries-view{
+  @extend %view-with-sidebar;
+
+  .content-area{
+    border-left: 1px solid $colour-mid-grey;
+    padding-left: 1rem;
+    padding-bottom: 3rem;
+  }
+
+  .sidebar{
+
+    border: none;
+
+    span.link.back {
+      cursor: pointer;
+      display: block;
+      text-align: right;
+      width: 100%;
+    }
+  }
+
+  .article{
+    border-bottom: 1px solid $colour-off-black;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+
+    a{
+      text-decoration: underline;
+      color: $colour-grey;
+
+      &:hover{
+        text-decoration: none;
+        color : $colour-off-black
+      }
+    }
+
+    ul{
+      list-style: initial;
+      margin-left: 0.5rem;
+
+      li{
+        list-style: initial;
+        margin-left: 0.5rem;
+      }
+    }
+    
+    .hbox{
+
+      > div {
+
+        &:first-child{
+          padding-right: 1rem;
+        }
+
+        &:last-child{
+
+        }
+      }
+    }
+
+    h4, p, img {
+      margin: 0;
+      padding: 0;
+    }
+
+    img{
+      width: 666px; // REMOVE
+      max-width: 100%;
+      border: 1px solid $colour-mid-grey;
+    }
+    
+    .headline-panel{
+      margin-bottom: 1rem;
+
+      span {
+        float: right;
+      }
+
+      @include clearfix;
+    }
+  }
+}
+
+._minimum_, ._small_ {
+  #sundries-view{
+    @extend %view-with-sidebar-mobile-override;
+  }
+}

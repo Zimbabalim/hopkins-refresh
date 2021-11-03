@@ -1,0 +1,104 @@
+@import "../colours";
+
+.paginator-control{
+
+  $colour1 : $colour-mid-grey;
+  $colour2 : lighten( $colour1, 25% );
+
+  height: 100%;
+
+  %item{
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0.15rem;
+    padding: 0 0.5rem;
+    @include transition(all 0.5s ease-out);
+
+    border: 1px solid transparent;
+
+    font-size: 80%;
+
+    &:hover{
+      background-color: lighten( $colour2, 5% );
+    }
+  }
+
+  //background-color: #eaeaea;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: none;
+
+  &.is-enabled{
+    display: block;
+  }
+
+
+
+  ul{
+
+    li{
+
+      @extend %item;
+      text-decoration: underline;
+
+      &.is-active{
+        border: 1px solid $colour1;
+        background-color: $colour2;
+      }
+
+      &.arrow{
+        text-decoration: none;
+        border: 1px solid $colour1;
+        padding: 0 0.4rem;
+
+        i{
+          color: $colour1;
+          font-size: 60%;
+        }
+      }
+
+      &.view-all-btn{
+        text-decoration: none;
+
+        font-size: 100%;
+
+        &.view-all-selected{
+
+          border: 1px solid $colour1;
+          background-color: $colour2;
+
+          span{
+            //font-weight: bold;
+          }
+        }
+
+        span{
+          font-size: 75%;
+        }
+      }
+    }
+
+  }
+
+
+  .bottom-paginator{
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+._minimum_, ._small_ {
+
+  .paginator-control{
+
+    ul{
+      li{
+        text-decoration: none;
+      }
+    }
+  }
+}

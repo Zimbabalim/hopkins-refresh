@@ -1,0 +1,275 @@
+@import "colours";
+
+
+/* simple horizontal box grid for layout of items
+uses inline-block / float with built in robust clearfix
+*/
+@mixin hbox( $numCols ){ // *** TODO would be nice to pass in widths optionally if equality not desired
+
+  $itemWidth : ( 100% / $numCols );
+
+  .hbox{
+    //@extend .cf; // add clearfix
+    @include clearfix;
+  }
+
+  .hbox > div{
+    width: $itemWidth;
+    display: inline-block;
+    float: left;
+  }
+}
+
+%horizontal-list{
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li{
+    display: inline-block;
+    padding: 1%;
+  }
+}
+
+%standard-vertical-gap{
+  //margin : 0 0 0 1rem;
+
+  //margin : 0 0 1rem 0;
+
+  margin-bottom: 1rem; // RESTORE
+}
+
+%view-with-sidebar {
+
+  @include hbox(2);
+
+  .hbox {
+    > div {
+      background-color: white;
+      box-sizing: border-box;
+
+      &:first-child {
+        width: 25%;
+        //border-right: 1px solid $colour-mid-grey;
+      }
+
+      &:last-child {
+        width: 75%;
+        //padding-left: 1rem;
+      }
+    }
+
+    .content-area {
+      padding-top: 2.5rem; // FIXIT
+    }
+
+    .sidebar {
+
+      .solo-item {
+        margin: 0;
+        display: block;
+        text-align: right;
+        width: 100%;
+      }
+
+    }
+  }
+}
+
+
+%view-with-sidebar-mobile-override {
+
+  @include hbox(1);
+
+  .hbox {
+    > div {
+      background-color: white;
+      box-sizing: border-box;
+
+      &:first-child {
+        //background-color: red;
+      }
+
+      &:last-child {
+        //background-color: green;
+      }
+    }
+
+    .content-area {
+      padding-top: 2.5rem; // FIXIT
+      border: none;
+    }
+
+    .sidebar {
+      display: none;
+    }
+  }
+}
+
+
+
+
+
+
+%selector-down-arrow{
+  @include transition(color 0.15s ease-out);
+  float: right;
+  line-height: 99%;
+  border-radius: 50%;
+  padding: 1px;
+}
+
+%under-stroke{
+  border-image-source: url("/assets/images/stroke.png");
+  border-image-slice: 5;
+  border-image-width: auto;
+  border-image-outset: 0;
+  border-image-width: 0 0 4px 0;
+  border-bottom: 1px solid; // *** ???
+}
+
+%under-stroke-psuedo{
+  content: url( "/assets/images/stroke.png" );
+  width: 100%;
+  height: 0.25rem;
+}
+
+
+/*
+%border-image{
+  @include border-image(url( "/assets/images/border-image.png" ) 27 repeat);
+}*/
+
+// pinched from http://codepen.io/spookyscary/pen/NPMLEx/
+@mixin spinner($color,$dur,$width,$height:$width){
+  width: $width;
+  height: $height;
+  border-radius: 50%;
+  box-shadow:0px 0px 0px 1px rgba(0,0,0,0.1), 2px 1px 0px $color;
+  position: absolute;
+  /*top: 50%;
+  left: 50%;
+  margin-top: ($height/2)*-1;
+  margin-left: ($width/2)*-1;*/
+
+  -moz-animation: spin 0.7s linear infinite;
+  -webkit-animation: spin 0.7s linear infinite;
+  animation: spin 0.7s linear infinite;
+
+  @-moz-keyframes spin {
+    100% {
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes spin {
+    100% {
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+}
+
+
+@mixin checkbox( $style, $size, $gap, /*$exclude-platform : "none",*/ $selected-character : "\2713" ){ //,
+
+  @if $style == "wrapped"  { // and $exclude-platform != "not-ios"
+    label {
+      position: relative;
+      left : #{$size + $gap +rem};
+    }
+
+    input {
+      display: none;
+    }
+
+    input:checked + label {
+
+    }
+
+    input + label:before {
+      content: "";
+      position: absolute;
+      width: #{$size + rem};
+      height: #{$size + rem};
+      border: 1px solid $colour-grey;
+      left: -#{$size + $gap + rem};
+      text-align: center;
+    }
+
+    input:checked + label:before {
+      content: $selected-character;
+    }
+
+    label {
+      position: relative;
+      left: ($size + $gap)rem;
+    }
+  }
+
+  @if $style == "stacked" {
+
+    label{
+
+      position: relative;
+      left: #{$size + $gap + rem};
+
+      //input[type="checkbox"], input[type="radio"] {
+      input {
+        display: none;
+      }
+
+      &:before{
+        content: "";
+        position: absolute;
+        width: #{$size + rem};
+        height: #{$size + rem};
+        border: 1px solid $colour-grey;
+        left: -#{$size + $gap + rem};
+        text-align: center;
+      }
+
+      input:checked + label:before {
+        content: $selected-character;
+      }
+    }
+  }
+
+  @if $style == "clear" {
+
+    label {
+      position: inherit;
+      left : inherit;
+    }
+
+    input {
+      display: inline-block;
+    }
+
+    input + label:before {
+      content: none;
+    }
+
+    input:checked + label:before {
+      content: none
+    }
+
+    label {
+      position: inherit;
+      left: inherit;
+    }
+
+  }
+}
+
+
