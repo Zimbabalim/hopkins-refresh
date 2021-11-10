@@ -1,14 +1,14 @@
 .image-uploader {
     flex-basis: 100%;
     padding: 0.5em 0.5em 0;
-    //background-color: $colour--grey-light;
-    border: 1px solid $colour--grey-medium;
+    background-color: $colour--grey-light;
+    //border: 1px solid $colour--grey-medium;
     margin: $panel-padding;
     margin-top: 0;
     transition: background-color 0.3s;
 
     &:hover {
-        background-color: $colour--grey-light;
+        background-color: scale-color($colour--grey-light, $lightness: -10%);
     }
 
     .form-row {

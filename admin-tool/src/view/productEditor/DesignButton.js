@@ -13,7 +13,7 @@ const DesignButton = (props) => {
       setIsSelected(false);
       return
     }
-    console.log('/DesignButton/ -A', props.data._id === props.selectedDesign._id);
+    // console.log('/DesignButton/ -A', props.data._id === props.selectedDesign._id);
     setIsSelected( props.data._id === props.selectedDesign._id);
   
   }, [props.selectedDesign]);

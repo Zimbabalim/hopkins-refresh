@@ -23,7 +23,7 @@ const defaultState = {
 
 const app = handleActions(
     {
-  
+      
       [types.CHANGE_ROUTE](state, {payload}) {
         console.log('/reducers/ -CHANGE_ROUTE', payload);
         return {
@@ -31,9 +31,9 @@ const app = handleActions(
           currentViewIndex: payload.index,
         }
       },
-  
+      
       // *** SUNDRIES EDITOR =========
-  
+      
       // *** uses saga
       [types.GET_SUNDRIES_DATA](state, {payload}) {
         return {
@@ -41,7 +41,7 @@ const app = handleActions(
           sundriesData: null,
         }
       },
-  
+      
       // *** uses saga
       [types.SUNDRIES_DATA_LOADED](state, {payload}) {
         const sundriesData = payload.response.payload.data;
@@ -50,11 +50,11 @@ const app = handleActions(
           sundriesData,
         }
       },
-  
+      
       // *** uses saga
       [types.DB_CREATE_SUNDRIES_RESPONSE](state, {payload}) {
         console.log('/reducers/ -DB_CREATE_USER_RESPONSE XXX', payload);
-  
+        
         const sundriesData = [...state.sundriesData];
         if (payload.response.payload.success) {
           sundriesData.push(payload.response.payload.data);
@@ -65,32 +65,32 @@ const app = handleActions(
           sundriesData,
         }
       },
-  
+      
       [types.DB_DELETE_SUNDRIES_RESPONSE](state, {payload}) {
         // console.log('/reducers/ -DB_DELETE_USER_RESPONSE A', state.selectedUser);
         // console.log('/reducers/ -DB_DELETE_USER_RESPONSE B', payload.request.id);
-    
+        
         // *** have to update whole data set to ensure latest changes appear
         let sundriesData =[...state.sundriesData];
         let updateIndex = null;
-  
+        
         sundriesData.filter((item, index) => {
           console.log('/reducers/ -???', payload.request.id, item._id);
           if (payload.request.id === item._id) {
             updateIndex = index;
           }
         });
-  
+        
         sundriesData.splice(updateIndex, 1);
         console.log('/reducers/ ->>>>>>>>>>>>> yyyyyy', updateIndex, sundriesData);
-    
+        
         return {
           ...state,
           sundriesData,
         }
       },
       
-  
+      
       // *** PRODUCT EDITOR =========
       
       // *** uses saga
@@ -100,7 +100,7 @@ const app = handleActions(
           selectedDesign: null,
         }
       },
-  
+      
       // *** uses saga
       [types.PRODUCT_DATA_LOADED](state, {payload}) {
         const productData = payload.response.payload.data;
@@ -109,14 +109,14 @@ const app = handleActions(
           productData,
         }
       },
-  
+      
       // *** uses saga
       [types.DB_UPDATE_DESIGN](state, {payload}) {
         return {
           ...state,
         }
       },
-   
+      
       // *** uses saga
       [types.DB_UPDATE_DESIGN_RESPONSE](state, {payload}) {
         // *** replace data only on success
@@ -128,14 +128,14 @@ const app = handleActions(
           selectedDesign: freshDesignData,
         }
       },
-  
+      
       [types.DB_UPLOAD_IMAGES](state, {payload}) {
         return {
           ...state,
           imagesUploaderTrigger: true,
         }
       },
-  
+      
       [types.DB_UPLOAD_IMAGES_RESPONSE](state, {payload}) {
         return {
           ...state,
@@ -143,38 +143,38 @@ const app = handleActions(
           imagesUploaderTrigger: false,
         }
       },
-  
+      
       [types.DESIGN_SELECTED](state, {payload}) {
         return {
           ...state,
           selectedDesign: payload.item,
         }
       },
-  
-  
+      
+      
       // *** uses saga
       [types.DB_DELETE_DESIGN](state, {payload}) {
         return {
           ...state,
         }
       },
-  
+      
       // *** uses saga
       // FIXIT some (memory) data persistence evident
       [types.DB_DELETE_DESIGN_RESPONSE](state, {payload}) {
         // console.log('/reducers/ -DB_DELETE_USER_RESPONSE A', state.selectedUser);
         // console.log('/reducers/ -DB_DELETE_USER_RESPONSE B', payload.request.id);
-    
+        
         // *** have to update whole data set to ensure latest changes appear
         let productData =[...state.productData];
         let updateIndex = null;
-    
+        
         productData.filter((item, index) => {
           if (payload.request.id === state.selectedDesign._id) {
             updateIndex = index;
           }
         });
-    
+        
         productData.splice(updateIndex, 1);
         console.log('/reducers/ ->>>>>>>>>>>>> yyyyyy', updateIndex, productData);
         
@@ -186,16 +186,15 @@ const app = handleActions(
       },
       
       
-  
+      
       // *** USER EDITOR =========
       [types.GET_USER_DATA](state, {payload}) {
-        console.log('/reducers/ -', payload);
         return {
           ...state,
           selectedUser: null,
         }
       },
-  
+      
       [types.USER_DATA_LOADED](state, {payload}) {
         const userData = payload.response.payload.data;
         return {
@@ -203,22 +202,21 @@ const app = handleActions(
           userData,
         }
       },
-  
+      
       [types.USER_SELECTED](state, {payload}) {
-        console.log('/reducers/ -');
         return {
           ...state,
           selectedUser: payload.item,
         }
       },
-  
+      
       // *** uses saga
       [types.DB_UPDATE_USER](state, {payload}) {
         return {
           ...state,
         }
       },
-  
+      
       // *** uses saga
       [types.DB_UPDATE_USER_RESPONSE](state, {payload}) {
         // console.log('/reducers/ -DB_UPDATE_USER_RESPONSE', payload.response.payload.data._id);
@@ -243,15 +241,15 @@ const app = handleActions(
           userData,
         }
       },
-  
-  
+      
+      
       // *** uses saga
       [types.DB_CREATE_USER](state, {payload}) {
         return {
           ...state,
         }
       },
-  
+      
       // *** uses saga
       [types.DB_CREATE_USER_RESPONSE](state, {payload}) {
         console.log('/reducers/ -DB_CREATE_USER_RESPONSE', payload.response.payload.success);
@@ -264,24 +262,24 @@ const app = handleActions(
           autoUserQuery,
         }
       },
-  
+      
       // *** uses saga
       [types.DB_DELETE_USER](state, {payload}) {
         return {
           ...state,
         }
       },
-  
+      
       // *** uses saga
       // FIXIT some (memory) data persistence evident
       [types.DB_DELETE_USER_RESPONSE](state, {payload}) {
         console.log('/reducers/ -DB_DELETE_USER_RESPONSE A', state.selectedUser);
         console.log('/reducers/ -DB_DELETE_USER_RESPONSE B', payload.request.id);
-  
+        
         // *** have to update whole data set to ensure latest changes appear
         let userData =[...state.userData];
         let updateIndex = null;
-  
+        
         userData.filter((item, index) => {
           if (payload.request.id === state.selectedUser._id) {
             updateIndex = index;
@@ -298,9 +296,9 @@ const app = handleActions(
           selectedUser: null,
         }
       },
-  
-  
-  
+      
+      
+      
       // *** uses saga
       [types.DB_CREATE_DESIGN](state, {payload}) {
         // *** FIXIT - not correctly saving or displaying variations added to new design
@@ -308,11 +306,11 @@ const app = handleActions(
           ...state,
         }
       },
-  
+      
       // *** uses saga
       [types.DB_CREATE_DESIGN_RESPONSE](state, {payload}) {
         // console.log('/reducers/ -DB_CREATE_USER_RESPONSE', payload.response.payload.message);
-  
+        
         const autoDesignQuery = (payload.response.payload.success) ? payload.response.payload.data.friendly_name : null;
         
         return {
