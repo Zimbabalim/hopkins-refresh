@@ -4,6 +4,8 @@ const types = {
   
   CHANGE_ROUTE: 'CHANGE_ROUTE',
   
+  LOGIN_SUBMIT: 'LOGIN_SUBMIT',
+  
   // *** product editor
   GET_PRODUCT_DATA: 'GET_PRODUCT_DATA',
   PRODUCT_DATA_LOADED: 'PRODUCT_DATA_LOADED',
@@ -46,6 +48,7 @@ const types = {
 const actions = {
   
   changeRoute: createAction(types.CHANGE_ROUTE),
+  loginSubmit: createAction(types.LOGIN_SUBMIT),
   
   // *** product
   getProductData: createAction(types.GET_PRODUCT_DATA),

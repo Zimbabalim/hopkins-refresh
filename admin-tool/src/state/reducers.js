@@ -4,6 +4,7 @@ import {types} from './actions';
 const defaultState = {
   
   currentViewIndex: 0,
+  hasAuthed: false,
   
   productData: null,
   selectedDesign: null,
@@ -29,6 +30,14 @@ const app = handleActions(
         return {
           ...state,
           currentViewIndex: payload.index,
+        }
+      },
+  
+      [types.LOGIN_SUBMIT](state, {payload}) {
+        console.log('/reducers/ -LOGIN_SUBMIT', payload);
+        return {
+          ...state,
+          hasAuthed: payload.success,
         }
       },
       

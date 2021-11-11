@@ -221,9 +221,10 @@ const VariationsItem = (props) => {
               click: () => {console.log('/VariationsItem/ -click --colour');},
               classes: 'input-item--uppercase',
             })}
-            <div className="form-group__validation-message">
+            {/* TODO */}
+            {/*<div className="form-group__validation-message">
               validation...
-            </div>
+            </div>*/}
           </div>
           
           <div className="form-group">

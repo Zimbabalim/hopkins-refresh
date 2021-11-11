@@ -3,8 +3,10 @@ import axios from 'axios';
 
 import './scss/index.scss';
 import Layout from './view/Layout';
+import Login from './view/Login';
+import {connect} from 'react-redux';
 
-function App() {
+function App(props) {
 
   useEffect(() => {
     console.log('/App/ -STARTUP');
@@ -12,9 +14,19 @@ function App() {
   
   return (
     <div className="App">
-      <Layout />
+      {!props.hasAuthed && (
+          <Login />
+      )}
+      {props.hasAuthed && (
+          <Layout />
+      )}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  const {hasAuthed} = state;
+  return {hasAuthed}
+};
+
+export default connect(mapStateToProps, null)(App);
