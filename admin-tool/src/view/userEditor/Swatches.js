@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import utils from '../../utils';
 import cx from 'classnames';
+import config from '../../config';
 
 const Swatches = (props) => {
   
@@ -41,18 +42,28 @@ const Swatches = (props) => {
     props.onChange(clone);
   }
   
+  const getImage = (uid) => {
+    let src = `${config.api.imagesPath}/A/${uid.split('/').join('-')}_a.jpg`;
+    return (
+        <img src={`${src}`} alt=""/>
+    );
+  }
+  
   return (
       <div className={cx('swatches')}>
         {swatches.map((item, index) => {
           return (
               <div className={cx('user-swatch',
-                  (markedSwatches[index] === true) ? 'user-swatch--marked' : 'null')}
+                  (markedSwatches[index] === true) ? 'user-swatch--marked' : null)}
                    key={utils.uid()}
                    onClick={() => {
                      console.log('/Swatches/ -CLICK', index);
                      toggleSwatchMark(index);
                    }}
               >
+                <div className="image-wrapper">
+                  {getImage(item.uid)}
+                </div>
                 <span className={'user-swatch__code'}>{item.uid}</span>
                 <span className={'user-swatch__date'}>{item.pretty_date || ''}</span>
               </div>

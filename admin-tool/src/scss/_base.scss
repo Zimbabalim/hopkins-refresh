@@ -93,8 +93,13 @@ body {
 
 .button-group {
     .button {
-        &:first-child {
+        /*&:first-child {
             margin-right: 0.5em;
+        }*/
+        margin-right: 0.5em;
+
+        &:last-child {
+            margin-right: 0;
         }
     }
 }

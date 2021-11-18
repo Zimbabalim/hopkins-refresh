@@ -66,6 +66,8 @@ const UserView = (props) => {
                       onClick={() => save()}>SAVE CHANGES</button>
                   <button className={cx('button')}
                       onClick={() => deleteUser()}>DELETE USER</button>
+                  <button className={cx('button')}
+                          onClick={() => window.print()}>PRINT</button>
                 </div>
               </div>
               

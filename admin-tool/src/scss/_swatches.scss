@@ -1,17 +1,24 @@
 .swatches {
+
     .user-swatch {
+
+        $base-height: 3rem;
+        $expanded-height: 4.5rem;
+
         cursor: default;
         background-color: $colour--grey-light;
         display: flex;
         margin: 0.25em 0;
         padding: 0.5em;
         font-size: 0.9em;
-        justify-content: space-between;
+        //justify-content: space-between;
+        align-items: center;
         transition: all 0.3s;
         font-weight: 100;
+        height: $base-height;
 
         &:hover {
-            padding: 1em;
+            height: $expanded-height;
             letter-spacing: 0.1em;
             color: $colour--white;
             background-color: scale-color($colour--grey-medium, $lightness: 20%);
@@ -22,7 +29,7 @@
 
         &--marked {
             background-color: $colour--green;
-            padding: 1em;
+            height: $expanded-height;
             letter-spacing: 0.1em;
 
 
@@ -31,8 +38,17 @@
             }
         }
 
+        &__code {
+            margin-right: 0.5rem;
+        }
+
         &__date {
             color: $colour--green-dark;
+        }
+
+        .image-wrapper {
+            border: 0;
+            background-color: transparent;
         }
     }
 }

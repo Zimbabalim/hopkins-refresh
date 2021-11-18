@@ -1,0 +1,56 @@
+body {
+    @media print {
+        background-color: red!important;
+
+        //opacity: 0.3;
+
+        .navigation-bar {
+            display: none;
+        }
+
+        .brand {
+            margin-top: 0;
+            &__logo {
+                width: 100%;
+            }
+        }
+
+        .text-area {
+            height: 100vh;
+            //width: 100vw;
+            //min-height: initial;
+            max-height: 20rem;
+            border: 2px solid black;
+        }
+
+        .variations-list__action-bar {
+            .button-group {
+                display: none;
+            }
+        }
+
+        .user-editor {
+            .editor-window__pane--left,
+            .product-filter
+            {
+                display: none;
+            }
+
+            .editor-window__pane--right {
+                width: 100vw;
+            }
+
+            .swatches {
+                .user-swatch {
+                    height: 2rem;
+                    color: black;
+                    &--marked {
+                        border: 2px solid black;
+                        color: black;
+                    }
+                }
+            }
+        }
+
+    }
+}
