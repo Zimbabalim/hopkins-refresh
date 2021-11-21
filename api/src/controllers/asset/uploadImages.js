@@ -44,6 +44,9 @@ const moveFiles = (options) => {
   
   upload(req, res, (error) => {
     
+    console.log('================= /uploadImages/ -A', req.file);
+    console.log('================= /uploadImages/ -B', req.file.filename);
+    
     moveFiles({
       files: [req.file.filename],
       directory: req.body.directory,
