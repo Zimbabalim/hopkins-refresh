@@ -29,6 +29,7 @@ services:
     build:
       context: ./api
     command: yarn run dev
+    restart: always
     volumes:
       - ./api/src:/app/src
       - ./api/public:/app/public
