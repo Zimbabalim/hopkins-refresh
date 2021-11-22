@@ -14,6 +14,11 @@ const ImageUploader = (props) => {
     formData.append('image', files[0], files[0].name);
     // formData.append('image', files);
     formData.append('directory', directory);
+    
+    
+    console.log('/ImageUploader/ -upload', formData.entries());
+    console.log('/ImageUploader/ -upload', formData.values());
+    
     props.dispatch(actions.dbUploadImages({
       path: config.api.uploadImages,
       data: formData,
