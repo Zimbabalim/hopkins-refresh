@@ -18,23 +18,14 @@ export const uploadImages = async (req, res) => {
   });
   //{ fieldSize: 10 * 1024 * 1024 }
   const upload = multer({ storage: storage }).single('image');
-  // const upload = multer({ storage: storage }).fields([{name: 'image'}]);
-  // const upload = multer({ storage: storage }).array('image');
-  
-  console.log('/uploadImages/ -uploadImages ???', upload);
-
-  
 // *** util to move files after upload
 
+  /* move files after upload */
 const moveFiles = (options) => {
-  
-  console.log('/uploadImages/ -moveFiles', options);
-  
   const currentPath = `${uploadDir}/${options.files[0]}`;
   const destinationPath = `${destinationDir}/${options.directory}/${options.files[0]}`;
   
   fs.rename(currentPath, destinationPath, function (error) {
-    
     if (error) {
       console.error('/uploadImages/ -failed:', currentPath, '-->', destinationPath);
       return;
@@ -43,9 +34,8 @@ const moveFiles = (options) => {
   });
 }
   
-  
+  /* upload */
   upload(req, res, (error) => {
-    
     if (!req.file) {
       console.log('/uploadImages/ -ERROR --file not present!');
       res .status(500).send({
@@ -62,7 +52,7 @@ const moveFiles = (options) => {
     
     if (error) {
       console.error('/assetRoutes/ -uploadImages --ERROR', error);
-  
+      
       res
           .status(500)
           .send({
@@ -72,7 +62,6 @@ const moveFiles = (options) => {
       
     } else {
       console.log('/uploadImages/ -uploadImages --uploaded!', req.file);
-      // const FileName = req.file.filename;
   
       res
       .status(200)
