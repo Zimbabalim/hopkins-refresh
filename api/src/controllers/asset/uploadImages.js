@@ -16,7 +16,7 @@ export const uploadImages = async (req, res) => {
       fn(null, file.originalname);
     }
   });
-  
+  //{ fieldSize: 10 * 1024 * 1024 }
   const upload = multer({ storage: storage }).single('image');
   // const upload = multer({ storage: storage }).fields([{name: 'image'}]);
   // const upload = multer({ storage: storage }).array('image');
