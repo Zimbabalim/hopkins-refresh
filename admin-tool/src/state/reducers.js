@@ -5,8 +5,8 @@ const defaultState = {
   
   currentViewIndex: 0,
   hasAuthed: false,
-  /*currentViewIndex: 1,
-  hasAuthed: true,*/
+  // currentViewIndex: 1,
+  // hasAuthed: true,
   
   productData: null,
   selectedDesign: null,
