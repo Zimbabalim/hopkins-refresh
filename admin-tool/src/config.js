@@ -2,6 +2,7 @@ const config = {
   api: {
     getProductByName: '/api/product/?partialmatch=true&friendly_name=',
     getProductByTags: '/api/product/?partialmatch=true&variations.tags=',
+    getProductByCode: '/api/product/?partialmatch=true&variations.code=',
     updateProduct: '/api/product/', // *** patch
     createProduct: '/api/product/', // *** post
     deleteProduct: '/api/product/', // *** delete

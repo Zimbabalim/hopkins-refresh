@@ -7,7 +7,8 @@ import cx from 'classnames';
 const ProductFilter = (props) => {
   
   const [tag, setTag] = useState('');
-  const [design, setDesign] = useState(''); // FIXIT
+  const [design, setDesign] = useState('');
+  const [code, setCode] = useState('');
   
   useEffect(() => {
     
@@ -25,6 +26,7 @@ const ProductFilter = (props) => {
     
     if (type === 'design') {
       setTag('');
+      setCode('');
       props.dispatch(actions.getProductData(
           {type, path: `${config.api.getProductByName}${design}`}
       ));
@@ -32,8 +34,19 @@ const ProductFilter = (props) => {
     
     if (type === 'tag') {
       setDesign('');
+      setCode('');
       props.dispatch(actions.getProductData(
           {type, path: `${config.api.getProductByTags}${tag}`}
+      ));
+    }
+  
+    if (type === 'code') {
+      setDesign('');
+      setTag('');
+      
+      console.log('/ProductFilter/ -onSubmitIntention CODE', code);
+      props.dispatch(actions.getProductData(
+          {type, path: `${config.api.getProductByCode}${code}`}
       ));
     }
   
@@ -69,6 +82,15 @@ const ProductFilter = (props) => {
                      onSubmitIntention(e.key, 'tag');
                    }}
             />
+  
+            <input className={cx('input-item', 'input-item--large')}
+                   type="text" placeholder="code" value={code}
+                   onChange={ e => setCode(e.target.value.toUpperCase()) }
+                   onKeyPress={(e) => {
+                     onSubmitIntention(e.key, 'code');
+                   }}
+            />
+            
           </div>
         </div>
       </div>
