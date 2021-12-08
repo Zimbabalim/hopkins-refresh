@@ -42,7 +42,7 @@ services:
       - db
 
   db:
-    image: mongo:latest
+    image: mongo:4.4
     volumes:
       - hopkins_db:/data/db
     ports:
