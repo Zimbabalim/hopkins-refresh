@@ -64,7 +64,8 @@ const VariationsItem = (props) => {
       setDesignCode(props.selectedDesign.default_product_code.match(/\/([^)]+)\//)[1]); // *** FIXIT utilise legacy config.json, sanitise somehow
       return;
     }
-    
+  
+    props.data.code = props.data.code.trim(); // *** @as added pre launch, check doesn't bork
     const s1 = props.data.code.indexOf('/');
     const s2 = props.data.code.lastIndexOf('/');
     setFabricCode(props.data.code.substring(0, s1));
