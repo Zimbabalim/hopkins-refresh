@@ -42,7 +42,7 @@ const NewUserForm = (props) => {
         <div className="form-row">
           <div className="form-group form-group--full-width">
             <input className={cx('input-item input-item--large')}
-                   maxLength={32}
+                   maxLength={64}
                    type="text" placeholder='name' value={name}
                    onChange= {(e) => {
                      setName(e.target.value);
@@ -59,7 +59,7 @@ const NewUserForm = (props) => {
         <div className="form-row">
           <div className="form-group form-group--full-width">
             <input className={cx('input-item input-item--large')}
-                   maxLength={32}
+                   maxLength={64}
                    type="text" placeholder='company' value={company}
                    onChange= {(e) => {
                      setCompany(e.target.value);
@@ -76,7 +76,7 @@ const NewUserForm = (props) => {
         <div className="form-row">
           <div className="form-group form-group--full-width">
             <input className={cx('input-item input-item--large')}
-                   maxLength={32}
+                   maxLength={64}
                    type="text" placeholder='email' value={email}
                    onChange= {(e) => {
                      setEmail(e.target.value);
