@@ -16,6 +16,7 @@ const UserView = (props) => {
     
     setIsDirtyData(false);
     setNotes(props.selectedUser.user_notes || 'Notes');
+    setSwatches(props.selectedUser.rich_swatches || []);
     
   }, [props.selectedUser]);
   
@@ -30,7 +31,7 @@ const UserView = (props) => {
     const data = Object.assign({}, props.selectedUser);
     data.user_notes = notes;
     data.rich_swatches = swatches;
-  
+    
     props.dispatch(actions.dbUpdateUser({
       data,
     }));
