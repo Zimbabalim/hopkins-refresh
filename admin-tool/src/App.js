@@ -9,7 +9,9 @@ import {connect} from 'react-redux';
 function App(props) {
 
   useEffect(() => {
-    console.log('/App/ -STARTUP');
+    console.warn('/App/ -*************************');
+    console.warn('/App/ -release: 7.2.22 : v.1.0.1');
+    console.warn('/App/ -*************************');
   }, []);
   
   return (
