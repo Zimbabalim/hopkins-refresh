@@ -4,6 +4,8 @@ import methods from '../utils/methods.js';
 
 export const getUser = async (req, res) => {
   
+  console.log('/getUser/ -getUser ???', req.params.id);
+  
   const query = methods.findOneById({
     model: User,
     id: req.params.id,

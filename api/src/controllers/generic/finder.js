@@ -7,6 +7,7 @@ export const finder = async (req, res, options) => {
   try {
     data = await options.query.exec();
   } catch (error) {
+    console.error('!../finder/ -finder ERROR', error);
     res.status(500).send({
       message: options.error || 'Borked!',
       success: false
