@@ -10,7 +10,7 @@ function App(props) {
 
   useEffect(() => {
     console.warn('/App/ -*************************');
-    console.warn('/App/ -release: 7.2.22 : v.1.0.1');
+    console.warn('/App/ -release: 16.6.22 : v.1.0.2');
     console.warn('/App/ -*************************');
   }, []);
   
