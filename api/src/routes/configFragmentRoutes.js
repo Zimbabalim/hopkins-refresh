@@ -9,6 +9,7 @@ const router = express.Router();
 router.get('/config_colours', getColours); // *** get all
 router.get('/config_fabrics', getFabrics); // *** get all
 router.get('/config_designs', getDesigns); // *** get all
+// router.post('/config_designs', createDesign); // *** get all
 
 /*router.get('/product', getManyProducts); // *** get all
 router.post('/product', createProduct); // *** create a new one
