@@ -1,6 +1,10 @@
 import Product from '../../models/Product.model.js';
 import Design from '../../models/configFragments/Design.model.js';
 
+/**
+ * initial singular product/design creation. also adds an entry to separate collection 'config_designs',
+ * which is actually responsible for making the design available on .com
+ */
 export const createProduct = async (req, res) => {
   console.log('\n*** /PRODUCT.controller/ -createProduct\n', req.body);
   console.log('/createProduct/ ******************************************************');
@@ -17,8 +21,6 @@ export const createProduct = async (req, res) => {
     code: req.body.code.replace(/\//g, ''),
     uid: req.body.friendly_name.replace(/ /g, '_'), // *** for config design (spaces with underscore)
   }
-  // console.log('/createProduct/ -createProduct', cleanStrings);
-  
   
   // *** ugly but works
   const query = Product.find({friendly_name: req.body.friendly_name});
