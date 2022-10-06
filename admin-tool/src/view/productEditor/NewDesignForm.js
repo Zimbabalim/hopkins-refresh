@@ -28,6 +28,8 @@ const NewDesignForm = (props) => {
       friendly_name: name,
       code: `/${code}/`,
     }));
+    
+    // TODO
   }
   
   // *** clear status message etc

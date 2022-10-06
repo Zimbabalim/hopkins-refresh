@@ -4,6 +4,8 @@ import Product from '../../models/Product.model.js';
 import finder from '../generic/finder.js';
 import methods from '../utils/methods.js';
 
+// import Design from '../../models/configFragments/Design.model.js'; // TEST
+
 export const getManyProducts = async (req, res) => {
   
   console.log('/getManyProducts/ -getManyProducts', req.query);
@@ -12,6 +14,12 @@ export const getManyProducts = async (req, res) => {
      model: Product,
      filters: req.query,
    });
+  
+/*  const query2 = methods.find({
+    model: Design,
+    filters: {},
+  });
+  console.log('============ /getManyProducts/ -getManyProducts', query2);*/
    
    let payload = await finder(req, res, {
      query

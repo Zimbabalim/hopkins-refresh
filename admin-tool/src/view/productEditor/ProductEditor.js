@@ -22,7 +22,7 @@ const ProductEditor = (props) => {
     
     if (props.productData.length === 1) {
       console.log('/ProductEditor/ -AUTO CLICK');
-      onDesignSelected(props.productData[0]);
+      onDesignSelected(props.productData[0]); // FIXIT - ropey
     }
     
   }, [props.productData])

@@ -22,6 +22,11 @@ const defaultState = {
   autoDesignQuery: null,
   
   sundriesData: null,
+  
+  // *** config fragments TODO
+  configDesigns: null,
+  configFabrics: null,
+  configColours: null,
 };
 
 const app = handleActions(
@@ -93,7 +98,7 @@ const app = handleActions(
         });
         
         sundriesData.splice(updateIndex, 1);
-        console.log('/reducers/ ->>>>>>>>>>>>> yyyyyy', updateIndex, sundriesData);
+        // console.log('/reducers/ ->>>>>>>>>>>>> yyyyyy', updateIndex, sundriesData);
         
         return {
           ...state,
@@ -355,6 +360,14 @@ const app = handleActions(
         }
       },*/
       
+      // *** CONFIG FRAGMENTS TODO
+      // *** uses saga
+      [types.GET_CONFIG_DESIGNS_DATA](state, {payload}) {
+        console.log('/reducers/ -GET_CONFIG_DESIGNS_DATA');
+        return {
+          ...state,
+        }
+      },
       
     },
     defaultState
