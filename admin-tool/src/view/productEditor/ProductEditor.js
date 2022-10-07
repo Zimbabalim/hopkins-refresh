@@ -7,6 +7,7 @@ import VariationsList from './VariationsList';
 import ImageUploader from './ImageUploader';
 import NewDesignForm from './NewDesignForm';
 import cx from 'classnames';
+import config from '../../config';
 
 const ProductEditor = (props) => {
   
@@ -31,6 +32,11 @@ const ProductEditor = (props) => {
     props.dispatch(actions.designSelected(
         {item}
     ));
+    
+    // *** config fragments
+    /*props.dispatch(actions.GET_CONFIG_DESIGNS_DATA({
+      path: `${config.api.getConfigDesigns}`
+    }));*/
   };
   //props.currentViewIndex, props.routeIndex
   return (

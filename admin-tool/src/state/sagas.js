@@ -290,6 +290,36 @@ function* watchDeleteUser() {
   yield takeLatest(types.DB_DELETE_USER, dbDeleteUser);
 }
 
+// *** CONFIG FRAGMENTS
+
+// *** design
+function* fetchConfigDesignData(action) {
+  const response = yield call(fetchService.call, action.payload);
+  const vo = {request: action.payload, response}
+  yield put(actions.CONFIG_DESIGNS_DATA_LOADED(vo));
+}
+function* watchConfigDesignData() {
+  yield takeLatest(types.GET_CONFIG_DESIGNS_DATA, fetchConfigDesignData);
+}
+// *** colour
+function* fetchConfigColourData(action) {
+  const response = yield call(fetchService.call, action.payload);
+  const vo = {request: action.payload, response}
+  yield put(actions.CONFIG_COLOURS_DATA_LOADED(vo));
+}
+function* watchConfigColourData() {
+  yield takeLatest(types.GET_CONFIG_COLOURS_DATA, fetchConfigColourData);
+}
+// *** fabrics
+function* fetchConfigFabricData(action) {
+  const response = yield call(fetchService.call, action.payload);
+  const vo = {request: action.payload, response}
+  yield put(actions.CONFIG_FABRICS_DATA_LOADED(vo));
+}
+function* watchConfigFabricData() {
+  yield takeLatest(types.GET_CONFIG_FABRICS_DATA, fetchConfigFabricData);
+}
+
 
 function* sagas() {
   yield all([
@@ -309,6 +339,11 @@ function* sagas() {
   
     watchCreateUser(),
     watchDeleteUser(),
+  
+    // *** config fragments
+    watchConfigDesignData(),
+    watchConfigColourData(),
+    watchConfigFabricData(),
   ]);
 }
 

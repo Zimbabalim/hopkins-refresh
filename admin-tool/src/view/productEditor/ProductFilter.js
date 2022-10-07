@@ -23,6 +23,17 @@ const ProductFilter = (props) => {
     if (key !== 'Enter') return;
     
     //console.log('/ProductFilter/ -onSubmitIntention', config);
+  
+    // *** config fragments
+    props.dispatch(actions.GET_CONFIG_DESIGNS_DATA({
+      path: `${config.api.getConfigDesigns}`
+    }));
+    props.dispatch(actions.GET_CONFIG_COLOURS_DATA({
+      path: `${config.api.getConfigColours}`
+    }));
+    props.dispatch(actions.GET_CONFIG_FABRICS_DATA({
+      path: `${config.api.getConfigFabrics}`
+    }));
     
     if (type === 'design') {
       setTag('');

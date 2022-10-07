@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import cx from 'classnames';
 import {connect} from 'react-redux';
 import {actions} from '../../state';
+import config from '../../config';
 
 const NewDesignForm = (props) => {
   
@@ -29,7 +30,10 @@ const NewDesignForm = (props) => {
       code: `/${code}/`,
     }));
     
-    // TODO
+    // TEST
+    /*props.dispatch(actions.GET_CONFIG_DESIGNS_DATA({
+      path: `${config.api.getConfigDesigns}`
+    }));*/
   }
   
   // *** clear status message etc

@@ -19,6 +19,12 @@ const config = {
     getSundries: '/api/sundries',
     createSundries: '/api/sundries',
     deleteSundries: '/api/sundries/',
+    
+    // *** config fragments
+    getConfigDesigns: '/api/config_designs',
+    // creatConfigDesign: '/api/config_designs', // TODO
+    getConfigColours: '/api/config_colours',
+    getConfigFabrics: '/api/config_fabrics',
   }
 }
 
