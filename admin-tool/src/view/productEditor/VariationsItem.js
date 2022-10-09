@@ -79,9 +79,17 @@ const VariationsItem = (props) => {
       setTags(props.data.tags);
     }
     
-    if (props.data.default_by_fabric_type) {
+    // *** 9.10.22 remove this, just rely on the default_product_code TEST
+    /*if (props.data.default_by_fabric_type) {
       setIsDefault(props.data.default_by_fabric_type);
-    }
+    }*/
+    // *** 9.10.22 seems to work
+    setIsDefault(
+        props.selectedDesign.default_product_code === props.data.code
+    );
+    
+    
+    console.log('/VariationsItem/ -init DEFAULT P CODE', props.selectedDesign.default_product_code === props.data.code, props.selectedDesign.default_product_code, props.data.code);
     
     const parseMeasures = (data) => {
       let v = data.split('/');
@@ -142,7 +150,7 @@ const VariationsItem = (props) => {
   }
   
   const onChange = (fn) => {
-    console.log('/VariationsItem/ -onChange');
+    // console.log('/VariationsItem/ -onChange');
   }
   
   /*const onSaveNewConfigFabric = () => {
@@ -169,7 +177,7 @@ const VariationsItem = (props) => {
   const createSelect = (options) => {
     
     const provider = props[options.provider];
-    console.log('/VariationsItem/ -createSelect 222', options, options.currentState);
+    // console.log('/VariationsItem/ -createSelect 222', options, options.currentState);
   
     return (
         // <div className="form-composite-item">
@@ -314,7 +322,12 @@ const VariationsItem = (props) => {
                    checked={isDefault}
                    onChange={(e) => {
                      // setIsDirtyData(true);
-                     setIsDefault(e.target.checked);
+                     
+                     // console.log('/VariationsItem/ -CHANGE', e.target.checked, isDefault);
+                     
+                     // *** only allow update if not clicking on already checked checkbox...
+                     if (!isDefault) setIsDefault(e.target.checked);
+                     
                    }}
             />
           </div>

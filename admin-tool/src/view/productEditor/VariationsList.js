@@ -27,6 +27,11 @@ const VariationsList = (props) => {
   
   const [notes, setNotes] = useState('');
   
+  // TODO default product code state
+  //default_product_code
+  const [defaultProductCode, setDefaultProductCode] = useState('');
+  
+  
   
   // *** init/re-init on new design input
   useEffect(() => {
@@ -48,6 +53,12 @@ const VariationsList = (props) => {
     dbUpdateDesign(variationsDbData.type);
   }, [variationsDbData]);
   
+  useEffect(() => {
+    if (!props.selectedDesign) return;
+    // console.log('/VariationsList/ -PRODUCT CODE UPDATED', defaultProductCode, props.selectedDesign.default_product_code);
+    dbUpdateDesign(dbDataTypes.SAVE);
+  }, [defaultProductCode]);
+  
   /**
    * update design on db
    */
@@ -57,8 +68,9 @@ const VariationsList = (props) => {
     
     const cloneDesign = Object.assign({}, props.selectedDesign);
     cloneDesign.variations = variationsDbData.data;
+    cloneDesign.default_product_code = defaultProductCode;
     
-    console.log('/VariationsList/ -dbUpdateDesign', cloneDesign);
+    console.log('/VariationsList/ -dbUpdateDesign', cloneDesign, defaultProductCode);
     props.dispatch(actions.dbUpdateDesign({
       type,
       data: cloneDesign,
@@ -124,7 +136,15 @@ const VariationsList = (props) => {
   // FIXIT TODO!!!!
   // requires strategy to change whole set, and save altogether
   const onVariationDefaultChanged = (identity) => {
-    console.log('/VariationsList/ -onVariationDefaultChanged', identity);
+    
+    const index = findItemIndex(persistLiveVariations.current, identity);
+    const item = persistLiveVariations.current[index];
+    console.log('/VariationsList/ -onVariationDefaultChanged ITEM:', item.props.data.code, identity.data.isDefault);
+    // console.log('/VariationsList/ -onVariationDefaultChanged DESIGN:', props.selectedDesign);
+    
+    if(identity.data.isDefault){ // TEST
+      setDefaultProductCode(item.props.data.code);
+    }
   }
   
   

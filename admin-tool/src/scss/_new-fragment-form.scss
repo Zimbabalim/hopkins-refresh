@@ -4,7 +4,8 @@
 
     &:hover {
         //background-color: $colour--grey-medium;
-        background-color: scale-color($colour--unsaved, $lightness: -20%);
+        //background-color: scale-color($colour--unsaved, $lightness: -20%);
+        background-color: scale-color($colour--green-mid, $lightness: -20%);
 
     }
 

@@ -98,7 +98,7 @@ const NewFragmentForm = (props) => {
       
       <div className="product-filter new-fragment-form">
         
-        <h4 className="filter-title">Create new fabric/colour <span className="filter-title__desc">New entries will be available in the item editors a prestissimo</span></h4>
+        <h4 className="filter-title">Create new fabric/colour <span className="filter-title__desc">New entries will be available in the item editors once saved</span></h4>
   
         <div className="form-row">
           <div className="form-group">
