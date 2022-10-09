@@ -1,13 +1,19 @@
+/* RODO refactor name, can resuse this in a generic way */
+
 .product-filter {
     padding: 1em;
     padding-bottom: 0.75em;
     margin-bottom: 0.5em;
     //background-color: $colour--green;
-    background-color: $colour--green-dark;
+    //background-color: $colour--green-dark;
+    background-color: $colour--grey-medium;
     transition: all 0.3s;
 
     &:hover {
-        background-color: scale-color($colour--green, $lightness: -20%);
+        //background-color: scale-color($colour--green-dark, $lightness: 35%);
+        //background-color: $colour--unsaved;
+
+        background-color: scale-color($colour--grey-medium, $lightness: -20%);
     }
 
     .filter-title {
@@ -16,6 +22,12 @@
 
         &__item-count {
             color: $colour--green;
+        }
+
+        &__desc {
+            font-size: $font-size--small;
+            font-weight: normal;
+            font-style: italic;
         }
     }
 }

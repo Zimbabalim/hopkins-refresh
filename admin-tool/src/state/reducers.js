@@ -27,6 +27,8 @@ const defaultState = {
   configDesigns: null,
   configFabrics: null,
   configColours: null,
+  
+  newConfigFabricResponseMessage: null, // TODO refactor name, works for both colour and fabric
 };
 
 const app = handleActions(
@@ -385,6 +387,7 @@ const app = handleActions(
       },
       [types.CONFIG_COLOURS_DATA_LOADED](state, {payload}) {
         console.log('/reducers/ -CONFIG_COLOURS_DATA_LOADED!', payload);
+        // TODO sort alpha
         return {
           ...state,
           configColours: payload.response.payload.data,
@@ -399,9 +402,44 @@ const app = handleActions(
       },
       [types.CONFIG_FABRICS_DATA_LOADED](state, {payload}) {
         console.log('/reducers/ -CONFIG_FABRICS_DATA_LOADED!', payload);
+        // TODO sort alpha
         return {
           ...state,
           configFabrics: payload.response.payload.data,
+        }
+      },
+      
+      // *** saving fragments:
+      // DB_CREATE_CONFIG_COLOUR
+      // DB_CREATE_CONFIG_COLOUR_RESPONSE
+      // DB_CREATE_CONFIG_FABRIC
+      // DB_CREATE_CONFIG_FABRIC_RESPONSE
+  
+      [types.DB_CREATE_CONFIG_FABRIC](state, {payload}) {
+        console.log('/reducers/ -DB_CREATE_CONFIG_FABRIC');
+        return {
+          ...state,
+        }
+      },
+      [types.DB_CREATE_CONFIG_FABRIC_RESPONSE](state, {payload}) {
+        console.log('/reducers/ -DB_CREATE_CONFIG_FABRIC_RESPONSE', payload.response.payload.message);
+        return {
+          ...state,
+          newConfigFabricResponseMessage: payload.response.payload.message,
+        }
+      },
+  
+      [types.DB_CREATE_CONFIG_COLOUR](state, {payload}) {
+        console.log('/reducers/ -DB_CREATE_CONFIG_COLOUR');
+        return {
+          ...state,
+        }
+      },
+      [types.DB_CREATE_CONFIG_COLOUR_RESPONSE](state, {payload}) {
+        console.log('/reducers/ -DB_CREATE_CONFIG_COLOUR_RESPONSE', payload.response.payload.message);
+        return {
+          ...state,
+          newConfigFabricResponseMessage: payload.response.payload.message,
         }
       },
       

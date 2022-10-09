@@ -29,28 +29,30 @@ const ImageUploader = (props) => {
   <input type="file" name="photo" id="upload-photo"/>*/
   
   return (
-      <div className={cx('image-uploader')}>
+      <div className={cx('product-filter image-uploader')}>
         <h4>Upload images</h4>
         {/*<input type="file" id="input" multiple onChange={(e) => {
           upload(e.target.files);
         }}/>*/}
         
         <div className="form-row">
-          <div className="form-group">
-            <label htmlFor="upload_A" className="file-input__label">A</label>
-            <input type="file" className="file-input" id="upload_A" multiple onChange={(e) => {
-              upload(e.target.files, 'A');
-            }}/>
+          <div className="form-group form-group--full-width">
   
-            <label htmlFor="upload_" className="file-input__label">B</label>
-            <input type="file" className="file-input" id="upload_B" multiple onChange={(e) => {
-              upload(e.target.files, 'B');
-            }}/>
+            <div className="image-uploader__control"><label htmlFor="upload_A" className="file-input__label">A</label>
+              <input type="file" className="file-input" id="upload_A" multiple onChange={(e) => {
+                upload(e.target.files, 'A');
+              }}/></div>
   
-            <label htmlFor="upload_C" className="file-input__label">C</label>
-            <input type="file" className="file-input" id="upload_C" multiple onChange={(e) => {
-              upload(e.target.files, 'C');
-            }}/>
+            <div className="image-uploader__control"><label htmlFor="upload_" className="file-input__label">B</label>
+              <input type="file" className="file-input" id="upload_B" multiple onChange={(e) => {
+                upload(e.target.files, 'B');
+              }}/></div>
+  
+            <div className="image-uploader__control"><label htmlFor="upload_C" className="file-input__label">C</label>
+              <input type="file" className="file-input" id="upload_C" multiple onChange={(e) => {
+                upload(e.target.files, 'C');
+              }}/></div>
+            
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import ImageUploader from './ImageUploader';
 import NewDesignForm from './NewDesignForm';
 import cx from 'classnames';
 import config from '../../config';
+import NewFragmentForm from './NewFragmentForm';
 
 const ProductEditor = (props) => {
   
@@ -21,6 +22,7 @@ const ProductEditor = (props) => {
     
     if (!props.productData) return;
     
+    console.log('===== /ProductEditor/ -NEW DATA, auto?', props.autoDesignQuery);
     if (props.productData.length === 1) {
       console.log('/ProductEditor/ -AUTO CLICK');
       onDesignSelected(props.productData[0]); // FIXIT - ropey
@@ -43,7 +45,7 @@ const ProductEditor = (props) => {
       <div className={cx('view editor-window product-editor',
           (props.currentViewIndex === props.routeIndex) ? 'is-active' : null)}>
   
-        <ImageUploader/>
+        {/*<ImageUploader/>*/}
   
         <div className="editor-window__pane--left">
           
@@ -62,7 +64,14 @@ const ProductEditor = (props) => {
   
         <div className="editor-window__pane--right">
           <ProductFilter/>
+          {/* FIXIT, layout breaks when moving image uploader to here on smaller viewport  */}
+          <ImageUploader/>
+          <NewFragmentForm/>
           <VariationsList/>
+          
+          
+          
+          
         </div>
         
         
@@ -71,8 +80,8 @@ const ProductEditor = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const {productData, currentViewIndex} = state;
-  return {productData, currentViewIndex}
+  const {productData, currentViewIndex, autoDesignQuery} = state;
+  return {productData, currentViewIndex, autoDesignQuery}
 };
 
 export default connect(mapStateToProps, null)(ProductEditor);

@@ -320,6 +320,47 @@ function* watchConfigFabricData() {
   yield takeLatest(types.GET_CONFIG_FABRICS_DATA, fetchConfigFabricData);
 }
 
+// *** SAVE fragments
+function* dbCreateConfigFabric(action) {
+  
+  const request = {
+    path: `${config.api.createConfigFabric}`,
+    data: action.payload,
+    headers: {'content-type': 'application/json'}
+  }
+  const response = yield call(fetchService.post, request);
+  
+  const vo = {
+    request,
+    response
+  }
+  yield put(actions.DB_CREATE_CONFIG_FABRIC_RESPONSE(vo));
+}
+// *** observe action
+function* watchCreateConfigFabric() {
+  yield takeLatest(types.DB_CREATE_CONFIG_FABRIC, dbCreateConfigFabric);
+}
+// ***
+function* dbCreateConfigColour(action) {
+  
+  const request = {
+    path: `${config.api.createConfigColour}`,
+    data: action.payload,
+    headers: {'content-type': 'application/json'}
+  }
+  const response = yield call(fetchService.post, request);
+  
+  const vo = {
+    request,
+    response
+  }
+  yield put(actions.DB_CREATE_CONFIG_COLOUR_RESPONSE(vo));
+}
+// *** observe action
+function* watchCreateConfigColour() {
+  yield takeLatest(types.DB_CREATE_CONFIG_COLOUR, dbCreateConfigColour);
+}
+
 
 function* sagas() {
   yield all([
@@ -344,6 +385,9 @@ function* sagas() {
     watchConfigDesignData(),
     watchConfigColourData(),
     watchConfigFabricData(),
+    //*** saving fragments
+    watchCreateConfigFabric(),
+    watchCreateConfigColour(),
   ]);
 }
 

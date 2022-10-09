@@ -30,10 +30,6 @@ const NewDesignForm = (props) => {
       code: `/${code}/`,
     }));
     
-    // TEST
-    /*props.dispatch(actions.GET_CONFIG_DESIGNS_DATA({
-      path: `${config.api.getConfigDesigns}`
-    }));*/
   }
   
   // *** clear status message etc

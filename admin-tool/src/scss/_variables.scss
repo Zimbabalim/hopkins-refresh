@@ -12,8 +12,14 @@ $right-pane--width: 65%;
 
 $resizeable-container--default-height: 4em;
 
+//$colour--green: #51b848;
 $colour--green: #51b848;
 $colour--green-dark: scale-color($colour--green, $lightness: -35%);
+
+$colour--green-mid: #8aba87;
+
+
+
 $colour--red: #c31f16;
 //$colour--unsaved: #aac3a7;
 $colour--unsaved: #d2e3d0;

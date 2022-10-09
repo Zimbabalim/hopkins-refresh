@@ -13,7 +13,8 @@
         }
 
         &--success {
-            background-color: $colour--green;
+            background-color: $colour--green-dark;
+            color: $colour--green;
             //color: scale-color($colour--green, $lightness: 20%);
         }
     }

@@ -28,6 +28,9 @@ const VariationsItem = (props) => {
   const [isPendingDelete, setIsPendingDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   
+/*  const [newConfigFabricCode, setNewConfigFabricCode] = useState('');
+  const [newConfigFabricLabel, setNewConfigFabricLabel] = useState('');*/
+  
   
   
   useEffect(() => {
@@ -142,6 +145,11 @@ const VariationsItem = (props) => {
     console.log('/VariationsItem/ -onChange');
   }
   
+  /*const onSaveNewConfigFabric = () => {
+    console.log('/VariationsItem/ -onSaveNewConfigFabric');
+    // TODO validation
+  }*/
+  
   const createInput = (options) => {
     // console.log('/VariationsItem/ -createInput', options);
     return (
@@ -149,14 +157,66 @@ const VariationsItem = (props) => {
                maxLength={options.maxlength || 64}
                type="text" placeholder={options.placeholder} value={options.value}
                onChange= {(e) => {
-                 setIsDirtyData(true);
-                 setIsPendingDelete(false);
+                 setIsDirtyData(true); // TODO should be optional?
+                 setIsPendingDelete(false); // TODO should be optional?
                  options.change(e.target.value);
                }}
                onKeyPress={options.click}
         />
     )
   }
+  
+  const createSelect = (options) => {
+    
+    const provider = props[options.provider];
+    console.log('/VariationsItem/ -createSelect 222', options, options.currentState);
+  
+    return (
+        // <div className="form-composite-item">
+        <select className={cx('input-item')} value={options.currentState}
+                onChange={(e) => {
+                  // FIXIT doesn't honor all code slugs being entered
+                  setIsDirtyData(true);
+                  setIsPendingDelete(false);
+                  options.onChangeSetter(e.target.value);
+                }}>
+          <option value="">...</option>
+          {provider && provider.map((item) => {
+            return (
+                <option value={item.code} key={`option_${utils.uid()}`}>{item.code}</option>
+            )
+            })}
+        </select>
+    )
+  }
+  
+/*
+  const createNewFragmentControl = (options) => {
+    return (
+        <>
+          {createInput({
+            maxlength: 9,
+            placeholder: 'CODE',
+            change: (value) => {
+              // setFabricCode(value.toUpperCase());
+            },
+            click: () => {console.log('/VariationsItem/ -click --fabric');},
+            classes: 'input-item--uppercase',
+          })}
+  
+          {createInput({
+            maxlength: 9,
+            placeholder: 'Label',
+            change: (value) => {
+              // setFabricCode(value.toUpperCase());
+            },
+            click: () => {console.log('/VariationsItem/ -click --fabric');},
+            classes: 'input-item--uppercase',
+          })}
+        </>
+    )
+  }
+*/
   
   const createImagesBlock = () => {
     return (<>
@@ -197,6 +257,16 @@ const VariationsItem = (props) => {
         <div className="form-row">
           <div className="form-group">
             <span className="form-group__title">CODE:</span>
+  
+  
+            {createSelect({
+              provider: 'configFabrics',
+              currentState: fabricCode,
+              onChangeSetter: setFabricCode,
+            })}
+            
+            
+{/*
             {createInput({
               maxlength: 9,
               placeholder: 'fabric', value: fabricCode,
@@ -206,6 +276,7 @@ const VariationsItem = (props) => {
               click: () => {console.log('/VariationsItem/ -click --fabric');},
               classes: 'input-item--uppercase',
             })}
+*/}
             {createInput({
               maxlength: 9,
               placeholder: 'design', value: designCode,
@@ -213,6 +284,7 @@ const VariationsItem = (props) => {
               click: ()=>{},
               classes: 'input-item--uppercase input-item--read-only',
             })}
+{/*
             {createInput({
               maxlength: 9,
               placeholder: 'colour', value: colourCode,
@@ -222,6 +294,14 @@ const VariationsItem = (props) => {
               click: () => {console.log('/VariationsItem/ -click --colour');},
               classes: 'input-item--uppercase',
             })}
+*/}
+  
+            {createSelect({
+              provider: 'configColours',
+              currentState: colourCode,
+              onChangeSetter: setColourCode,
+            })}
+            
             {/* TODO */}
             {/*<div className="form-group__validation-message">
               validation...
@@ -239,6 +319,16 @@ const VariationsItem = (props) => {
             />
           </div>
         </div>
+  
+        {/*<div className="form-row">
+          <div className="form-group">
+            <span className="form-group__title">NEW:</span>
+            
+            {createNewFragmentControl({provider: 'configFabrics'})}
+            <button className="button" onClick={() => {onSaveNewConfigFabric()}}>SAVE</button>
+            
+          </div>
+        </div>*/}
         
         {/* TAGS */}
         <div className="form-row">
@@ -350,8 +440,8 @@ const VariationsItem = (props) => {
 
 
 const mapStateToProps = (state) => {
-  const {selectedDesign, imagesUploaderTrigger} = state;
-  return {selectedDesign, imagesUploaderTrigger}
+  const {selectedDesign, imagesUploaderTrigger, configFabrics, configColours} = state;
+  return {selectedDesign, imagesUploaderTrigger, configFabrics, configColours}
 };
 
 export default connect(mapStateToProps, null)(VariationsItem);

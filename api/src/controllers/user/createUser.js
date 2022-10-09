@@ -39,7 +39,7 @@ export const createUser = async (req, res) => {
   
   const user = new User({
     company: req.body.company,
-    email: req.body.email,
+    email: req.body.email.toLowerCase(),
     full_name: req.body.full_name,
     swatches: [],
     rich_swatches: [],

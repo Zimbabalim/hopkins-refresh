@@ -1,16 +1,29 @@
 .image-uploader {
-    flex-basis: 100%;
-    padding: 0.5em 0.5em 0;
-    background-color: $colour--grey-light;
-    margin: $panel-padding;
-    margin-top: 0;
-    transition: background-color 0.3s;
+    //flex-basis: 100%;
+    //padding: 0.5em 0.5em 0;
+
+
+    //background-color: $colour--grey-light;
+    background-color: $colour--green-mid;
+    //margin: $panel-padding;
+    //margin-top: 0;
+    //transition: background-color 0.3s;
 
     &:hover {
-        background-color: scale-color($colour--grey-light, $lightness: -10%);
+        background-color: scale-color($colour--green-mid, $lightness: -20%);
+        //background-color: $colour--unsaved;
     }
 
     .form-row {
         justify-content: center;
+
+        .form-group {
+            flex-wrap: wrap;
+            gap: 0.5em;
+        }
+    }
+
+    &__control {
+        flex: 1;
     }
 }

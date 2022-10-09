@@ -12,6 +12,8 @@ const ProductFilter = (props) => {
   
   useEffect(() => {
     
+    console.log('========= /ProductFilter/ -HERE?', props.autoDesignQuery);
+    
     if (!props.autoDesignQuery) return;
     console.log('/UserFilter/ -AUTO! xxx', props.autoDesignQuery);
     setDesign(props.autoDesignQuery);
@@ -19,7 +21,10 @@ const ProductFilter = (props) => {
     onSubmitIntention('Enter', 'auto', props.autoDesignQuery); // *** avoids waiting for lifecycle update
   }, [props.autoDesignQuery]);
   
-  const onSubmitIntention = (key, type) => {
+  const onSubmitIntention = (key, type, query) => {
+    
+    console.log('============= /ProductFilter/ -onSubmitIntention');
+    
     if (key !== 'Enter') return;
     
     //console.log('/ProductFilter/ -onSubmitIntention', config);
@@ -63,9 +68,11 @@ const ProductFilter = (props) => {
   
     // ***
     if (type === 'auto') {
+      console.log('=============== /ProductFilter/ -onSubmitIntention AUTO >>>', design, '<<<', query);
       setTag('');
       props.dispatch(actions.getProductData(
-          {type, path: `${config.api.getProductByName}${design}`}
+          // {type, path: `${config.api.getProductByName}${design}`}
+          {type, path: `${config.api.getProductByName}${query}`}
       ));
     }
   }

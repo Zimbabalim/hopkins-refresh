@@ -1,0 +1,25 @@
+.new-fragment-form {
+
+    background-color: $colour--unsaved;
+
+    &:hover {
+        //background-color: $colour--grey-medium;
+        background-color: scale-color($colour--unsaved, $lightness: -20%);
+
+    }
+
+    .form-row {
+        gap: 4em;
+        .form-group {
+            flex: 1;
+
+            .input-item--width-small {
+                flex: 50%;
+            }
+        }
+
+        .button {
+            padding: 0.25em;
+        }
+    }
+}

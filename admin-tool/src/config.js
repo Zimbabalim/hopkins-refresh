@@ -22,9 +22,10 @@ const config = {
     
     // *** config fragments
     getConfigDesigns: '/api/config_designs',
-    // creatConfigDesign: '/api/config_designs', // TODO
     getConfigColours: '/api/config_colours',
     getConfigFabrics: '/api/config_fabrics',
+    createConfigFabric: '/api/config_fabrics',
+    createConfigColour: '/api/config_colours',
   }
 }
 
