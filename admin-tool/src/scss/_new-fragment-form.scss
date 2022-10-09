@@ -10,6 +10,7 @@
     }
 
     .form-row {
+        //display: none;
         gap: 4em;
         .form-group {
             flex: 1;
@@ -18,9 +19,9 @@
                 flex: 50%;
             }
         }
+    }
 
-        .button {
-            padding: 0.25em;
-        }
+    .button {
+        padding: 0.25em;
     }
 }

@@ -19,6 +19,7 @@
     .filter-title {
         display: flex;
         justify-content: space-between;
+        cursor: pointer;
 
         &__item-count {
             color: $colour--green;
@@ -28,6 +29,17 @@
             font-size: $font-size--small;
             font-weight: normal;
             font-style: italic;
+        }
+    }
+
+    .button-container--rhs {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &--is-collapsed {
+        .form-row, .button-container--rhs {
+            display: none;
         }
     }
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import cx from 'classnames';
 import config from '../../config';
 import {connect} from 'react-redux';
@@ -17,7 +17,18 @@ const NewFragmentForm = (props) => {
   const [newConfigColourLabel, setNewConfigColourLabel] = useState('');
   const [canSaveColour, setCanSaveColour] = useState(false);
   
-  const [statusMessage, setStatusMessage] = useState('');
+  const [configFabricStatusMessage, setConfigFabricStatusMessage] = useState('');
+  const [configColourStatusMessage, setConfigColourStatusMessage] = useState('');
+  
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  
+  const inputRef1 = useRef(null);
+  const inputRef2 = useRef(null);
+  const inputRef3 = useRef(null);
+  const inputRef4 = useRef(null);
+  
+  
   
   
   useEffect(() => {
@@ -34,22 +45,30 @@ const NewFragmentForm = (props) => {
   
   
   useEffect(() => {
-    setStatusMessage(props.newConfigFabricResponseMessage);
-    setNewConfigFabricCode('');
-    setNewConfigFabricLabel('');
-  
-    setNewConfigColourCode('');
-    setNewConfigColourLabel('');
-  
+    setConfigFabricStatusMessage(props.newConfigFabricResponseMessage);
+    
     props.dispatch(actions.GET_CONFIG_FABRICS_DATA({
       path: `${config.api.getConfigFabrics}`
     }));
+    
+  }, [props.newConfigFabricResponseMessage]);
   
+  
+  useEffect(() => {
+    setConfigColourStatusMessage(props.newConfigColourResponseMessage);
+    
     props.dispatch(actions.GET_CONFIG_COLOURS_DATA({
       path: `${config.api.getConfigColours}`
     }));
     
-  }, [props.newConfigFabricResponseMessage]);
+  }, [props.newConfigColourResponseMessage]);
+  
+  /*useEffect(() => {
+    console.log('/NewFragmentForm/ -EXPANDED', isExpanded);
+  }, [isExpanded])*/
+  
+  
+  
   
   /*useEffect(() => {
     setStatusMessage(props.newConfigFabricResponseMessage);
@@ -65,7 +84,7 @@ const NewFragmentForm = (props) => {
   
   const onSaveNewConfigFabric = () => {
     console.log('/VariationsItem/ -onSaveNewConfigFabric');
-  
+    
     props.dispatch(actions.DB_CREATE_CONFIG_FABRIC({
       code: newConfigFabricCode,
       label: newConfigFabricLabel,
@@ -74,7 +93,7 @@ const NewFragmentForm = (props) => {
   
   const onSaveNewConfigColour = () => {
     console.log('/VariationsItem/ -onSaveNewConfigColour');
-  
+    
     props.dispatch(actions.DB_CREATE_CONFIG_COLOUR({
       code: newConfigColourCode,
       label: newConfigColourLabel,
@@ -84,6 +103,7 @@ const NewFragmentForm = (props) => {
   const createInput = (options) => {
     return (
         <input className={cx('input-item', options.classes)}
+               ref={options.ref}
                maxLength={options.maxlength || 64}
                type="text" placeholder={options.placeholder} value={options.value}
                onChange= {(e) => {
@@ -96,10 +116,14 @@ const NewFragmentForm = (props) => {
   
   return (
       
-      <div className="product-filter new-fragment-form">
+      // <div className="product-filter new-fragment-form product-filter--is-collapsed">
+      <div className={cx("product-filter new-fragment-form", (isExpanded) ? "" : "product-filter--is-collapsed")}>
         
-        <h4 className="filter-title">Create new fabric/colour <span className="filter-title__desc">New entries will be available in the item editors once saved</span></h4>
-  
+        <h4 className="filter-title" onClick={() => {
+          setIsExpanded(!isExpanded);
+        }}>Create new fabric/colour
+          <span className="filter-title__desc">New entries will be available in the item editors once saved</span></h4>
+        
         <div className="form-row">
           <div className="form-group">
             <span className="form-group__title">Create new Fabric:</span>
@@ -114,6 +138,7 @@ const NewFragmentForm = (props) => {
           <div className="form-group">
             
             {createInput({
+              ref: inputRef1,
               maxlength: 9,
               placeholder: 'CODE',
               change: (value) => {
@@ -124,6 +149,7 @@ const NewFragmentForm = (props) => {
             })}
             
             {createInput({
+              ref: inputRef2,
               maxlength: 128,
               placeholder: 'Label',
               change: (value) => {
@@ -132,14 +158,17 @@ const NewFragmentForm = (props) => {
               click: () => {console.log('/VariationsItem/ -click --fabric');},
               classes: 'input-item',
             })}
-  
+            
             <button className={cx('button', (canSaveFabric) ? '' : 'button--is-disabled')} onClick={() => {onSaveNewConfigFabric()}}>SAVE</button>
+            
+            {/*<p className="form-group__title">{statusMessage}</p>*/}
           </div>
           
-  
+          
           <div className="form-group">
-    
+            
             {createInput({
+              ref: inputRef3,
               maxlength: 9,
               placeholder: 'CODE',
               change: (value) => {
@@ -148,8 +177,9 @@ const NewFragmentForm = (props) => {
               click: () => {console.log('/VariationsItem/ -click --fabric');},
               classes: 'input-item--uppercase input-item--width-small',
             })}
-    
+            
             {createInput({
+              ref: inputRef4,
               maxlength: 128,
               placeholder: 'Label',
               change: (value) => {
@@ -158,21 +188,50 @@ const NewFragmentForm = (props) => {
               click: () => {console.log('/VariationsItem/ -click --fabric');},
               classes: 'input-item',
             })}
-  
+            
             <button className={cx('button', (canSaveColour) ? '' : 'button--is-disabled')} onClick={() => {onSaveNewConfigColour()}}>SAVE</button>
+            
+            {/*<p className="form-group__title">{statusMessage}</p>*/}
           </div>
-          
+        
         </div>
         
-        <p className="form-group__title">{statusMessage}</p>
         
+        
+        <div className="form-row">
+          <div className="form-group">
+            <p className="form-group__title">{configFabricStatusMessage}</p>
+          </div>
+          <div className="form-group">
+            <p className="form-group__title">{configColourStatusMessage}</p>
+          </div>
+        </div>
+        
+        <div className="button-container--rhs">
+          <button className="button" onClick={() => {
+            setConfigFabricStatusMessage('');
+            setConfigColourStatusMessage('');
+            setNewConfigFabricCode('');
+            setNewConfigFabricLabel('');
+            setNewConfigColourCode('');
+            setNewConfigColourLabel('');
+            
+            // *** nasty uncontrolled input hack :(
+            inputRef1.current.value = '';
+            inputRef2.current.value = '';
+            inputRef3.current.value = '';
+            inputRef4.current.value = '';
+            
+          }}>CLEAR</button>
+        </div>
+      
       </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  const {newConfigFabricResponseMessage} = state;
-  return {newConfigFabricResponseMessage} // *** ???
+  const {newConfigFabricResponseMessage, newConfigColourResponseMessage} = state;
+  return {newConfigFabricResponseMessage, newConfigColourResponseMessage} // *** ???
 };
 
 export default connect(mapStateToProps, null)(NewFragmentForm);

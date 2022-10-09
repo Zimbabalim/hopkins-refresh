@@ -28,7 +28,8 @@ const defaultState = {
   configFabrics: null,
   configColours: null,
   
-  newConfigFabricResponseMessage: null, // TODO refactor name, works for both colour and fabric
+  newConfigFabricResponseMessage: null,
+  newConfigColourResponseMessage: null,
 };
 
 const app = handleActions(
@@ -439,7 +440,7 @@ const app = handleActions(
         console.log('/reducers/ -DB_CREATE_CONFIG_COLOUR_RESPONSE', payload.response.payload.message);
         return {
           ...state,
-          newConfigFabricResponseMessage: payload.response.payload.message,
+          newConfigColourResponseMessage: payload.response.payload.message,
         }
       },
       
