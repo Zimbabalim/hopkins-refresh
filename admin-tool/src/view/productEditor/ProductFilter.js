@@ -11,19 +11,18 @@ const ProductFilter = (props) => {
   const [code, setCode] = useState('');
   
   useEffect(() => {
-    
-    console.log('========= /ProductFilter/ -HERE?', props.autoDesignQuery);
-    
+ 
     if (!props.autoDesignQuery) return;
     console.log('/UserFilter/ -AUTO! xxx', props.autoDesignQuery);
     setDesign(props.autoDesignQuery);
     
+    // *** NOTE 9.10.22 - state isn't working as intended here to auto open design after 'save design' - having to add 'query' to be consumed in this tick
     onSubmitIntention('Enter', 'auto', props.autoDesignQuery); // *** avoids waiting for lifecycle update
   }, [props.autoDesignQuery]);
   
   const onSubmitIntention = (key, type, query) => {
     
-    console.log('============= /ProductFilter/ -onSubmitIntention');
+    // console.log('============= /ProductFilter/ -onSubmitIntention');
     
     if (key !== 'Enter') return;
     
