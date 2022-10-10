@@ -2,6 +2,8 @@ import multer from 'multer';
 import * as fs from 'fs';
 // const sharp = require('sharp');
 // import sharp from 'sharp';
+// import imageThumbnail from 'image-thumbnail';
+import Jimp from 'jimp';
 
 // *** upload to temp 'uploadDir' then move to 'destinationDir'
 export const uploadImages = async (req, res) => {
@@ -40,9 +42,20 @@ const createThumbnail = (options) => {
   
   if (options.directory !== 'A') return;
   
-  console.log('/uploadImages/ -createThumbnail', options);
+  const path = `${destinationDir}/${options.directory}/${options.files[0]}`;
+  const outPath = `${destinationDir}/thumbnails/${options.files[0]}`;
   
-  
+  // *** TODO jimp is a very slow lib, but can't get 'sharp' to install - consider replacing jimp
+  Jimp.read(path)
+      .then(image => {
+        return image
+            .resize(25, 25) // resize
+            .quality(33) // set JPEG quality
+            .write(outPath); // save
+      })
+      .catch(error => {
+        console.error('/uploadImages/ --createThumbnail --IMAGE ERROR', error);
+      });
 }
   
   /* upload */
