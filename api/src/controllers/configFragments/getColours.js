@@ -8,21 +8,23 @@ export const getColours = async (req, res) => {
   
   console.log('/getColours/ -getColours', req.query);
   
-   const query = methods.find({
-     model: Colour,
-     filters: req.query,
-   });
-   
-   let payload = await finder(req, res, {
-     query
-   });
-   
-   const {data, success} = payload;
-   
-   res.send({
-     success,
-     data
-   });
+  const query = methods.find({
+    model: Colour,
+    filters: req.query,
+  });
+  
+  let payload = await finder(req, res, {
+    query
+  });
+  
+  const {data, success} = payload;
+  
+  const sortedData = data.sort((a, b) => a.code.localeCompare(b.code)); // *** alpha
+  
+  res.send({
+    success,
+    data: sortedData,
+  });
 }
 
 export default getColours;

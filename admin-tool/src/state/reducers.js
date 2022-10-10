@@ -367,13 +367,13 @@ const app = handleActions(
       // *** uses saga
       // NOTE currently when saving a product/design, we are combining the write (on the api app) with the config fragment design. prob not totally safe
       [types.GET_CONFIG_DESIGNS_DATA](state, {payload}) {
-        console.log('/reducers/ -GET_CONFIG_DESIGNS_DATA');
+        // console.log('/reducers/ -GET_CONFIG_DESIGNS_DATA');
         return {
           ...state,
         }
       },
       [types.CONFIG_DESIGNS_DATA_LOADED](state, {payload}) {
-        console.log('/reducers/ -CONFIG_DESIGNS_DATA_LOADED!', payload);
+        // console.log('/reducers/ -CONFIG_DESIGNS_DATA_LOADED!', payload);
         return {
           ...state,
           configDesigns: payload.response.payload.data,
@@ -381,14 +381,13 @@ const app = handleActions(
       },
   
       [types.GET_CONFIG_COLOURS_DATA](state, {payload}) {
-        console.log('/reducers/ -GET_CONFIG_COLOURS_DATA');
+        // console.log('/reducers/ -GET_CONFIG_COLOURS_DATA');
         return {
           ...state,
         }
       },
       [types.CONFIG_COLOURS_DATA_LOADED](state, {payload}) {
-        console.log('/reducers/ -CONFIG_COLOURS_DATA_LOADED!', payload);
-        // TODO sort alpha
+        // console.log('/reducers/ -CONFIG_COLOURS_DATA_LOADED!', payload);
         return {
           ...state,
           configColours: payload.response.payload.data,
@@ -396,14 +395,13 @@ const app = handleActions(
       },
   
       [types.GET_CONFIG_FABRICS_DATA](state, {payload}) {
-        console.log('/reducers/ -GET_CONFIG_FABRICS_DATA');
+        // console.log('/reducers/ -GET_CONFIG_FABRICS_DATA');
         return {
           ...state,
         }
       },
       [types.CONFIG_FABRICS_DATA_LOADED](state, {payload}) {
-        console.log('/reducers/ -CONFIG_FABRICS_DATA_LOADED!', payload);
-        // TODO sort alpha
+        // console.log('/reducers/ -CONFIG_FABRICS_DATA_LOADED!', payload);
         return {
           ...state,
           configFabrics: payload.response.payload.data,

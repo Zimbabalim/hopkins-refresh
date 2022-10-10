@@ -65,7 +65,7 @@ export const createColour = async (req, res) => {
           className: '--success',
         },
         success: true,
-        data
+        data,
       })
 }
 
