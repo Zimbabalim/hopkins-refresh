@@ -149,15 +149,6 @@ const VariationsItem = (props) => {
     }, 300); // *** ensure timing reflected in css
   }
   
-  const onChange = (fn) => {
-    // console.log('/VariationsItem/ -onChange');
-  }
-  
-  /*const onSaveNewConfigFabric = () => {
-    console.log('/VariationsItem/ -onSaveNewConfigFabric');
-    // TODO validation
-  }*/
-  
   const createInput = (options) => {
     // console.log('/VariationsItem/ -createInput', options);
     return (
@@ -198,34 +189,6 @@ const VariationsItem = (props) => {
     )
   }
   
-/*
-  const createNewFragmentControl = (options) => {
-    return (
-        <>
-          {createInput({
-            maxlength: 9,
-            placeholder: 'CODE',
-            change: (value) => {
-              // setFabricCode(value.toUpperCase());
-            },
-            click: () => {console.log('/VariationsItem/ -click --fabric');},
-            classes: 'input-item--uppercase',
-          })}
-  
-          {createInput({
-            maxlength: 9,
-            placeholder: 'Label',
-            change: (value) => {
-              // setFabricCode(value.toUpperCase());
-            },
-            click: () => {console.log('/VariationsItem/ -click --fabric');},
-            classes: 'input-item--uppercase',
-          })}
-        </>
-    )
-  }
-*/
-  
   const createImagesBlock = () => {
     return (<>
       <div className="image-wrapper">
@@ -237,9 +200,6 @@ const VariationsItem = (props) => {
         <img src={`${config.api.imagesPath}/B/${fabricCode}-${designCode}-${colourCode}_b.jpg?cb=${trigger}`}/>
       </div>
       <div className="image-wrapper">
-        
-        
-        
         
         <div className="image-wrapper__caption"><span>C</span></div>
         <img src={`${config.api.imagesPath}/C/${fabricCode}-${designCode}-${colourCode}_c.jpg?cb=${trigger}`}/>
@@ -273,18 +233,6 @@ const VariationsItem = (props) => {
               onChangeSetter: setFabricCode,
             })}
             
-            
-{/*
-            {createInput({
-              maxlength: 9,
-              placeholder: 'fabric', value: fabricCode,
-              change: (value) => {
-                setFabricCode(value.toUpperCase());
-              },
-              click: () => {console.log('/VariationsItem/ -click --fabric');},
-              classes: 'input-item--uppercase',
-            })}
-*/}
             {createInput({
               maxlength: 9,
               placeholder: 'design', value: designCode,
@@ -292,39 +240,23 @@ const VariationsItem = (props) => {
               click: ()=>{},
               classes: 'input-item--uppercase input-item--read-only',
             })}
-{/*
-            {createInput({
-              maxlength: 9,
-              placeholder: 'colour', value: colourCode,
-              change: (value) => {
-                setColourCode(value.toUpperCase());
-              },
-              click: () => {console.log('/VariationsItem/ -click --colour');},
-              classes: 'input-item--uppercase',
-            })}
-*/}
-  
+
             {createSelect({
               provider: 'configColours',
               currentState: colourCode,
               onChangeSetter: setColourCode,
             })}
             
-            {/* TODO */}
-            {/*<div className="form-group__validation-message">
-              validation...
-            </div>*/}
+
           </div>
           
-          <div className="form-group">
+          {/* 10.10.22 - disabled new variation make default checkbox - prob not great ux, just prevents crash */}
+          <div className={cx('form-group', (props.isNewItem) ? 'form-group--is-disabled' : '')}>
             <span className="form-group__title">MAKE DEFAULT:</span>
             <input type='checkbox' className={cx('checkbox')}
                    checked={isDefault}
                    onChange={(e) => {
                      // setIsDirtyData(true);
-                     
-                     // console.log('/VariationsItem/ -CHANGE', e.target.checked, isDefault);
-                     
                      // *** only allow update if not clicking on already checked checkbox...
                      if (!isDefault) setIsDefault(e.target.checked);
                      
@@ -332,16 +264,7 @@ const VariationsItem = (props) => {
             />
           </div>
         </div>
-  
-        {/*<div className="form-row">
-          <div className="form-group">
-            <span className="form-group__title">NEW:</span>
-            
-            {createNewFragmentControl({provider: 'configFabrics'})}
-            <button className="button" onClick={() => {onSaveNewConfigFabric()}}>SAVE</button>
-            
-          </div>
-        </div>*/}
+        
         
         {/* TAGS */}
         <div className="form-row">

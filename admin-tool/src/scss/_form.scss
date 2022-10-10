@@ -28,6 +28,11 @@
         font-size: $font-size--smallest;
     }
 
+    &--is-disabled {
+        pointer-events: none;
+        opacity: 0.33;
+    }
+
     .input-item  {
         &:last-child {
             margin-right: 0;

@@ -136,19 +136,23 @@ const VariationsList = (props) => {
   // FIXIT TODO!!!!
   // requires strategy to change whole set, and save altogether
   const onVariationDefaultChanged = (identity) => {
-    
+    console.log('============================ /VariationsList/ -onVariationDefaultChanged');
     const index = findItemIndex(persistLiveVariations.current, identity);
     const item = persistLiveVariations.current[index];
-    console.log('/VariationsList/ -onVariationDefaultChanged ITEM:', item.props.data.code, identity.data.isDefault);
+    // console.log('/VariationsList/ -onVariationDefaultChanged ITEM:', item.props.data.code, identity.data.isDefault);
     // console.log('/VariationsList/ -onVariationDefaultChanged DESIGN:', props.selectedDesign);
     
+    if (!item) return;
+    
     if(identity.data.isDefault){ // TEST
+      console.log('/VariationsList/ -onVariationDefaultChanged', item);
       setDefaultProductCode(item.props.data.code);
     }
   }
   
   
   const findItemIndex = (dataset, identity) => {
+    console.log('======================= /VariationsList/ -findItemIndex', dataset);
     let result = null;
     dataset.find((item, index) => {
       if (identity.uid === item.props.uid) {

@@ -25,6 +25,8 @@
         &__item-count {
             //color: $colour--green;
             color: $colour--white;
+            text-align: right;
+            flex: 1 1;
         }
 
         &__desc {
