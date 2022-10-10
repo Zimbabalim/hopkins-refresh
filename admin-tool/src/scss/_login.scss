@@ -14,7 +14,8 @@
 
         &--success {
             background-color: $colour--green-dark;
-            color: $colour--green;
+            //color: $colour--green;
+            color: $colour--white;
             //color: scale-color($colour--green, $lightness: 20%);
         }
     }

@@ -115,13 +115,13 @@ const NewFragmentForm = (props) => {
   }
   
   return (
-      
+      /*<span className="filter-title__desc">New entries will be available in the item editors once saved</span>*/
       // <div className="product-filter new-fragment-form product-filter--is-collapsed">
       <div className={cx("product-filter new-fragment-form", (isExpanded) ? "" : "product-filter--is-collapsed")}>
         
         <h4 className="filter-title" onClick={() => {
           setIsExpanded(!isExpanded);
-        }}>Create new fabric/colour
+        }}>Create new fabric/colour<span className={cx('filter-title__expand-btn', (isExpanded) ? 'filter-title__expand-btn--is-expanded' : '')}>&lt;</span>
           <span className="filter-title__desc">New entries will be available in the item editors once saved</span></h4>
         
         <div className="form-row">
@@ -222,7 +222,7 @@ const NewFragmentForm = (props) => {
             inputRef3.current.value = '';
             inputRef4.current.value = '';
             
-          }}>CLEAR</button>
+          }}>CLEAR FORM</button>
         </div>
       
       </div>

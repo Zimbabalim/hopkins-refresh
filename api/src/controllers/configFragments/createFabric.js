@@ -23,9 +23,9 @@ export const createFabric = async (req, res) => {
   
   if (checkExisting.length > 0) {
     res.status(200).send({ // *** 200 so doesn't error, but passes message with fail
-      message: `unsaved - fabric ${req.body.code} already exists... :|`,
+      message: `This fabric already exists`,
       uiStatus: {
-        message: `unsaved - fabric ${req.body.code} already exists... :|`,
+        message: `This fabric already exists`,
         className: '--error',
       },
       success: false
@@ -56,9 +56,11 @@ export const createFabric = async (req, res) => {
   
   res.status(201)
       .send({
-        message: `saved new fabric: ${req.body.code}, ${req.body.label} :)`,
+        // message: `saved new fabric: ${req.body.code}, ${req.body.label} :)`,
+        message: ``,
         uiStatus: {
-          message: `saved new fabric: ${req.body.code}, ${req.body.label} :)`,
+          // message: `saved new fabric: ${req.body.code}, ${req.body.label} :)`,
+          message: ``,
           className: '--success',
         },
         success: true,

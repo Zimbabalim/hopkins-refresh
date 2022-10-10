@@ -23,9 +23,11 @@ export const createColour = async (req, res) => {
   
   if (checkExisting.length > 0) {
     res.status(200).send({ // *** 200 so doesn't error, but passes message with fail
-      message: `unsaved - colour ${req.body.code} already exists... :|`,
+      // message: `unsaved - colour ${req.body.code} already exists... :|`,
+      message: `This colour already exists`,
       uiStatus: {
-        message: `unsaved - colour ${req.body.code} already exists... :|`,
+        // message: `unsaved - colour ${req.body.code} already exists... :|`,
+        message: `This colour already exists`,
         className: '--error',
       },
       success: false
@@ -48,9 +50,9 @@ export const createColour = async (req, res) => {
     
     res.status(200)
         .send({
-          message: 'unsaved - incomplete data :{',
+          message: 'unsaved - incomplete data',
           uiStatus: {
-            message: 'unsaved - incomplete data :{',
+            message: 'unsaved - incomplete data',
             className: '--error',
           },
           success: false
@@ -59,9 +61,11 @@ export const createColour = async (req, res) => {
   
   res.status(201)
       .send({
-        message: `saved new colour: ${req.body.code}, ${req.body.label} :)`,
+        // message: `saved new colour: ${req.body.code}, ${req.body.label} :)`,
+        message: ``,
         uiStatus: {
-          message: `saved new colour: ${req.body.code}, ${req.body.label} :)`,
+          // message: `saved new colour: ${req.body.code}, ${req.body.label} :)`,
+          message: ``,
           className: '--success',
         },
         success: true,

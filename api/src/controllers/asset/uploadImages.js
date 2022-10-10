@@ -1,5 +1,7 @@
 import multer from 'multer';
 import * as fs from 'fs';
+// const sharp = require('sharp');
+// import sharp from 'sharp';
 
 // *** upload to temp 'uploadDir' then move to 'destinationDir'
 export const uploadImages = async (req, res) => {
@@ -33,6 +35,15 @@ const moveFiles = (options) => {
     console.log('/uploadImages/ -success:', currentPath, '-->', destinationPath);
   });
 }
+
+const createThumbnail = (options) => {
+  
+  if (options.directory !== 'A') return;
+  
+  console.log('/uploadImages/ -createThumbnail', options);
+  
+  
+}
   
   /* upload */
   upload(req, res, (error) => {
@@ -46,6 +57,11 @@ const moveFiles = (options) => {
     }
     
     moveFiles({
+      files: [req.file.filename],
+      directory: req.body.directory,
+    });
+    
+    createThumbnail({
       files: [req.file.filename],
       directory: req.body.directory,
     });

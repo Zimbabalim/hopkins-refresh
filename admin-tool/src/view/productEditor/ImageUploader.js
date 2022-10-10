@@ -44,10 +44,7 @@ const ImageUploader = (props) => {
         <div className={cx("product-filter image-uploader", (isExpanded) ? "" : "product-filter--is-collapsed")}>
         <h4 className="filter-title" onClick={() => {
           setIsExpanded(!isExpanded);
-        }}>Upload images</h4>
-        {/*<input type="file" id="input" multiple onChange={(e) => {
-          upload(e.target.files);
-        }}/>*/}
+        }}>Upload images<span className={cx('filter-title__expand-btn', (isExpanded) ? 'filter-title__expand-btn--is-expanded' : '')}>&lt;</span></h4>
         
         <div className="form-row">
           <div className="form-group form-group--full-width">
@@ -71,7 +68,7 @@ const ImageUploader = (props) => {
         </div>
   
         <div className="button-container--rhs">
-          <button className="button" onClick={() => clear()}>CLEAR</button>
+          <button className="button" onClick={() => clear()}>DONE</button>
         </div>
         
       </div>
